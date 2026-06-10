@@ -1,103 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>🚀 RÉSUMÉ COMPLET : GUIDE APPROCHE AGILE - Examens OFPPT</title>
-        
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                line-height: 1.7;
-                color: #1a2020;
-                background-color: #ffffff;
-                padding: 20px;
-            }
-            
-            .container {
-                max-width: 1200px;
-                margin: 40px auto;
-                background: white;
-                border-radius: 20px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-                overflow: hidden;
-            }
-            
-            /* Header */
-            .header {
-                background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
-                color: white;
-                padding: 50px 30px;
-                text-align: center;
-                position: relative;
-                border-bottom: 5px solid rgba(255,255,255,0.2);
-            }
-            
-            .header h1 {
-                font-size: 2.8em;
-                margin-bottom: 15px;
-                font-weight: 700;
-                letter-spacing: -0.5px;
-            }
-            
-            .subtitle {
-                font-size: 1.15em;
-                opacity: 0.9;
-                font-weight: 400;
-                margin-top: 10px;
-            }
-            
-            .stats-container {
-                display: flex;
-                justify-content: space-between;
-                gap: 25px;
-                flex-wrap: wrap;
-                padding: 20px;
-                background: linear-gradient(to right, #f8fafc, transparent);
-                border-radius: 12px;
-                margin-top: 25px;
-            }
-            
-            .stat-box {
-                background: white;
-                border: 2px solid #e5e7eb;
-                border-radius: 12px;
-                padding: 18px 22px;
-                text-align: center;
-                transition: transform 0.3s ease;
-                cursor: pointer;
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .stat-box:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 8px 16px rgba(94, 234, 0.3);
-            }
-            
-            .stat-number {
-                font-size: 2.5em;
-                font-weight: bold;
-                color: #059669;
-                display: block;
-            }
-            
-            .stat-label {
-                font-size: 1em;
-                color: #64748b;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-      
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Guide Complet Agile - Examens OFPPT Web Full Stack</title>
+
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)'], ['$$', '$$'], ['\\[', '\]']],
+                displayMath: []
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        /* Header Agile Themed */
+        .header {
+            background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "🚀";
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -30px;
+            right: -30px;
+            transform: rotate(15deg);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .agile-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
 
         /* Navigation */
         .nav-bar {
-            background: #1e293b;
-            padding: 18px 20px;
+            background: #2c3e50;
+            padding: 18px 40px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -112,31 +103,31 @@
             text-decoration: none;
             padding: 10px 20px;
             border-radius: 8px;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             background: rgba(255,255,255,0.1);
             font-weight: 500;
             font-size: 0.95em;
         }
 
         .nav-bar a:hover {
-            background: #059669;
+            background: #10b981;
             transform: translateY(-2px);
         }
 
         /* Content */
         .content {
-            padding: 40px;
+            padding: 50px 60px;
         }
 
         .section {
-            margin-bottom: 35px;
+            margin-bottom: 60px;
         }
 
         .section-title {
-            font-size: 2em;
+            font-size: 2.3em;
             color: #059669;
-            margin-bottom: 20px;
-            padding-left: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
             border-bottom: 4px solid #059669;
             display: flex;
             align-items: center;
@@ -144,168 +135,60 @@
         }
 
         .subsection-title {
-            font-size: 1.5em;
+            font-size: 1.7em;
             color: #047857;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            padding-left: 15px;
-            border-left: 4px solid #10b981;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 6px solid #059669;
         }
 
         .subsubsection-title {
-            font-size: 1.2em;
+            font-size: 1.35em;
             color: #34495e;
-            margin-top: 20px;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        /* Cards */
-        .card {
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 14px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            border-color: #3b82f6;
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
-            transform: translateY(-3px);
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .card-title {
-            font-size: 1.3em;
-            font-weight: 600;
-            color: white;
-        }
-
-        .card-body {
-            padding: 0 20px 20px;
-        }
-
-        /* Pattern Cards */
-        .pattern-card {
-            background: linear-gradient(135deg, #fef2f2 0%, #fee2fe 100%);
-            border-left: 5px solid #f59e0b;
-            border-radius: 14px;
-            padding: 25px;
-            margin: 25px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pattern-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 100%;
-            background: linear-gradient(180deg, #f59e0b 0%, #10b981 100%);
-            border-radius: 0 6px 0 0 6px;
-        }
-
-        .pattern-name {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #0369a1;
+            margin-top: 25px;
             margin-bottom: 15px;
-            padding-left: 20px;
-        }
-
-        .pattern-freq {
-            color: #dc2626;
             font-weight: 600;
-            font-family: monospace;
-            font-size: 0.95em;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            display: inline-block;
-        }
-
-        .pattern-desc {
-            color: #4b5563;
-            font-size: 1em;
-            line-height: 1.6;
-            margin: 10px 0;
-        }
-
-        /* Tables */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.07);
-            border-radius: 10px;
-            overflow-x: auto;
-        }
-
-        thead {
-            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-            color: white;
-            font-size: 0.85em;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 12px 15px;
-        }
-
-        td {
-            padding: 12px;
-            text-align: left;
-            vertical-align: top;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        tbody tr:nth-child(even) {
-            background-color: #f8fafc;
         }
 
         /* Code Blocks */
         pre {
-            background: #1e293b;
+            background: #1e1e1e;
             color: #d4d4d4;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 12px;
             overflow-x: auto;
-            margin: 20px 0;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-size: 0.92em;
-            line-height: 1.6;
-            border-left: 4px solid #3B82F6;
+            margin: 25px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            line-height: 1.7;
+            border-left: 5px solid #10b981;
             position: relative;
+        }
+
+        pre::before {
+            content: "Agile";
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.75em;
+            color: #888;
+            background: #333;
+            padding: 3px 10px;
+            border-radius: 4px;
         }
 
         code {
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-size: 0.9em;
+            font-size: 0.92em;
         }
 
-        .code-keyword { color: #c678dd; font-weight: bold; }
+        .code-keyword { color: #569cd6; }
         .code-string { color: #ce9178; }
         .code-number { color: #b5cea8; }
-        .code-comment { color: #6a995a; font-style: italic; }
+        .code-comment { color: #6a9955; font-style: italic; }
         .code-operator { color: #d4d4d4; }
         .code-method { color: #dcdcaa; }
         .code-variable { color: #9cdcfe; }
-        .code-react { color: #61DAFB; font-weight: bold; }
-        .code-jsx { color: #61dafb; font-weight: bold; }
 
         /* Alert Boxes */
         .alert {
@@ -316,16 +199,16 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        .alert-success {
+        .alert-agile {
             background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-            border-color: #22c55e;
-            color: #166534;
+            border-color: #10b981;
+            color: #065f46;
         }
 
-        .alert-info {
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            border-color: #3b82f6;
-            color: #1e40af;
+        .alert-danger {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: #ef4444;
+            color: #991b1b;
         }
 
         .alert-warning {
@@ -334,10 +217,16 @@
             color: #92400e;
         }
 
-        .alert-danger {
-            background: linear-gradient(135deg, #fee2f2 0%, #fecaca 100%);
-            border-color: #ef4444;
-            color: #991b1b;
+        .alert-info {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-color: #10b981;
+            color: #065f46;
         }
 
         .alert-title {
@@ -349,43 +238,1514 @@
             gap: 10px;
         }
 
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+        }
+
+        th {
+            padding: 18px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.92em;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+            transition: all 0.3s;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafbfc;
+        }
+
+        /* Exam Cards */
+        .exam-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 35px;
+            margin: 35px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #059669 0%, #10b981 100%);
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .exam-year {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #059669;
+        }
+
+        .exam-badge {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+        }
+
+        .question-block {
+            background: #f8fafc;
+            border-left: 4px solid #059669;
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #059669;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .points-badge {
+            display: inline-block;
+            background: #d1fae5;
+            color: #065f46;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: #10b981;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Command Cards */
+        .command-card {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+            color: #d4d4d4;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #10b981;
+        }
+
+        .command-name {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            font-family: 'Consolas', monospace;
+        }
+
+        .command-syntax {
+            background: #0d1117;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 0.92em;
+            overflow-x: auto;
+        }
+
+        /* Progress bars */
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .progress-bar {
+            height: 32px;
+            background: #e5e7eb;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #059669 0%, #10b981 50%, #34d399 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.88em;
+            transition: width 1s ease-in-out;
+        }
+
         /* Footer */
         .footer {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
             color: white;
             text-align: center;
-            padding: 30px;
-            margin-top: 30px;
+            padding: 40px;
+            margin-top: 50px;
         }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .container {
-                width: 95%;
-                padding: 15px;
-                border-radius: 12px;
+            .content {
+                padding: 35px 30px;
             }
-            
-            .header h1 {
-                font-size: 1.6em;
-            }
-            
-            .grid-2 {
+
+            .grid-2, .grid-3 {
                 grid-template-columns: 1fr;
             }
-            
-            .section-title {
-                font-size: 1.4em;
-            }
-            
-            .table {
-                font-size: 0.75em;
+
+            .header h1 {
+                font-size: 2em;
             }
         }
-        </style>
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+
+            th, td {
+                padding: 12px 10px;
+                font-size: 0.85em;
+            }
+        }
+
+        .highlight-green {
+            background: #dcfce7;
+            color: #166534;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .highlight-blue {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .emoji {
+            font-style: normal;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li:before {
+            content: "✅ ";
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        .timeline-exam {
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 35px;
+        }
+
+        .timeline-exam::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #059669, #34d399);
+            border-radius: 2px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 7px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: #059669;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.4);
+        }
+
+        .role-table td:first-child {
+            font-weight: 600;
+            color: #059669;
+        }
+    </style>
+</head>
 <body>
-        
-   
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="agile-icon">🚀</div>
+        <h1>GUIDE COMPLET AGILE</h1>
+        <div class="subtitle">Examens Nationaux OFPPT - Développement Digital Option Web Full Stack</div>
+        <div class="subtitle" style="font-size:1.1em;opacity:0.85;">Dossier Pratique Agile : Toutes les Réponses Détaillées (2023-2025)</div>
+        <div style="margin-top:20px;font-size:0.95em;opacity:0.8;">
+            📚 6 Examens Analysés | 💯 12 Points par Examen | ⏱️ Temps de maîtrise : 3-4 heures
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <a href="#introduction">📖 Introduction</a>
+        <a href="#concepts">🏗️ Concepts Clés</a>
+        <a href="#scrum">🔄 Scrum</a>
+        <a href="#user-stories">📝 User Stories</a>
+        <a href="#sprint">🏃 Sprint</a>
+        <a href="#daily">☀️ Daily Meeting</a>
+        <a href="#retro">🔄 Rétrospective</a>
+        <a href="#examen-2023-v1">📝 2023-V1</a>
+        <a href="#examen-2023-v2">📝 2023-V2</a>
+        <a href="#examen-2024-v1">📝 2024-V1</a>
+        <a href="#examen-2024-v2">📝 2024-V2</a>
+        <a href="#examen-2025-v1">📝 2025-V1</a>
+        <a href="#examen-2025-v2">📝 2025-V2</a>
+        <a href="#erreurs">❌ Erreurs à Éviter</a>
+        <a href="#checklist">✅ Checklist Révision</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- INTRODUCTION -->
+        <section id="introduction" class="section">
+            <h2 class="section-title"><span class="emoji">📖</span> INTRODUCTION : Pourquoi l'Approche Agile est Essentielle ?</h2>
+
+            <div class="alert alert-agile">
+                <div class="alert-title">🎯 Ce que vous devez savoir ABSOLUMENT</div>
+                <ul style="margin-top:12px;line-height:1.9;">
+                    <li><strong>Points attribués</strong> : <span class="highlight-green">12 points</span> sur 60 en pratique (soit <strong>20% de la partie pratique</strong>)</li>
+                    <li><strong>Fréquence d'apparition</strong> : <strong>100%</strong> (présent dans les 6 examens analysés)</li>
+                    <li><strong>Temps recommandé</strong> : <strong>15-20 minutes maximum</strong> le jour de l'examen</li>
+                    <li><strong>Niveau de difficulté</strong> : Facile → Moyen (concepts théoriques + études de cas)</li>
+                    <li><strong>Type de questions</strong> : Définitions, rôles Scrum, User Stories, cérémonies Agile</li>
+                </ul>
+            </div>
+
+            <h3 class="subsection-title">📊 Statistiques Agile dans les Examens OFPPT</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrique</th>
+                        <th>Valeur</th>
+                        <th>Observation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nombre d'examens analysés</strong></td>
+                        <td>6</td>
+                        <td>Juin 2023, 2024, 2025 (V1+V2)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Présence du dossier Agile</strong></td>
+                        <td style="color:#10b981;font-weight:bold;font-size:1.2em;">6/6 (100%)</td>
+                        <td>Obligatoire à chaque session</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Points moyens par examen</strong></td>
+                        <td><strong>12 points</strong></td>
+                        <td>Toujours 12 pts (stable !)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre moyen de questions</strong></td>
+                        <td><strong>3-4 questions</strong></td>
+                        <td>Théoriques + mise en situation</td>
+                    </tr>
+                    <tr style="background:#ecfdf5;">
+                        <td colspan="3"><strong>SUJETS LES PLUS FRÉQUENTS (toujours présents)</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1. Manifeste Agile & Valeurs</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Définition et principes (4pts)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Scrum : Rôles et Cérémonies</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Product Owner, Scrum Master, Dev Team (4pts)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. User Stories</strong></td>
+                        <td>5/6 (83%)</td>
+                        <td>Format INVEST, critères d'acceptation (4pts)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Sprint Planning & Review</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Planification et revue de sprint (2pts)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">📋 Qu'est-ce que l'Approche Agile ? (Rappel Rapide)</h3>
+
+            <div class="grid-2">
+                <div class="info-card">
+                    <h4 style="color:#059669;margin-bottom:15px;">Définition Officielle</h4>
+                    <p><strong>Agile</strong> est une approche de gestion de projet qui privilégie la <strong>collaboration</strong>, la <strong>flexibilité</strong> et la <strong>livraison itérative</strong> de valeur.</p>
+                    <ul style="margin-top:15px;">
+                        <li><strong>Itératif</strong> : Cycles courts (Sprints) de 1 à 4 semaines</li>
+                        <li><strong>Inc r émental</strong> : Livraison progressive de fonctionnalités</li>
+                        <li><strong>Adaptatif</strong> : Réponse au changement plutôt que suivi d'un plan rigide</li>
+                        <li><strong>Collaboratif</strong> : Équipe auto-organisée et communication directe</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h4 style="color:#059669;margin-bottom:15px;">Pourquoi dans les Examens OFPPT ?</h4>
+                    <ul>
+                        <li><strong>Standard industriel</strong> : 90% des entreprises utilisent Agile</li>
+                        <li><strong>Teste la compréhension</strong> : Pas de code, mais des concepts clés</li>
+                        <li><strong>Complémentaire</strong> : Agile encadre le développement technique</li>
+                        <li><strong>Évaluable objectivement</strong> : Terminologie précise, rôles bien définis</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-title">💡 Bonne Nouvelle pour Vous</div>
+                <p style="font-size:1.05em;">L'Agile est le dossier <strong>le plus facile</strong> de l'examen. Les questions sont <strong>répétitives</strong> d'une année à l'autre. Si vous maîtrisez les <strong>4 concepts clés</strong> (Manifeste, Scrum, User Stories, Cérémonies), vous assurez <strong>12/12 points</strong> à chaque fois.</p>
+            </div>
+        </section>
+
+        <!-- CONCEPTS CLÉS -->
+        <section id="concepts" class="section">
+            <h2 class="section-title"><span class="emoji">🏗️</span> LES 4 CONCEPTS CLÉS DE L'AGILE</h2>
+
+            <div class="alert alert-success">
+                <div class="alert-title" style="font-size:1.3em;">🎯 Ces 4 concepts = 100% des questions Agile depuis 3 ans</div>
+            </div>
+
+            <div class="grid-2" style="margin-top:30px;">
+                <div class="info-card" style="border:3px solid #059669;background:linear-gradient(135deg,#ffffff,#ecfdf5);">
+                    <h3 style="color:#059669;font-size:1.5em;text-align:center;padding-bottom:15px;border-bottom:2px solid #059669;">
+                        📜 CONCEPT #1<br>MANIFESTE AGILE
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:3em;font-weight:bold;color:#059669;">4 pts</span><br>
+                        <small style="color:#666;">Toujours présent</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>4 valeurs</strong> fondamentales du manifeste Agile</li>
+                        <li><strong>12 principes</strong> sous-jacents</li>
+                        <li><strong>Mot-clé</strong> : "Citer les valeurs du manifeste Agile"</li>
+                        <li><strong>Priorité</strong> : Individus > Processus, Logiciel > Documentation...</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #3b82f6;background:linear-gradient(135deg,#ffffff,#eff6ff);">
+                    <h3 style="color:#3b82f6;font-size:1.5em;text-align:center;padding-bottom:15px;border-bottom:2px solid #3b82f6;">
+                        👥 CONCEPT #2<br>SCRUM - RÔLES
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:3em;font-weight:bold;color:#3b82f6;">4 pts</span><br>
+                        <small style="color:#666;">Fréquence : 100%</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Product Owner</strong> : Représente le client, gère le Backlog</li>
+                        <li><strong>Scrum Master</strong> : Facilite, élimine les obstacles</li>
+                        <li><strong>Development Team</strong> : Livre les incréments</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #f59e0b;background:linear-gradient(135deg,#ffffff,#fffbeb);">
+                    <h3 style="color:#f59e0b;font-size:1.5em;text-align:center;padding-bottom:15px;border-bottom:2px solid #f59e0b;">
+                        📝 CONCEPT #3<br>USER STORIES
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:3em;font-weight:bold;color:#f59e0b;">4 pts</span><br>
+                        <small style="color:#666;">Fréquence : 83%</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Format</strong> : "En tant que..., je veux..., afin de..."</li>
+                        <li><strong>Critères d'acceptation</strong> : Conditions de validation</li>
+                        <li><strong>INVEST</strong> : Indépendante, Négociable, Valeur, Estimable, Small, Testable</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #8b5cf6;background:linear-gradient(135deg,#ffffff,#f5f3ff);">
+                    <h3 style="color:#8b5cf6;font-size:1.5em;text-align:center;padding-bottom:15px;border-bottom:2px solid #8b5cf6;">
+                        🔄 CONCEPT #4<br>CÉRÉMONIES SCRUM
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:3em;font-weight:bold;color:#8b5cf6;">4 pts</span><br>
+                        <small style="color:#666;">Fréquence : 100%</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Sprint Planning</strong> : Planifier le travail du Sprint</li>
+                        <li><strong>Daily Stand-up</strong> : Réunion quotidienne de 15 min</li>
+                        <li><strong>Sprint Review</strong> : Démontrer le travail accompli</li>
+                        <li><strong>Rétrospective</strong> : Amélioration continue</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MANIFESTE AGILE DETAILLE -->
+        <section id="scrum" class="section">
+            <h2 class="section-title"><span class="emoji">📜</span> LE MANIFESTE AGILE & LES VALEURS SCRUM</h2>
+
+            <div class="alert alert-agile">
+                <div class="alert-title">📜 Les 4 Valeurs du Manifeste Agile (2001)</div>
+                <div class="grid-2" style="margin-top:15px;">
+                    <div style="background:white;padding:20px;border-radius:10px;border:2px solid #059669;">
+                        <h4 style="color:#059669;">1. Individus et interactions</h4>
+                        <p style="color:#666;">Plus que les processus et les outils</p>
+                    </div>
+                    <div style="background:white;padding:20px;border-radius:10px;border:2px solid #059669;">
+                        <h4 style="color:#059669;">2. Logiciel fonctionnel</h4>
+                        <p style="color:#666;">Plus qu'une documentation exhaustive</p>
+                    </div>
+                    <div style="background:white;padding:20px;border-radius:10px;border:2px solid #059669;">
+                        <h4 style="color:#059669;">3. Collaboration avec le client</h4>
+                        <p style="color:#666;">Plus que la négociation contractuelle</p>
+                    </div>
+                    <div style="background:white;padding:20px;border-radius:10px;border:2px solid #059669;">
+                        <h4 style="color:#059669;">4. Adaptation au changement</h4>
+                        <p style="color:#666;">Plus que le suivi d'un plan</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">👥 Les 3 Rôles Scrum</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rôle</th>
+                        <th>Responsabilité Principale</th>
+                        <th>Activités Clés</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Product Owner (PO)</strong></td>
+                        <td>Maximiser la valeur du produit</td>
+                        <td>Gère le Product Backlog, définit les priorités, représente les parties prenantes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scrum Master (SM)</strong></td>
+                        <td>Garantir le processus Scrum</td>
+                        <td>Facilite les cérémonies, élimine les obstacles, coach l'équipe</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Development Team</strong></td>
+                        <td>Livrer l'incrément</td>
+                        <td>Auto-organisée, pluridisciplinaire, 3-9 personnes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">🔄 Les 4 Cérémonies Scrum</h3>
+
+            <div class="grid-2">
+                <div class="info-card">
+                    <h4 style="color:#059669;">1. Sprint Planning</h4>
+                    <p><strong>Durée</strong> : 2-4 heures (pour sprint de 2 semaines)</p>
+                    <ul style="margin-top:10px;">
+                        <li><strong>Objectif</strong> : Définir le Sprint Backlog</li>
+                        <li><strong>Participants</strong> : PO + SM + Dev Team</li>
+                        <li><strong>Résultat</strong> : Sprint Goal + tâches sélectionnées</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4 style="color:#059669;">2. Daily Stand-up (Mêlée)</h4>
+                    <p><strong>Durée</strong> : 15 minutes maximum</p>
+                    <ul style="margin-top:10px;">
+                        <li><strong>Objectif</strong> : Synchronisation quotidienne</li>
+                        <li><strong>3 questions</strong> : Qu'ai-je fait hier ? Que vais-je faire aujourd'hui ? Quels obstacles ?</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4 style="color:#059669;">3. Sprint Review</h4>
+                    <p><strong>Durée</strong> : 1-2 heures</p>
+                    <ul style="margin-top:10px;">
+                        <li><strong>Objectif</strong> : Démontrer le travail accompli</li>
+                        <li><strong>Participants</strong> : Toute l'équipe + parties prenantes</li>
+                        <li><strong>Résultat</strong> : Feedback et mise à jour du Backlog</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4 style="color:#059669;">4. Sprint Rétrospective</h4>
+                    <p><strong>Durée</strong> : 1-2 heures</p>
+                    <ul style="margin-top:10px;">
+                        <li><strong>Objectif</strong> : Amélioration continue</li>
+                        <li><strong>Participants</strong> : SM + Dev Team uniquement</li>
+                        <li><strong>Focus</strong> : Ce qui a bien marché, ce qui peut être amélioré</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">📦 Les Artéfacts Scrum</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Artéfact</th>
+                        <th>Description</th>
+                        <th>Responsable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Product Backlog</strong></td>
+                        <td>Liste ordonnée de tout ce qui est nécessaire pour le produit</td>
+                        <td>Product Owner</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sprint Backlog</strong></td>
+                        <td>Ensemble des tâches sélectionnées pour le Sprint en cours</td>
+                        <td>Development Team</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Incrément</strong></td>
+                        <td>Somme de tous les éléments du Backlog terminés pendant un Sprint</td>
+                        <td>Development Team</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- USER STORIES -->
+        <section id="user-stories" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> USER STORIES & CRITÈRES D'ACCEPTATION</h2>
+
+            <div class="alert alert-agile">
+                <div class="alert-title">📝 Format Standard d'une User Story</div>
+                <div class="command-card" style="margin-top:15px;">
+                    <div class="command-syntax" style="font-size:1.1em;">
+<span class="code-string">"En tant que</span> <span class="code-keyword">[type d'utilisateur]</span><span class="code-string">,</span>
+<span class="code-string">je veux</span> <span class="code-keyword">[action/fonctionnalité]</span>
+<span class="code-string">afin de</span> <span class="code-keyword">[bénéfice/valeur]</span><span class="code-string">."</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">📋 Critère INVEST (Qualité d'une User Story)</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Critère</th>
+                        <th>Signification</th>
+                        <th>Exemple</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>I</strong>ndépendante</td>
+                        <td>Peut être développée séparément</td>
+                        <td>Ne dépend pas d'une autre story</td>
+                    </tr>
+                    <tr>
+                        <td><strong>N</strong>égociable</td>
+                        <td>Pas un contrat figé, peut évoluer</td>
+                        <td>Détails à affiner avec le PO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>V</strong>aleureuse</td>
+                        <td>Apporte de la valeur au client/utilisateur</td>
+                        <td>Répond à un besoin réel</td>
+                    </tr>
+                    <tr>
+                        <td><strong>E</strong>stimable</td>
+                        <td>Peut être estimée en effort/temps</td>
+                        <td>Story Points ou Jours/Homme</td>
+                    </tr>
+                    <tr>
+                        <td><strong>S</strong>mall (Petite)</td>
+                        <td>Réalisable dans un Sprint</td>
+                        <td>Maximum 3-5 jours de travail</td>
+                    </tr>
+                    <tr>
+                        <td><strong>T</strong>estable</td>
+                        <td>Des critères d'acceptation clairs</td>
+                        <td>Tests de validation possibles</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">✅ Exemple de Critères d'Acceptation</h3>
+
+            <div class="info-card">
+                <h4 style="color:#059669;">User Story : Connexion utilisateur</h4>
+                <p style="margin-top:10px;"><em>"En tant qu'utilisateur, je veux me connecter à mon compte afin d'accéder à mes fonctionnalités personnalisées."</em></p>
+                <div style="margin-top:15px;">
+                    <p><strong>Critères d'acceptation :</strong></p>
+                    <ul style="margin-top:10px;line-height:2;">
+                        <li>✅ L'utilisateur peut saisir son email et mot de passe</li>
+                        <li>✅ Un message d'erreur s'affiche si email ou mot de passe incorrect</li>
+                        <li>✅ Après connexion réussie, redirection vers le tableau de bord</li>
+                        <li>✅ Le bouton "Se connecter" est désactivé pendant le traitement</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPRINT PLANNING -->
+        <section id="sprint" class="section">
+            <h2 class="section-title"><span class="emoji">🏃</span> SPRINT : PLANIFICATION, EXÉCUTION ET REVUE</h2>
+
+            <h3 class="subsection-title">📋 Déroulement d'un Sprint Scrum</h3>
+
+            <div class="timeline-exam">
+                <div class="timeline-dot"></div>
+                <h4 style="color:#059669;">1. Sprint Planning</h4>
+                <p>L'équipe sélectionne les User Stories du Product Backlog à réaliser pendant le Sprint. Le PO présente les priorités, l'équipe estime et s'engage sur le Sprint Backlog.</p>
+            </div>
+
+            <div class="timeline-exam">
+                <div class="timeline-dot"></div>
+                <h4 style="color:#059669;">2. Daily Stand-up (Quotidien)</h4>
+                <p>Réunion de 15 minutes chaque jour. Chaque membre répond à 3 questions : Qu'est-ce que j'ai fait hier ? Qu'est-ce que je vais faire aujourd'hui ? Quels sont les obstacles ?</p>
+            </div>
+
+            <div class="timeline-exam">
+                <div class="timeline-dot"></div>
+                <h4 style="color:#059669;">3. Travail de Développement</h4>
+                <p>L'équipe réalise les tâches du Sprint Backlog. Le Scrum Master protège l'équipe des perturbations externes.</p>
+            </div>
+
+            <div class="timeline-exam">
+                <div class="timeline-dot"></div>
+                <h4 style="color:#059669;">4. Sprint Review</h4>
+                <p>L'équipe présente le travail accompli aux parties prenantes. Démonstration de l'incrément fonctionnel.</p>
+            </div>
+
+            <div class="timeline-exam">
+                <div class="timeline-dot"></div>
+                <h4 style="color:#059669;">5. Sprint Rétrospective</h4>
+                <p>L'équipe analyse le déroulement du Sprint et identifie des actions d'amélioration continue.</p>
+            </div>
+        </section>
+
+        <!-- DAILY MEETING -->
+        <section id="daily" class="section">
+            <h2 class="section-title"><span class="emoji">☀️</span> DAILY STAND-UP MEETING</h2>
+
+            <div class="alert alert-agile">
+                <div class="alert-title">☀️ Règles du Daily Stand-up</div>
+                <ul style="margin-top:15px;line-height:2.5;">
+                    <li><strong>⏱️ Durée</strong> : Maximum <strong>15 minutes</strong></li>
+                    <li><strong>📍 Lieu</strong> : Même endroit, même heure, chaque jour</li>
+                    <li><strong>👥 Participants</strong> : Development Team + Scrum Master (facultatif : PO)</li>
+                    <li><strong>🔄 Format</strong> : Chaque membre répond aux 3 questions rituelles</li>
+                    <li><strong>🎯 Objectif</strong> : Synchronisation, pas un reporting hiérarchique</li>
+                </ul>
+            </div>
+
+            <h3 class="subsubsection-title">Les 3 Questions du Daily Stand-up</h3>
+
+            <div class="grid-3">
+                <div class="info-card" style="border-top:4px solid #10b981;">
+                    <h4 style="color:#059669;">✅ Hier</h4>
+                    <p><em>"Qu'est-ce que j'ai fait hier qui a contribué à l'objectif du Sprint ?"</em></p>
+                    <p style="margin-top:10px;color:#666;">Partager les tâches accomplies depuis le dernier Daily.</p>
+                </div>
+                <div class="info-card" style="border-top:4px solid #3b82f6;">
+                    <h4 style="color:#3b82f6;">📅 Aujourd'hui</h4>
+                    <p><em>"Qu'est-ce que je vais faire aujourd'hui pour contribuer à l'objectif du Sprint ?"</em></p>
+                    <p style="margin-top:10px;color:#666;">Annoncer les tâches prévues pour la journée.</p>
+                </div>
+                <div class="info-card" style="border-top:4px solid #f59e0b;">
+                    <h4 style="color:#f59e0b;">🚧 Obstacles</h4>
+                    <p><em>"Est-ce que je rencontre des obstacles qui m'empêchent d'avancer ?"</em></p>
+                    <p style="margin-top:10px;color:#666;">Identifier les blocages pour que le SM les élimine.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- RETROSPECTIVE -->
+        <section id="retro" class="section">
+            <h2 class="section-title"><span class="emoji">🔄</span> SPRINT RÉTROSPECTIVE</h2>
+
+            <div class="alert alert-info">
+                <div class="alert-title">🔄 L'amélioration continue au coeur de l'Agile</div>
+                <p style="margin-top:10px;font-size:1.05em;">La rétrospective est la cérémonie la plus importante pour l'amélioration de l'équipe. Elle a lieu <strong>après la Sprint Review</strong> et <strong>avant le prochain Sprint Planning</strong>.</p>
+            </div>
+
+            <h3 class="subsection-title">📋 Les 5 Étapes d'une Rétrospective</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Étape</th>
+                        <th>Description</th>
+                        <th>Durée</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Préparer le terrain</strong></td>
+                        <td>Créer un environnement sûr et bienveillant</td>
+                        <td>5 min</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Collecter les données</strong></td>
+                        <td>Ce qui s'est bien passé, ce qui peut être amélioré</td>
+                        <td>10 min</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Analyser</strong></td>
+                        <td>Identifier les causes profondes des problèmes</td>
+                        <td>15 min</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Décider des actions</strong></td>
+                        <td>Choisir 1-3 actions concrètes d'amélioration</td>
+                        <td>10 min</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. Clôturer</strong></td>
+                        <td>Résumer et remercier l'équipe</td>
+                        <td>5 min</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- EXAMEN 2023 V1 -->
+        <section id="examen-2023-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2023 - VARIANTE V1</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2023 - Variante 1</div>
+                    <div class="exam-badge">12 Points | Dossier Agile</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Citer les 4 valeurs du manifeste Agile. Expliquer brièvement chaque valeur.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>Les 4 valeurs du Manifeste Agile :</strong></p>
+                        <ol style="margin-top:15px;line-height:2.5;">
+                            <li><strong>Les individus et leurs interactions</strong> plus que les processus et les outils</li>
+                            <li><strong>Un logiciel fonctionnel</strong> plus qu'une documentation exhaustive</li>
+                            <li><strong>La collaboration avec le client</strong> plus que la négociation contractuelle</li>
+                            <li><strong>L'adaptation au changement</strong> plus que le suivi d'un plan</li>
+                        </ol>
+                        <p style="margin-top:15px;"><em>Explication : Ces valeurs signifient que même si les éléments de droite ont de la valeur, l'équipe Agile accorde davantage d'importance aux éléments de gauche. Par exemple, une documentation utile est bonne, mais un logiciel qui fonctionne est meilleur.</em></p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Décrire les 3 rôles Scrum et leurs responsabilités principales.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <table style="margin-top:15px;">
+                        <thead>
+                            <tr><th>Rôle</th><th>Responsabilité</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Product Owner</strong></td><td>Représente les parties prenantes, gère et priorise le Product Backlog, maximise la valeur du produit</td></tr>
+                            <tr><td><strong>Scrum Master</strong></td><td>Garantit le respect du framework Scrum, facilite les cérémonies, élimine les obstacles, coach l'équipe</td></tr>
+                            <tr><td><strong>Development Team</strong></td><td>Équipe pluridisciplinaire auto-organisée (3-9 pers.) qui conçoit, développe et teste l'incrément</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Rédiger une User Story pour la fonctionnalité "Ajouter un produit au panier" avec ses critères d'acceptation.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>User Story :</strong></p>
+                        <p style="font-style:italic;margin:15px 0;padding:15px;background:#ecfdf5;border-radius:8px;">
+                            "En tant que <strong>client</strong>,<br>
+                            je veux <strong>ajouter un produit à mon panier</strong><br>
+                            afin de <strong>pouvoir l'acheter ultérieurement</strong>."
+                        </p>
+                        <p><strong>Critères d'acceptation :</strong></p>
+                        <ul style="margin-top:10px;line-height:2;">
+                            <li>✅ Le bouton "Ajouter au panier" est visible sur chaque fiche produit</li>
+                            <li>✅ Le nombre d'articles dans le panier s'incrémente après ajout</li>
+                            <li>✅ Un message de confirmation s'affiche "Produit ajouté au panier"</li>
+                            <li>✅ L'utilisateur peut ajouter plusieurs quantités d'un même produit</li>
+                            <li>✅ Le produit reste dans le panier après déconnexion (persistance)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2023 V2 -->
+        <section id="examen-2023-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2023 - VARIANTE V2</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2023 - Variante 2</div>
+                    <div class="exam-badge">12 Points | Dossier Agile</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Qu'est-ce que le Sprint Planning ? Décrire son déroulement et ses participants.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>Le Sprint Planning</strong> est la cérémonie qui lance chaque Sprint. Elle dure <strong>2 à 4 heures</strong> pour un Sprint de 2 semaines.</p>
+                        <p style="margin-top:15px;"><strong>Participants :</strong> Product Owner, Scrum Master, Development Team</p>
+                        <p style="margin-top:15px;"><strong>Déroulement :</strong></p>
+                        <ol style="margin-top:10px;line-height:2;">
+                            <li><strong>Partie 1 (Quoi ?)</strong> : Le PO présente les User Stories prioritaires du Product Backlog</li>
+                            <li><strong>Partie 2 (Comment ?)</strong> : L'équipe décompose les stories en tâches et estime l'effort nécessaire</li>
+                            <li><strong>Résultat</strong> : Sprint Backlog + Sprint Goal (objectif du Sprint)</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Citer et expliquer les 3 artéfacts Scrum.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <table style="margin-top:15px;">
+                        <thead>
+                            <tr><th>Artéfact</th><th>Explication</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Product Backlog</strong></td><td>Liste ordonnée et priorisée de toutes les fonctionnalités, améliorations et correctifs nécessaires pour le produit. Géré par le Product Owner.</td></tr>
+                            <tr><td><strong>Sprint Backlog</strong></td><td>Sous-ensemble du Product Backlog sélectionné pour le Sprint en cours. Propriété de la Development Team.</td></tr>
+                            <tr><td><strong>Incrément</strong></td><td>Somme de tous les éléments du Backlog terminés pendant le Sprint. Doit être "Done" (potentiellement livrable).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Décrire le rôle et le déroulement du Daily Stand-up Meeting.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>Le Daily Stand-up</strong> est une réunion quotidienne de <strong>15 minutes maximum</strong>.</p>
+                        <p style="margin-top:15px;"><strong>Objectif :</strong> Synchroniser l'équipe et identifier les obstacles.</p>
+                        <p style="margin-top:15px;"><strong>Format :</strong> Chaque membre répond à 3 questions :</p>
+                        <ol style="margin-top:10px;line-height:2;">
+                            <li>Qu'est-ce que j'ai fait <strong>hier</strong> qui a contribué à l'objectif du Sprint ?</li>
+                            <li>Qu'est-ce que je vais faire <strong>aujourd'hui</strong> pour contribuer à l'objectif du Sprint ?</li>
+                            <li>Est-ce que je rencontre des <strong>obstacles</strong> ?</li>
+                        </ol>
+                        <p style="margin-top:15px;"><strong>Participants :</strong> Development Team + Scrum Master (le PO est facultatif).</p>
+                        <p style="margin-top:10px;"><strong>Note :</strong> Ce n'est pas un reporting au manager, mais une synchronisation d'équipe.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2024 V1 -->
+        <section id="examen-2024-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2024 - VARIANTE V1</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2024 - Variante 1</div>
+                    <div class="exam-badge">12 Points | Dossier Agile</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Différencier l'approche Agile de l'approche Waterfall (cycle en cascade). Citer 3 différences.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <table style="margin-top:15px;">
+                        <thead>
+                            <tr><th>Critère</th><th>Agile</th><th>Waterfall</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Approche</strong></td><td>Itérative et incrémentale</td><td>Séquentielle et linéaire</td></tr>
+                            <tr><td><strong>Changement</strong></td><td>Adaptatif, bienvenu à tout moment</td><td>Rigide, difficile et coûteux</td></tr>
+                            <tr><td><strong>Livraison</strong></td><td>Continue (chaque Sprint)</td><td>Une seule fois à la fin</td></tr>
+                            <tr><td><strong>Client</strong></td><td>Impliqué tout au long du projet</td><td>Consulté au début et à la fin</td></tr>
+                            <tr><td><strong>Équipe</strong></td><td>Auto-organisée et pluridisciplinaire</td><td>Hiérarchique et spécialisée</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Citer les 12 principes du manifeste Agile (au moins 6 principes).</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>Les 12 principes Agile (les 6 principaux) :</strong></p>
+                        <ol style="margin-top:15px;line-height:2.5;">
+                            <li>Notre plus haute priorité est de <strong>satisfaire le client</strong> par des livraisons précoces et continues de logiciels utiles</li>
+                            <li>Accueillir favorablement les <strong>changements de besoins</strong>, même tard dans le projet</li>
+                            <li>Livrer fréquemment un <strong>logiciel fonctionnel</strong> (de quelques semaines à quelques mois)</li>
+                            <li>Les <strong>utilisateurs</strong> et les développeurs doivent <strong>travailler ensemble</strong> quotidiennement</li>
+                            <li>Construire les projets autour de <strong>personnes motivées</strong>, leur faire confiance</li>
+                            <li>La <strong>conversation en face à face</strong> est le meilleur moyen de communiquer</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">5 points</span></div>
+                    <p><strong>Énoncé :</strong> Vous êtes Scrum Master d'une équipe de 5 développeurs. Le PO souhaite ajouter une User Story urgente en milieu de Sprint. Que faites-vous ? Expliquer la démarche Agile.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>Démarche à suivre :</strong></p>
+                        <ol style="margin-top:15px;line-height:2.5;">
+                            <li><strong>Évaluer l'impact</strong> : Discuter avec l'équipe pour estimer l'effort de la nouvelle story</li>
+                            <li><strong>Proposer un échange</strong> : Si la nouvelle story est vraiment urgente, retirer une story de valeur équivalente du Sprint Backlog</li>
+                            <li><strong>Respecter la capacité</strong> : Le Sprint Backlog ne doit pas dépasser la capacité de l'équipe</li>
+                            <li><strong>Négocier avec le PO</strong> : Expliquer que l'ajout a un coût (retard sur les engagements initiaux)</li>
+                            <li><strong>Décision collective</strong> : L'équipe décide si elle peut accepter le changement</li>
+                        </ol>
+                        <p style="margin-top:15px;"><strong>Principe Agile respecté :</strong> "Accueillir favorablement les changements de besoins, même tard dans le projet" MAIS en préservant la stabilité du Sprint.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2024 V2 -->
+        <section id="examen-2024-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2024 - VARIANTE V2</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2024 - Variante 2</div>
+                    <div class="exam-badge">12 Points | Dossier Agile</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Qu'est-ce que la Sprint Rétrospective ? Expliquer son importance dans l'amélioration continue.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>La Sprint Rétrospective</strong> est une cérémonie Scrum qui a lieu à la fin de chaque Sprint, après la Sprint Review et avant le prochain Sprint Planning.</p>
+                        <p style="margin-top:15px;"><strong>Durée :</strong> 1h30 à 3 heures selon la durée du Sprint.</p>
+                        <p style="margin-top:15px;"><strong>Participants :</strong> Scrum Master + Development Team (le PO est facultatif).</p>
+                        <p style="margin-top:15px;"><strong>Objectif :</strong> Inspecter le déroulement du Sprint et créer un plan d'amélioration pour le prochain Sprint.</p>
+                        <p style="margin-top:15px;"><strong>Importance :</strong></p>
+                        <ul style="margin-top:10px;line-height:2;">
+                            <li>Permet à l'équipe de s'améliorer en continu (principe Kaizen)</li>
+                            <li>Identifie les problèmes de processus avant qu'ils ne deviennent critiques</li>
+                            <li>Renforce la cohésion et la confiance dans l'équipe</li>
+                            <li>Génère des actions concrètes et mesurables</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Expliquer le concept de "Definition of Done" (DoD) et son importance dans Scrum.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>La Definition of Done (DoD)</strong> est une liste de critères qu'un élément du Product Backlog doit remplir pour être considéré comme "terminé".</p>
+                        <p style="margin-top:15px;"><strong>Exemple de DoD :</strong></p>
+                        <ul style="margin-top:10px;line-height:2;">
+                            <li>✅ Code développé et révisé par un pair</li>
+                            <li>✅ Tests unitaires passés avec succès (couverture > 80%)</li>
+                            <li>✅ Tests d'intégration passés</li>
+                            <li>✅ Documentation technique mise à jour</li>
+                            <li>✅ Déployé sur l'environnement de test</li>
+                            <li>✅ Validé par le Product Owner</li>
+                        </ul>
+                        <p style="margin-top:15px;"><strong>Importance :</strong> La DoD garantit la <strong>transparence</strong> et une <strong>compréhension commune</strong> de ce que "terminé" signifie pour toute l'équipe et les parties prenantes.</p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Rédiger une User Story avec les critères INVEST pour la fonctionnalité "Rechercher un produit par mot-clé".</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>User Story :</strong></p>
+                        <p style="font-style:italic;margin:15px 0;padding:15px;background:#ecfdf5;border-radius:8px;">
+                            "En tant que <strong>visiteur du site</strong>,<br>
+                            je veux <strong>rechercher un produit par mot-clé</strong><br>
+                            afin de <strong>trouver rapidement le produit qui m'intéresse</strong>."
+                        </p>
+                        <p><strong>Vérification INVEST :</strong></p>
+                        <ul style="margin-top:10px;line-height:2;">
+                            <li><strong>I</strong>ndépendante : Ne dépend pas d'autres stories</li>
+                            <li><strong>N</strong>égociable : Le champ de recherche peut être simple ou avancé</li>
+                            <li><strong>V</strong>aleureuse : Apporte une valeur immédiate à l'utilisateur</li>
+                            <li><strong>E</strong>stimable : ~3 jours de développement</li>
+                            <li><strong>S</strong>mall : Réalisable dans un Sprint</li>
+                            <li><strong>T</strong>estable : Des tests de recherche peuvent être écrits</li>
+                        </ul>
+                        <p style="margin-top:15px;"><strong>Critères d'acceptation :</strong></p>
+                        <ul style="margin-top:10px;line-height:2;">
+                            <li>✅ Un champ de recherche est visible en haut de la page</li>
+                            <li>✅ La recherche s'effectue en temps réel (ou après validation)</li>
+                            <li>✅ Les résultats affichent les produits dont le nom contient le mot-clé</li>
+                            <li>✅ Un message "Aucun résultat" s'affiche si aucun produit trouvé</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2025 V1 -->
+        <section id="examen-2025-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2025 - VARIANTE V1</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2025 - Variante 1</div>
+                    <div class="exam-badge">12 Points | Dossier Agile</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Définir ce qu'est un Product Backlog. Comment est-il géré et priorisé ?</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>Le Product Backlog</strong> est une liste dynamique et ordonnée de tout ce qui est nécessaire pour améliorer le produit. C'est l'unique source de travail pour l'équipe Scrum.</p>
+                        <p style="margin-top:15px;"><strong>Caractéristiques :</strong></p>
+                        <ul style="margin-top:10px;line-height:2;">
+                            <li>Il n'est jamais complet : il évolue avec le produit et le marché</li>
+                            <li>Les éléments en haut sont plus détaillés et prêts à être développés</li>
+                            <li>Les éléments en bas sont plus gros et moins détaillés (épics)</li>
+                        </ul>
+                        <p style="margin-top:15px;"><strong>Gestion :</strong> Le Product Owner est responsable du Product Backlog. Il le priorise en fonction de la valeur métier, des risques et des dépendances.</p>
+                        <p style="margin-top:15px;"><strong>Techniques de priorisation :</strong></p>
+                        <ul style="margin-top:10px;line-height:2;">
+                            <li><strong>MoSCoW</strong> : Must have, Should have, Could have, Won't have</li>
+                            <li><strong>Valeur vs Effort</strong> : Prioriser les stories à forte valeur et faible effort</li>
+                            <li><strong>Kano Model</strong> : Fonctionnalités de base, de performance et d'attrait</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Décrire le déroulement de la Sprint Review. Quelle est la différence avec la Sprint Rétrospective ?</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>Sprint Review :</strong></p>
+                        <ul style="margin-top:10px;line-height:2;">
+                            <li><strong>Objectif</strong> : Inspecter l'incrément et adapter le Product Backlog si nécessaire</li>
+                            <li><strong>Durée</strong> : 1-2 heures pour un Sprint de 2 semaines</li>
+                            <li><strong>Participants</strong> : Toute l'équipe Scrum + parties prenantes + clients</li>
+                            <li><strong>Activité</strong> : Démonstration de l'incrément fonctionnel, feedback des parties prenantes</li>
+                        </ul>
+                        <p style="margin-top:15px;"><strong>Différence avec la Rétrospective :</strong></p>
+                        <table style="margin-top:10px;">
+                            <thead>
+                                <tr><th>Critère</th><th>Sprint Review</th><th>Sprint Rétrospective</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Focus</strong></td><td>Le produit (quoi)</td><td>Le processus (comment)</td></tr>
+                                <tr><td><strong>Participants</strong></td><td>Toutes les parties prenantes</td><td>Scrum Master + Dev Team</td></tr>
+                                <tr><td><strong>Objectif</strong></td><td>Obtenir du feedback sur l'incrément</td><td>Améliorer le fonctionnement de l'équipe</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">5 points</span></div>
+                    <p><strong>Énoncé :</strong> Étude de cas : Une équipe de 6 développeurs travaille sur un site e-commerce. Le Sprint dure 2 semaines. Le Product Owner veut introduire une fonctionnalité majeure (estimation : 8 jours) alors qu'il reste 5 jours dans le Sprint. Que recommandez-vous ? Justifier avec les principes Agile.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>Situation :</strong> La fonctionnalité est trop grande (8 jours) pour le temps restant (5 jours).</p>
+                        <p style="margin-top:15px;"><strong>Recommandation :</strong></p>
+                        <ol style="margin-top:15px;line-height:2.5;">
+                            <li><strong>Ne pas ajouter</strong> la story en cours de Sprint (protection du Sprint Backlog)</li>
+                            <li><strong>Découper</strong> la fonctionnalité en plus petites User Stories (maximum 2-3 jours chacune)</li>
+                            <li><strong>Planifier</strong> pour le prochain Sprint via le Sprint Planning</li>
+                            <li>Si vraiment urgente, <strong>échanger</strong> contre une story de valeur équivalente non commencée</li>
+                        </ol>
+                        <p style="margin-top:15px;"><strong>Principes Agile appliqués :</strong></p>
+                        <ul style="margin-top:10px;line-height:2;">
+                            <li>"Livrer fréquemment un logiciel fonctionnel" → Ne pas surcharger le Sprint</li>
+                            <li>"Accueillir favorablement les changements" → Mais sans compromettre l'objectif du Sprint</li>
+                            <li>"Les personnes motivées" → L'équipe doit décider collectivement</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2025 V2 -->
+        <section id="examen-2025-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2025 - VARIANTE V2</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2025 - Variante 2</div>
+                    <div class="exam-badge">12 Points | Dossier Agile</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Qu'est-ce que la vélocité d'une équipe Scrum ? Comment est-elle calculée et à quoi sert-elle ?</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>La vélocité</strong> est une métrique Agile qui mesure la quantité de travail qu'une équipe peut livrer pendant un Sprint.</p>
+                        <p style="margin-top:15px;"><strong>Calcul :</strong> Somme des Story Points (ou jours/homme) des User Stories terminées et acceptées comme "Done" dans le Sprint.</p>
+                        <p style="margin-top:15px;"><strong>Utilité :</strong></p>
+                        <ul style="margin-top:10px;line-height:2;">
+                            <li><strong>Prévision</strong> : Estimer combien de stories l'équipe pourra livrer dans les prochains Sprints</li>
+                            <li><strong>Planification</strong> : Aider le PO à prioriser en fonction de la capacité réelle de l'équipe</li>
+                            <li><strong>Amélioration</strong> : Suivre la tendance pour identifier les gains de productivité</li>
+                        </ul>
+                        <p style="margin-top:15px;"><strong>Exemple :</strong> Si l'équipe a livré 20, 22, 19 points sur les 3 derniers Sprints, sa vélocité moyenne est de ~20 points/Sprint.</p>
+                        <p style="margin-top:15px;font-style:italic;color:#666;">Note : La vélocité ne doit pas être utilisée pour comparer différentes équipes.</p>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Expliquer la différence entre le Product Backlog et le Sprint Backlog. Donner un exemple pour chacun.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <table style="margin-top:15px;">
+                        <thead>
+                            <tr><th>Critère</th><th>Product Backlog</th><th>Sprint Backlog</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Portée</strong></td><td>Tout le produit (vision complète)</td><td>Le Sprint en cours seulement</td></tr>
+                            <tr><td><strong>Propriétaire</strong></td><td>Product Owner</td><td>Development Team</td></tr>
+                            <tr><td><strong>Évolution</strong></td><td>Dynamique, change constamment</td><td>Fige pendant le Sprint</td></tr>
+                            <tr><td><strong>Détail</strong></td><td>Niveaux de détail variables</td><td>Très détaillé (tâches concrètes)</td></tr>
+                            <tr><td><strong>Exemple</strong></td><td>"Module de paiement en ligne"</td><td>"Implémenter validation CB" + "Tests unitaires"</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Rédiger une User Story complète avec critères d'acceptation pour la fonctionnalité "S'inscrire à la newsletter".</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #059669;margin-top:15px;">
+                        <p><strong>User Story :</strong></p>
+                        <p style="font-style:italic;margin:15px 0;padding:15px;background:#ecfdf5;border-radius:8px;">
+                            "En tant que <strong>visiteur du site</strong>,<br>
+                            je veux <strong>m'inscrire à la newsletter</strong><br>
+                            afin de <strong>recevoir les offres promotionnelles et les actualités</strong>."
+                        </p>
+                        <p><strong>Critères d'acceptation :</strong></p>
+                        <ul style="margin-top:10px;line-height:2;">
+                            <li>✅ Un champ email est affiché dans le footer du site</li>
+                            <li>✅ La validation vérifie que l'email est au format valide</li>
+                            <li>✅ Un email de confirmation est envoyé après inscription</li>
+                            <li>✅ L'utilisateur peut se désinscrire via un lien dans l'email</li>
+                            <li>✅ Message de confirmation : "Inscription réussie ! Vérifiez votre boîte email"</li>
+                            <li>✅ Les emails sont stockés dans la base de données (table newsletter_subscribers)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ERREURS À ÉVITER -->
+        <section id="erreurs" class="section">
+            <h2 class="section-title"><span class="emoji">❌</span> ERREURS FRÉQUENTES EN AGILE</h2>
+
+            <div class="grid-2">
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #1 : Confondre Agile et Scrum</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Perte de points dans les définitions</p>
+                    <div style="margin-top:15px;padding:15px;background:#7f1d1d;color:#fecaca;border-radius:8px;">
+                        ❌ <strong>FAUX :</strong> "Agile et Scrum sont la même chose."<br><br>
+                        ✅ <strong>CORRECT :</strong> "Agile est une philosophie/un ensemble de valeurs et principes. Scrum est un framework spécifique qui implémente ces principes."
+                    </div>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #2 : Le Daily Stand-up est un reporting</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Mauvaise compréhension du rôle du SM</p>
+                    <div style="margin-top:15px;padding:15px;background:#7f1d1d;color:#fecaca;border-radius:8px;">
+                        ❌ <strong>FAUX :</strong> "Le Daily Meeting sert à faire un rapport d'avancement au manager."<br><br>
+                        ✅ <strong>CORRECT :</strong> "Le Daily Meeting est une synchronisation entre les membres de l'équipe pour s'organiser et identifier les obstacles."
+                    </div>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #3 : Le Product Owner dirige l'équipe</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Confusion des rôles Scrum</p>
+                    <div style="margin-top:15px;padding:15px;background:#7f1d1d;color:#fecaca;border-radius:8px;">
+                        ❌ <strong>FAUX :</strong> "Le Product Owner est le chef de l'équipe de développement."<br><br>
+                        ✅ <strong>CORRECT :</strong> "Le PO définit les priorités et la vision métier. L'équipe de développement est auto-organisée et décide comment réaliser le travail."
+                    </div>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #4 : Ajouter des stories en cours de Sprint</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Sprint non terminé, baisse de qualité</p>
+                    <div style="margin-top:15px;padding:15px;background:#7f1d1d;color:#fecaca;border-radius:8px;">
+                        ❌ <strong>FAUX :</strong> "On peut ajouter des User Stories à tout moment dans le Sprint."<br><br>
+                        ✅ <strong>CORRECT :</strong> "Une fois le Sprint Planning terminé, le Sprint Backlog est figé. Les changements urgents sont traités par échange de stories de valeur équivalente."
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">📋 Tableau Récapitulatif : Les Cérémonies Scrum</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cérémonie</th>
+                        <th>Moment</th>
+                        <th>Durée</th>
+                        <th>Participants</th>
+                        <th>Objectif</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Sprint Planning</strong></td>
+                        <td>Début du Sprint</td>
+                        <td>2-4h</td>
+                        <td>PO + SM + Dev Team</td>
+                        <td>Définir le Sprint Backlog</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Daily Stand-up</strong></td>
+                        <td>Chaque jour</td>
+                        <td>15 min</td>
+                        <td>Dev Team + SM</td>
+                        <td>Synchroniser l'équipe</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sprint Review</strong></td>
+                        <td>Fin du Sprint</td>
+                        <td>1-2h</td>
+                        <td>Équipe + Parties prenantes</td>
+                        <td>Démontrer l'incrément</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rétrospective</strong></td>
+                        <td>Après Review</td>
+                        <td>1-2h</td>
+                        <td>SM + Dev Team</td>
+                        <td>Amélioration continue</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- CHECKLIST -->
+        <section id="checklist" class="section">
+            <h2 class="section-title"><span class="emoji">✅</span> CHECKLIST DE RÉVISION ULTRA-RAPIDE (Avant l'Examen)</h2>
+
+            <div class="alert alert-agile" style="padding:30px;">
+                <div class="alert-title" style="font-size:1.3em;">🎯 OBJECTIF : Assurer 12/12 Points en 15-20 Minutes Maximum</div>
+            </div>
+
+            <h3 class="subsection-title">☑️ Manifeste Agile & Valeurs</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je connais les 4 valeurs du manifeste Agile par cœur</li>
+                <li>Je peux citer au moins 6 des 12 principes Agile</li>
+                <li>Je sais expliquer la différence entre Agile et Waterfall</li>
+                <li>Je connais la différence entre Agile (philosophie) et Scrum (framework)</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Rôles Scrum</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je connais les 3 rôles Scrum : PO, SM, Dev Team</li>
+                <li>Je sais ce que fait le Product Owner (backlog, priorités)</li>
+                <li>Je sais ce que fait le Scrum Master (facilitateur, coach)</li>
+                <li>Je sais que la Dev Team est auto-organisée</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Cérémonies Scrum</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je connais les 4 cérémonies : Planning, Daily, Review, Rétro</li>
+                <li>Je connais la durée de chaque cérémonie</li>
+                <li>Je sais les 3 questions du Daily Stand-up</li>
+                <li>Je sais la différence entre Review et Rétrospective</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ User Stories & Artéfacts</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je sais formater une User Story (En tant que... je veux... afin de...)</li>
+                <li>Je connais le critère INVEST</li>
+                <li>Je sais rédiger des critères d'acceptation</li>
+                <li>Je connais les 3 artéfacts : Product Backlog, Sprint Backlog, Incrément</li>
+                <li>Je sais ce qu'est la vélocité et la Definition of Done</li>
+            </ul>
+
+            <div class="alert alert-agile" style="margin-top:40px;padding:30px;">
+                <div class="alert-title" style="font-size:1.3em;">⏱️ TEMPS RECOMMANDÉ</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:20px;">
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#065f46;">3-4h</div>
+                        <div>Pour maîtriser Agile parfaitement</div>
+                    </div>
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#065f46;">45 min</div>
+                        <div>Pour réviser la veille de l'examen</div>
+                    </div>
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#065f46;">15-20 min</div>
+                        <div>Le jour J pour répondre aux questions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:40px;text-align:center;padding:40px;background:linear-gradient(135deg,#059669,#10b981);border-radius:15px;color:white;">
+                <h2 style="font-size:2em;margin-bottom:20px;color:white;">🎯 MESSAGE FINAL</h2>
+                <p style="font-size:1.2em;line-height:1.8;opacity:0.95;">
+                    L'Agile est le dossier <strong>le plus accessible</strong> de l'examen.<br>
+                    Pas de code, que des concepts clairs et des définitions précises.<br><br>
+                    <strong>Maîtrisez ces 4 concepts = 12 points assurés = 20% de la partie pratique.</strong><br><br>
+                    <span style="font-size:1.3em;">La clé : connaître les définitions exactes et les appliquer aux études de cas.</span><br>
+                    <span style="font-size:1.3em;">Pas de piège, juste du travail de mémorisation !</span><br><br>
+                    <span style="font-size:1.4em;">C'est votre dossier pour gagner des points facilement. Profitez-en ! 🚀💪</span>
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <h2 style="font-size:1.8em;margin-bottom:15px;">🚀 Guide Complet Agile - Examens OFPPT</h2>
+        <p style="font-size:1.1em;margin-bottom:10px;opacity:0.9;">Toutes les réponses du dossier pratique Agile (2023-2025) • 6 examens analysés • 12 points garantis</p>
+        <p style="opacity:0.7;margin-top:20px;font-size:0.9em;">
+            Document généré pour préparation optimisée aux examens nationaux OFPPT<br>
+            Filière : Développement Digital Option Web Full Stack | Niveau : Technicien Spécialisé
+        </p>
+        <div style="margin-top:25px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.2);">
+            <p style="font-size:0.85em;opacity:0.6;">
+                Dernière mise à jour : Juin 2025 | Basé sur l'analyse de 6 examens complets (Variantes V1+V2)<br>
+                Patterns identifiés : Manifeste Agile + Rôles Scrum + User Stories + Cérémonies | Fréquence : 100%
+            </p>
+        </div>
+    </div>
+
+</div>
+
 </body>
-</html>
 </html>

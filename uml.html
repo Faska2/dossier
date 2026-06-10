@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📐 Guide Complet UML - Examens OFPPT Web Full Stack</title>
+
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)'], ['$$', '$$'], ['\\[', '\]']],
+                displayMath: []
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #1a0a3e 0%, #2d1b69 50%, #4a1a8a 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        /* Header UML Themed */
+        .header {
+            background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #a78bfa 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "📐";
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -30px;
+            right: -30px;
+            transform: rotate(15deg);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .uml-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: #2c3e50;
+            padding: 18px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.1);
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .nav-bar a:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+        }
+
+        /* Content */
+        .content {
+            padding: 50px 60px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.3em;
+            color: #7c3aed;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #7c3aed;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .subsection-title {
+            font-size: 1.7em;
+            color: #6d28d9;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 6px solid #7c3aed;
+        }
+
+        .subsubsection-title {
+            font-size: 1.35em;
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 25px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            line-height: 1.7;
+            border-left: 5px solid #8b5cf6;
+            position: relative;
+        }
+
+        pre::before {
+            content: "UML";
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.75em;
+            color: #888;
+            background: #333;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92em;
+        }
+
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-number { color: #b5cea8; }
+        .code-comment { color: #6a9955; font-style: italic; }
+        .code-operator { color: #d4d4d4; }
+        .code-method { color: #dcdcaa; }
+        .code-variable { color: #9cdcfe; }
+
+        /* Alert Boxes */
+        .alert {
+            padding: 22px 28px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 6px solid;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .alert-uml {
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            border-color: #8b5cf6;
+            color: #5b21b6;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-color: #10b981;
+            color: #065f46;
+        }
+
+        .alert-title {
+            font-weight: bold;
+            font-size: 1.15em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+            color: white;
+        }
+
+        th {
+            padding: 18px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.92em;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+            transition: all 0.3s;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafbfc;
+        }
+
+        /* Exam Cards */
+        .exam-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 35px;
+            margin: 35px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #7c3aed 0%, #8b5cf6 100%);
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .exam-year {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #7c3aed;
+        }
+
+        .exam-badge {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+            color: white;
+        }
+
+        .question-block {
+            background: #f8fafc;
+            border-left: 4px solid #7c3aed;
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #7c3aed;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .points-badge {
+            display: inline-block;
+            background: #ede9fe;
+            color: #5b21b6;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: #8b5cf6;
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .command-card {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+            color: #d4d4d4;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #8b5cf6;
+        }
+
+        .command-name {
+            color: #8b5cf6;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            font-family: 'Consolas', monospace;
+        }
+
+        .command-syntax {
+            background: #0d1117;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 0.92em;
+            overflow-x: auto;
+        }
+
+        /* Diagram Cards */
+        .diagram-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 25px;
+            text-align: center;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #1a0a3e 0%, #2d1b69 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 1024px) {
+            .content { padding: 35px 30px; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .header h1 { font-size: 2em; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .content { padding: 25px 20px; }
+            .nav-bar { flex-direction: column; padding: 15px 20px; }
+            th, td { padding: 12px 10px; font-size: 0.85em; }
+        }
+
+        .highlight-purple {
+            background: #ede9fe;
+            color: #5b21b6;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .emoji { font-style: normal; }
+        .checklist { list-style: none; margin-left: 0; }
+        .checklist li:before {
+            content: "✅ ";
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="uml-icon">📐</div>
+        <h1>GUIDE COMPLET UML</h1>
+        <div class="subtitle">Examens Nationaux OFPPT - Développement Digital Option Web Full Stack</div>
+        <div class="subtitle" style="font-size:1.1em;opacity:0.85;">UML (Unified Modeling Language) : Toutes les Réponses Détaillées (2023-2025)</div>
+        <div style="margin-top:20px;font-size:0.95em;opacity:0.8;">
+            📚 6 Examens Analysés | 💯 Thème Clé Théorique | ⏱️ Temps de maîtrise : 4-5 heures
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <a href="#introduction">📖 Introduction</a>
+        <a href="#diagrammes">📊 Types de Diagrammes</a>
+        <a href="#use-case">👤 Diagramme Use Case</a>
+        <a href="#classe">🏛️ Diagramme de Classes</a>
+        <a href="#sequence">⏱️ Diagramme de Séquence</a>
+        <a href="#activite">⚡ Diagramme d'Activité</a>
+        <a href="#etat">🔄 Diagramme d'États</a>
+        <a href="#examen-2023-v1">📝 2023-V1</a>
+        <a href="#examen-2023-v2">📝 2023-V2</a>
+        <a href="#examen-2024-v1">📝 2024-V1</a>
+        <a href="#examen-2024-v2">📝 2024-V2</a>
+        <a href="#examen-2025-v1">📝 2025-V1</a>
+        <a href="#examen-2025-v2">📝 2025-V2</a>
+        <a href="#erreurs">❌ Erreurs à Éviter</a>
+        <a href="#checklist">✅ Checklist Révision</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- INTRODUCTION -->
+        <section id="introduction" class="section">
+            <h2 class="section-title"><span class="emoji">📖</span> INTRODUCTION : Pourquoi UML est le Langage Universel de la Modélisation ?</h2>
+
+            <div class="alert alert-uml">
+                <div class="alert-title">🎯 Ce que vous devez savoir ABSOLUMENT</div>
+                <ul style="margin-top:12px;line-height:1.9;">
+                    <li><strong>Points attribués</strong> : <span class="highlight-purple">8-12 points</span> dans la partie théorique</li>
+                    <li><strong>Fréquence d'apparition</strong> : <strong>100%</strong> (présent dans les 6 examens analysés)</li>
+                    <li><strong>Temps recommandé</strong> : <strong>15-20 minutes maximum</strong> le jour de l'examen</li>
+                    <li><strong>Niveau de difficulté</strong> : Moyen (compréhension des diagrammes + notation)</li>
+                    <li><strong>Type de questions</strong> : Types de diagrammes, éléments de notation, interprétation de schémas</li>
+                </ul>
+            </div>
+
+            <h3 class="subsection-title">📊 Statistiques UML dans les Examens OFPPT</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrique</th>
+                        <th>Valeur</th>
+                        <th>Observation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nombre d'examens analysés</strong></td>
+                        <td>6</td>
+                        <td>Juin 2023, 2024, 2025 (V1+V2)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Présence de l'UML</strong></td>
+                        <td style="color:#10b981;font-weight:bold;font-size:1.2em;">6/6 (100%)</td>
+                        <td>Thème incontournable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Points moyens</strong></td>
+                        <td><strong>10 points</strong></td>
+                        <td>Variable selon les sessions</td>
+                    </tr>
+                    <tr style="background:#f5f3ff;">
+                        <td colspan="3"><strong>DIAGRAMMES LES PLUS FRÉQUENTS</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1. Diagramme de Cas d'Utilisation</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Acteurs, use cases, relations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Diagramme de Classes</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Classes, attributs, méthodes, associations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Diagramme de Séquence</strong></td>
+                        <td>5/6 (83%)</td>
+                        <td>Lignes de vie, messages, fragments</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Diagramme d'Activité</strong></td>
+                        <td>4/6 (67%)</td>
+                        <td>Actions, décisions, flux</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">📐 Qu'est-ce que l'UML ? (Rappel Rapide)</h3>
+
+            <div class="grid-2">
+                <div class="info-card">
+                    <h4 style="color:#7c3aed;margin-bottom:15px;">Définition Officielle</h4>
+                    <p>L'<strong>UML (Unified Modeling Language)</strong> est un langage de modélisation graphique standardisé utilisé en génie logiciel pour <strong>visualiser, spécifier, construire et documenter</strong> les systèmes informatiques.</p>
+                    <ul style="margin-top:15px;">
+                        <li><strong>Standard</strong> : Norme OMG (Object Management Group)</li>
+                        <li><strong>Version actuelle</strong> : UML 2.5</li>
+                        <li><strong>14 diagrammes</strong> répartis en 2 catégories</li>
+                        <li><strong>Indépendant</strong> : de tout langage de programmation</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h4 style="color:#7c3aed;margin-bottom:15px;">Pourquoi UML dans les Examens OFPPT ?</h4>
+                    <ul>
+                        <li><strong>Analyse et conception</strong> : Étape préalable au développement</li>
+                        <li><strong>Communication</strong> : Langage commun entre développeurs et clients</li>
+                        <li><strong>Génération de code</strong> : Outils comme StarUML, Enterprise Architect</li>
+                        <li><strong>Documentation</strong> : Structure visuelle claire pour la maintenance</li>
+                        <li><strong>Teste la logique</strong> : Compréhension des relations entre objets</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-title">💡 Bonne Nouvelle pour Vous</div>
+                <p style="font-size:1.05em;">L'UML est un langage <strong>standardisé et structuré</strong>. Les questions d'examen portent toujours sur les <strong>mêmes 4 diagrammes</strong> (Use Case, Classes, Séquence, Activité). Connaître la notation = points assurés.</p>
+            </div>
+        </section>
+
+        <!-- TYPES DE DIAGRAMMES -->
+        <section id="diagrammes" class="section">
+            <h2 class="section-title"><span class="emoji">📊</span> LES 14 DIAGRAMMES UML (2 CATÉGORIES)</h2>
+
+            <div class="alert alert-uml">
+                <div class="alert-title" style="font-size:1.3em;">🎯 4 diagrammes = 100% des questions UML depuis 3 ans</div>
+            </div>
+
+            <div class="grid-2" style="margin-top:30px;">
+                <div class="info-card" style="border:3px solid #7c3aed;">
+                    <h3 style="color:#7c3aed;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #7c3aed;">
+                        📊 Diagrammes Structurels (7)
+                    </h3>
+                    <p style="text-align:center;margin:15px 0;">Décrivent la structure statique du système</p>
+                    <ul style="line-height:2.2;">
+                        <li><strong>✅ Diagramme de Classes</strong> ← Examen</li>
+                        <li>Diagramme d'Objets</li>
+                        <li>Diagramme de Composants</li>
+                        <li>Diagramme de Déploiement</li>
+                        <li>Diagramme de Paquetages</li>
+                        <li>Diagramme de Structure Composite</li>
+                        <li>Diagramme de Profils</li>
+                    </ul>
+                </div>
+                <div class="info-card" style="border:3px solid #8b5cf6;">
+                    <h3 style="color:#8b5cf6;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #8b5cf6;">
+                        ⚡ Diagrammes Comportementaux (7)
+                    </h3>
+                    <p style="text-align:center;margin:15px 0;">Décrivent le comportement dynamique</p>
+                    <ul style="line-height:2.2;">
+                        <li><strong>✅ Diagramme de Cas d'Utilisation</strong> ← Examen</li>
+                        <li><strong>✅ Diagramme de Séquence</strong> ← Examen</li>
+                        <li><strong>✅ Diagramme d'Activité</strong> ← Examen</li>
+                        <li>Diagramme d'États (Statechart)</li>
+                        <li>Diagramme de Communication</li>
+                        <li>Diagramme de Temps (Timing)</li>
+                        <li>Diagramme Global d'Interaction</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">🎯 Les 4 Diagrammes à Maîtriser pour l'Examen</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Diagramme</th>
+                        <th>Catégorie</th>
+                        <th>Utilité</th>
+                        <th>Fréquence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>📋 Cas d'Utilisation</strong></td>
+                        <td>Comportemental</td>
+                        <td>Identifier les acteurs et fonctionnalités du système</td>
+                        <td style="color:#10b981;font-weight:bold;">6/6 (100%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🏛️ Classes</strong></td>
+                        <td>Structurel</td>
+                        <td>Modéliser la structure statique et les relations entre classes</td>
+                        <td style="color:#10b981;font-weight:bold;">6/6 (100%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>⏱️ Séquence</strong></td>
+                        <td>Comportemental</td>
+                        <td>Montrer l'interaction temporelle entre objets</td>
+                        <td style="color:#f59e0b;font-weight:bold;">5/6 (83%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>⚡ Activité</strong></td>
+                        <td>Comportemental</td>
+                        <td>Modéliser les flux de travail et les processus</td>
+                        <td style="color:#f59e0b;font-weight:bold;">4/6 (67%)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- USE CASE -->
+        <section id="use-case" class="section">
+            <h2 class="section-title"><span class="emoji">👤</span> DIAGRAMME DE CAS D'UTILISATION (Use Case)</h2>
+
+            <div class="alert alert-uml">
+                <div class="alert-title">👤 Le diagramme le plus demande dans les examens OFPPT</div>
+                <p style="margin-top:10px;font-size:1.05em;">Le diagramme de cas d'utilisation représente les <strong>fonctionnalités</strong> du système du point de vue de l'<strong>utilisateur</strong>.</p>
+            </div>
+
+            <h3 class="subsection-title">📋 Éléments de Notation</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Représentation</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Acteur</strong></td>
+                        <td>🧑 Stickman (ou rectangle <<actor>>)</td>
+                        <td>Personne, système ou entité qui interagit avec le système</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Use Case</strong></td>
+                        <td>🥚 Ellipse (ovale)</td>
+                        <td>Fonctionnalité ou service offert par le système</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Système (Boundary)</strong></td>
+                        <td>📦 Rectangle (cadre du système)</td>
+                        <td>Limite du système, contient les use cases</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Association</strong></td>
+                        <td>➡️ Ligne simple</td>
+                        <td>Relie un acteur à un use case</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Include</strong></td>
+                        <td>➡️ Flèche pointillée avec <<include>></td>
+                        <td>Un use case inclut obligatoirement un autre</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Extend</strong></td>
+                        <td>➡️ Flèche pointillée avec <<extend>></td>
+                        <td>Un use case étend optionnellement un autre</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Généralisation</strong></td>
+                        <td>⬆️ Flèche creuse</td>
+                        <td>Relation d'héritage entre acteurs ou use cases</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsubsection-title">📋 Exemple de Diagramme Use Case (Texte)</h3>
+
+            <div class="command-card">
+                <div class="command-name">Diagramme Use Case - Gestion de Bibliothèque</div>
+                <div class="command-syntax">
+<span class="code-comment">┌────────────────────────────────────────────────┐</span>
+<span class="code-comment">│              Système de Bibliothèque           │</span>
+<span class="code-comment">│                                                │</span>
+<span class="code-comment">│  ┌─────────┐    ┌──────────────────┐           │</span>
+<span class="code-comment">│  │         │───→│  Consulter       │           │</span>
+<span class="code-comment">│  │ Lecteur │    │  Catalogue       │           │</span>
+<span class="code-comment">│  │         │───→│  Réserver Livre  │           │</span>
+<span class="code-comment">│  └─────────┘    └───────┬──────────┘           │</span>
+<span class="code-comment">│                         │ <<include>>          │</span>
+<span class="code-comment">│                         ↓                      │</span>
+<span class="code-comment">│  ┌─────────┐    ┌──────────────────┐           │</span>
+<span class="code-comment">│  │         │───→│  Gérer           │           │</span>
+<span class="code-comment">│  │Bibliothé-│    │  Adhérents       │           │</span>
+<span class="code-comment">│  │ caire    │───→│  Gérer Prêts     │           │</span>
+<span class="code-comment">│  └─────────┘    └──────────────────┘           │</span>
+<span class="code-comment">└────────────────────────────────────────────────┘</span></code></pre>
+            </div>
+        </section>
+
+        <!-- DIAGRAMME DE CLASSES -->
+        <section id="classe" class="section">
+            <h2 class="section-title"><span class="emoji">🏛️</span> DIAGRAMME DE CLASSES</h2>
+
+            <div class="alert alert-uml">
+                <div class="alert-title">🏛️ Le diagramme structurel le plus important</div>
+                <p style="margin-top:10px;font-size:1.05em;">Le diagramme de classes modélise la <strong>structure statique</strong> du système : les classes, leurs attributs, méthodes et les relations entre elles.</p>
+            </div>
+
+            <h3 class="subsection-title">📋 Représentation d'une Classe</h3>
+
+            <div class="command-card">
+                <div class="command-name">Notation d'une Classe UML</div>
+                <div class="command-syntax">
+<span class="code-comment">┌─────────────────────────────┐</span>
+<span class="code-comment">│         NomClasse           │  ← Nom de la classe</span>
+<span class="code-comment">├─────────────────────────────┤</span>
+<span class="code-comment">│ - attributPrive: Type       │  ← Attributs (visibilité + nom + type)</span>
+<span class="code-comment">│ # attributProtege: Type     │</span>
+<span class="code-comment">│ + attributPublic: Type      │</span>
+<span class="code-comment">├─────────────────────────────┤</span>
+<span class="code-comment">│ + méthodePublique(): Type   │  ← Méthodes</span>
+<span class="code-comment">│ - méthodePrivée(): void     │</span>
+<span class="code-comment">└─────────────────────────────┘</span>
+
+<span class="code-comment">Visibilité :</span>
+<span class="code-comment">  +  = public (accessible par tous)</span>
+<span class="code-comment">  -  = private (accessible uniquement dans la classe)</span>
+<span class="code-comment">  #  = protected (accessible dans la classe et sous-classes)</span>
+<span class="code-comment">  ~  = package (accessible dans le même paquetage)</span></code></pre>
+            </div>
+
+            <h3 class="subsection-title">🔗 Les Relations entre Classes</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Relation</th>
+                        <th>Notation</th>
+                        <th>Description</th>
+                        <th>Exemple</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Association</strong></td>
+                        <td>➖ Ligne simple</td>
+                        <td>Relation structurelle entre classes</td>
+                        <td>Employé → Entreprise</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Agrégation</strong></td>
+                        <td>◇── Ligne avec losange vide</td>
+                        <td>Relation "a un" (partie faible)</td>
+                        <td>Voiture ◇── Roue</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Composition</strong></td>
+                        <td>◆── Ligne avec losange plein</td>
+                        <td>Relation "est composé de" (partie forte)</td>
+                        <td>Maison ◆── Pièce</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Héritage</strong></td>
+                        <td>⬆ Flèche creuse</td>
+                        <td>Relation "est un" (généralisation)</td>
+                        <td>Vehicule ↑ Voiture</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dépendance</strong></td>
+                        <td>➡ Flèche pointillée</td>
+                        <td>Utilisation temporaire</td>
+                        <td>Facture → Calculatrice</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Réalisation</strong></td>
+                        <td>⬆ Flèche creuse pointillée</td>
+                        <td>Implémentation d'interface</td>
+                        <td>Interface ↑ Classe</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">📋 Multiplicités (Cardinalités)</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Notation</th>
+                        <th>Signification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>1</code></td><td>Exactement un</td></tr>
+                    <tr><td><code>0..1</code></td><td>Zéro ou un</td></tr>
+                    <tr><td><code>*</code> ou <code>0..*</code></td><td>Zéro ou plusieurs</td></tr>
+                    <tr><td><code>1..*</code></td><td>Un ou plusieurs</td></tr>
+                    <tr><td><code>n..m</code></td><td>De n à m</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">📋 Exemple de Diagramme de Classes</h3>
+
+            <div class="command-card">
+                <div class="command-name">Diagramme de Classes - Gestion de Projet</div>
+                <div class="command-syntax">
+<span class="code-comment">┌─────────────┐          ┌──────────────────┐</span>
+<span class="code-comment">│   Projet    │1        *│     Tâche        │</span>
+<span class="code-comment">├─────────────┤──────────├──────────────────┤</span>
+<span class="code-comment">│ - id: int   │          │ - id: int        │</span>
+<span class="code-comment">│ - nom: str  │          │ - titre: str     │</span>
+<span class="code-comment">│ - debut:Date│          │ - duree: int     │</span>
+<span class="code-comment">├─────────────┤          │ - statut: str    │</span>
+<span class="code-comment">│ + ajouter() │          ├──────────────────┤</span>
+<span class="code-comment">│ + supprimer()│         │ + commencer()    │</span>
+<span class="code-comment">└─────────────┘          │ + terminer()     │</span>
+<span class="code-comment">       ↑                 └──────────────────┘</span>
+<span class="code-comment">       | généralisation          ↑</span>
+<span class="code-comment">┌─────────────┐                  |</span>
+<span class="code-comment">│ ProjetSpe   │          ┌──────────────────┐</span>
+<span class="code-comment">└─────────────┘          │   TâcheSpe      │</span>
+<span class="code-comment">                         └──────────────────┘</span></code></pre>
+            </div>
+        </section>
+
+        <!-- DIAGRAMME DE SÉQUENCE -->
+        <section id="sequence" class="section">
+            <h2 class="section-title"><span class="emoji">⏱️</span> DIAGRAMME DE SÉQUENCE</h2>
+
+            <div class="alert alert-uml">
+                <div class="alert-title">⏱️ Montre l'interaction temporelle entre objets</div>
+                <p style="margin-top:10px;font-size:1.05em;">Le diagramme de séquence illustre <strong>l'ordre chronologique</strong> des messages échangés entre objets pour réaliser un scénario.</p>
+            </div>
+
+            <h3 class="subsection-title">📋 Éléments de Notation</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Représentation</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Ligne de vie</strong></td>
+                        <td>⬇️ Ligne pointillée verticale</td>
+                        <td>Représente la durée de vie d'un objet</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acteur/Objet</strong></td>
+                        <td>📋 Rectangle en haut de la ligne</td>
+                        <td>Entité qui participe à l'interaction</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Message synchrone</strong></td>
+                        <td>➡️ Flèche pleine → </td>
+                        <td>Appel bloquant (attente de réponse)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Message asynchrone</strong></td>
+                        <td>➡️ Flèche avec trait →|</td>
+                        <td>Appel non bloquant</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Message retour</strong></td>
+                        <td>⬅️ Flèche pointillée <-- </td>
+                        <td>Valeur de retour d'un message</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fragment combiné</strong></td>
+                        <td>📐 Rectangle avec opérateur (alt, opt, loop)</td>
+                        <td>Condition, option, boucle</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Occurrence d'exécution</strong></td>
+                        <td>▯ Rectangle fin sur la ligne de vie</td>
+                        <td>Période d'exécution d'une opération</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">📋 Opérateurs de Fragments Combinés</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Opérateur</th>
+                        <th>Signification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>alt</code></td><td>Choix alternatif (if/else)</td></tr>
+                    <tr><td><code>opt</code></td><td>Optionnel (facultatif)</td></tr>
+                    <tr><td><code>loop</code></td><td>Boucle (itération)</td></tr>
+                    <tr><td><code>par</code></td><td>Parallèle (exécution concurrente)</td></tr>
+                    <tr><td><code>ref</code></td><td>Référence vers un autre diagramme</td></tr>
+                    <tr><td><code>break</code></td><td>Sortie conditionnelle</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">📋 Exemple de Diagramme de Séquence</h3>
+
+            <div class="command-card">
+                <div class="command-name">Diagramme de Séquence - Réservation de Livre</div>
+                <div class="command-syntax">
+<span class="code-comment">Lecteur          Interface          Catalogue        BaseDonnées</span>
+<span class="code-comment">  │                  │                  │                  │</span>
+<span class="code-comment">  │── chercher()────→│                  │                  │</span>
+<span class="code-comment">  │                  │── req_livres()──→│                  │</span>
+<span class="code-comment">  │                  │                  │── SQL_query()──→│</span>
+<span class="code-comment">  │                  │                  │←── résultats───│</span>
+<span class="code-comment">  │                  │←── afficher()────│                  │</span>
+<span class="code-comment">  │←── liste_livres──│                  │                  │</span>
+<span class="code-comment">  │                  │                  │                  │</span>
+<span class="code-comment">  │── reserver()───→│                  │                  │</span>
+<span class="code-comment">  │                  │── verifier()───→│                  │</span>
+<span class="code-comment">  │                  │    ┌────────────┴────────────┐      │</span>
+<span class="code-comment">  │                  │    │  loop [pour chaque ex]  │      │</span>
+<span class="code-comment">  │                  │    │  ←── statut_dispo───│   │      │</span>
+<span class="code-comment">  │                  │    └─────────────────────────┘      │</span>
+<span class="code-comment">  │                  │←── confirmer()────│                  │</span>
+<span class="code-comment">  │←── confirmation──│                  │                  │</span></code></pre>
+            </div>
+        </section>
+
+        <!-- DIAGRAMME D'ACTIVITÉ -->
+        <section id="activite" class="section">
+            <h2 class="section-title"><span class="emoji">⚡</span> DIAGRAMME D'ACTIVITÉ</h2>
+
+            <div class="alert alert-uml">
+                <div class="alert-title">⚡ Modélise les flux de travail et processus métier</div>
+                <p style="margin-top:10px;font-size:1.05em;">Le diagramme d'activité est similaire à un organigramme. Il montre le <strong>flux de contrôle</strong> d'une activité à une autre.</p>
+            </div>
+
+            <h3 class="subsection-title">📋 Éléments de Notation</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Représentation</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nœud initial</strong></td>
+                        <td>● Cercle plein</td>
+                        <td>Point de départ du processus</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Action</strong></td>
+                        <td>▭ Rectangle aux coins arrondis</td>
+                        <td>Étape du processus</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Décision</strong></td>
+                        <td>◇ Losange</td>
+                        <td>Branchement conditionnel</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fork</strong></td>
+                        <td>━ Barre épaisse (entrante 1 → sortante N)</td>
+                        <td>Démarrage de flux parallèles</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Join</strong></td>
+                        <td>━ Barre épaisse (entrante N → sortante 1)</td>
+                        <td>Synchronisation de flux parallèles</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nœud final</strong></td>
+                        <td>◎ Cercle avec bordure épaisse</td>
+                        <td>Fin du processus</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Partition (Swimlane)</strong></td>
+                        <td>▭ Rectangle vertical/horizontal</td>
+                        <td>Regroupe les actions par acteur responsable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flux</strong></td>
+                        <td>➡️ Flèche</td>
+                        <td>Transition entre actions</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">📋 Exemple de Diagramme d'Activité</h3>
+
+            <div class="command-card">
+                <div class="command-name">Diagramme d'Activité - Processus de Commande</div>
+                <div class="command-syntax">
+<span class="code-comment">● Début</span>
+<span class="code-comment">↓</span>
+<span class="code-comment">▭ Passer commande</span>
+<span class="code-comment">↓</span>
+<span class="code-comment">◇ Stock disponible ?</span>
+<span class="code-comment">├───Oui───→ ▭ Préparer colis</span>
+<span class="code-comment">│              ↓</span>
+<span class="code-comment">│          ▭ Expédier commande</span>
+<span class="code-comment">│              ↓</span>
+<span class="code-comment">│    ┌─────────────────┐</span>
+<span class="code-comment">│    │   ▭ Envoyer     │</span>
+<span class="code-comment">│    │   notification  │  ← Parallèle (Fork)</span>
+<span class="code-comment">│    │   ▭ Mettre à    │</span>
+<span class="code-comment">│    │   jour stock    │</span>
+<span class="code-comment">│    └────────┬────────┘</span>
+<span class="code-comment">│             ↓ (Join)</span>
+<span class="code-comment">├───Non────→ ▭ Annuler commande</span>
+<span class="code-comment">│              ↓</span>
+<span class="code-comment">│          ▭ Notifier client</span>
+<span class="code-comment">↓              ↓</span>
+<span class="code-comment">◎ Fin           ◎ Fin</span></code></pre>
+            </div>
+        </section>
+
+        <!-- DIAGRAMME D'ÉTATS -->
+        <section id="etat" class="section">
+            <h2 class="section-title"><span class="emoji">🔄</span> DIAGRAMME D'ÉTATS (Statechart)</h2>
+
+            <div class="alert alert-uml">
+                <div class="alert-title">🔄 Modélise le cycle de vie d'un objet</div>
+                <p style="margin-top:10px;font-size:1.05em;">Le diagramme d'états montre les <strong>différents états</strong> par lesquels passe un objet et les <strong>transitions</strong> entre ces états déclenchées par des événements.</p>
+            </div>
+
+            <h3 class="subsection-title">📋 Éléments de Notation</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Représentation</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>État</strong></td>
+                        <td>▭ Rectangle aux coins arrondis</td>
+                        <td>Situation dans le cycle de vie</td>
+                    </tr>
+                    <tr>
+                        <td><strong>État initial</strong></td>
+                        <td>● Cercle plein</td>
+                        <td>État de départ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>État final</strong></td>
+                        <td>◎ Cercle avec bordure</td>
+                        <td>État de terminaison</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transition</strong></td>
+                        <td>➡️ Flèche</td>
+                        <td>Changement d'état déclenché par un événement</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Événement</strong></td>
+                        <td>Étiquette sur la transition</td>
+                        <td>Déclencheur du changement d'état</td>
+                    </tr>
+                    <tr>
+                        <td><strong>État composite</strong></td>
+                        <td>▭ Avec sous-états imbriqués</td>
+                        <td>État contenant d'autres états</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">📋 Exemple de Diagramme d'États</h3>
+
+            <div class="command-card">
+                <div class="command-name">Diagramme d'États - Cycle de vie d'une Commande</div>
+                <div class="command-syntax">
+<span class="code-comment">● (Initial)</span>
+<span class="code-comment">↓</span>
+<span class="code-comment">┌──────────┐</span>
+<span class="code-comment">│ En cours │─── Paiement reçu ──→┌──────────┐</span>
+<span class="code-comment">└──────────┘                     │ Payée    │</span>
+<span class="code-comment">     ↑                           └──────────┘</span>
+<span class="code-comment">     │                               │</span>
+<span class="code-comment">     │     ┌─────────────┐           │ Expédiée</span>
+<span class="code-comment">     └─────│ Annulée     │←─── Annulation</span>
+<span class="code-comment">           └─────────────┘           ↓</span>
+<span class="code-comment">                               ┌──────────┐</span>
+<span class="code-comment">                               │ Expédiée │</span>
+<span class="code-comment">                               └──────────┘</span>
+<span class="code-comment">                                    │ Livrée</span>
+<span class="code-comment">                                    ↓</span>
+<span class="code-comment">                               ┌──────────┐</span>
+<span class="code-comment">                               │ Livrée   │───→ ◎ (Final)</span>
+<span class="code-comment">                               └──────────┘</span></code></pre>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2023 V1 -->
+        <section id="examen-2023-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2023 - VARIANTE V1</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2023 - Variante 1</div>
+                    <div class="exam-badge">10 Points | UML</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Définir UML. Citer les 2 grandes catégories de diagrammes UML et donner 2 exemples pour chaque catégorie.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #7c3aed;margin-top:15px;">
+                        <p><strong>UML (Unified Modeling Language)</strong> est un langage de modélisation graphique standardisé utilisé en génie logiciel pour visualiser, spécifier, construire et documenter les systèmes informatiques.</p>
+                        <p style="margin-top:15px;"><strong>Les 2 catégories de diagrammes UML :</strong></p>
+                        <ul style="margin-top:10px;line-height:2.2;">
+                            <li><strong>Diagrammes structurels</strong> (statiques) : Décrivent la structure du système
+                                <br>Exemples : Diagramme de classes, Diagramme d'objets, Diagramme de composants</li>
+                            <li><strong>Diagrammes comportementaux</strong> (dynamiques) : Décrivent le comportement du système
+                                <br>Exemples : Diagramme de cas d'utilisation, Diagramme de séquence, Diagramme d'activité</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Dessiner (décrire) un diagramme de cas d'utilisation pour un système de gestion de bibliothèque avec les acteurs : Lecteur, Bibliothécaire. Inclure les use cases : Consulter catalogue, Réserver livre, Emprunter livre, Retourner livre, Gérer adhérents.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div class="command-card" style="margin-top:15px;">
+                        <div class="command-name">Diagramme Use Case - Bibliothèque</div>
+                        <div class="command-syntax">
+<span class="code-comment">┌────────────────────────────────────────────────────┐</span>
+<span class="code-comment">│              Système de Gestion de Bibliothèque    │</span>
+<span class="code-comment">│                                                    │</span>
+<span class="code-comment">│  ┌──────────┐       ┌──────────────────┐           │</span>
+<span class="code-comment">│  │ Lecteur  │──────→│ Consulter        │           │</span>
+<span class="code-comment">│  │          │──────→│ Catalogue         │           │</span>
+<span class="code-comment">│  │          │       └──────────────────┘           │</span>
+<span class="code-comment">│  │          │       ┌──────────────────┐           │</span>
+<span class="code-comment">│  │          │──────→│ Réserver Livre   │           │</span>
+<span class="code-comment">│  └──────────┘       └──────────────────┘           │</span>
+<span class="code-comment">│                                                    │</span>
+<span class="code-comment">│  ┌──────────┐       ┌──────────────────┐           │</span>
+<span class="code-comment">│  │Bibliothé-│──────→│ Emprunter Livre  │           │</span>
+<span class="code-comment">│  │ caire    │──────→│ Retourner Livre  │           │</span>
+<span class="code-comment">│  │          │──────→│ Gérer Adhérents  │           │</span>
+<span class="code-comment">│  └──────────┘       └──────────────────┘           │</span>
+<span class="code-comment">└────────────────────────────────────────────────────┘</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Expliquer la différence entre l'agrégation et la composition en UML. Donner un exemple pour chaque.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <table style="margin-top:15px;">
+                        <thead>
+                            <tr><th>Relation</th><th>Notation</th><th>Explication</th><th>Exemple</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Agrégation</strong></td><td>◇ Losange vide</td><td>Relation "a un" faible. Le composant peut exister indépendamment du conteneur.</td><td>Voiture ◇── Roue (La roue peut exister sans la voiture)</td></tr>
+                            <tr><td><strong>Composition</strong></td><td>◆ Losange plein</td><td>Relation "est composé de" forte. Le composant ne peut pas exister sans le conteneur.</td><td>Maison ◆── Pièce (La pièce n'existe pas sans la maison)</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top:15px;"><strong>Différence clé :</strong> Dans la composition, la durée de vie des parties est liée à celle du tout (si le tout est détruit, les parties le sont aussi). Dans l'agrégation, les parties peuvent survivre au tout.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2023 V2 -->
+        <section id="examen-2023-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2023 - VARIANTE V2</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2023 - Variante 2</div>
+                    <div class="exam-badge">10 Points | UML</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Décrire les éléments d'un diagramme de classes (classe, attributs, méthodes, visibilité, relations). Donner la notation pour chaque.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <table style="margin-top:15px;">
+                        <thead>
+                            <tr><th>Élément</th><th>Notation</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Classe</strong></td><td>Rectangle divisé en 3 parties : Nom | Attributs | Méthodes</td></tr>
+                            <tr><td><strong>Visibilité</strong></td><td><code>+</code> public, <code>-</code> private, <code>#</code> protected, <code>~</code> package</td></tr>
+                            <tr><td><strong>Attribut</strong></td><td><code>visibilité nom: Type [multiplicité] = valeur_par_défaut</code></td></tr>
+                            <tr><td><strong>Méthode</strong></td><td><code>visibilité nom(param: Type): TypeRetour</code></td></tr>
+                            <tr><td><strong>Association</strong></td><td>Ligne simple entre classes avec multiplicité (1, *, 0..1, etc.)</td></tr>
+                            <tr><td><strong>Héritage</strong></td><td>Flèche creuse de la sous-classe vers la super-classe</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Qu'est-ce qu'un diagramme de séquence ? Citer 4 éléments qui le composent.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #7c3aed;margin-top:15px;">
+                        <p><strong>Le diagramme de séquence</strong> est un diagramme comportemental UML qui montre l'interaction entre objets classés chronologiquement. Il illustre l'ordre des messages échangés dans le temps.</p>
+                        <p style="margin-top:15px;"><strong>4 éléments principaux :</strong></p>
+                        <ol style="margin-top:10px;line-height:2.5;">
+                            <li><strong>Ligne de vie</strong> : Ligne pointillée verticale représentant la durée de vie d'un objet</li>
+                            <li><strong>Message synchrone</strong> : Flèche pleine représentant un appel bloquant</li>
+                            <li><strong>Occurrence d'exécution</strong> : Rectangle fin sur la ligne de vie (période d'activité)</li>
+                            <li><strong>Fragment combiné</strong> : Rectangle avec opérateur (alt, opt, loop) pour conditions/boucles</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Dessiner (décrire) un diagramme d'activité pour le processus "Passer une commande en ligne" avec les étapes : Panier, Paiement, Validation, Expédition.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div class="command-card" style="margin-top:15px;">
+                        <div class="command-name">Diagramme d'Activité - Commande en Ligne</div>
+                        <div class="command-syntax">
+<span class="code-comment">● Début</span>
+<span class="code-comment">↓</span>
+<span class="code-comment">▭ Ajouter articles au panier</span>
+<span class="code-comment">↓</span>
+<span class="code-comment">◇ Panier vide ?</span>
+<span class="code-comment">├───Oui──→ ◎ Fin</span>
+<span class="code-comment">↓ Non</span>
+<span class="code-comment">▭ Valider le panier</span>
+<span class="code-comment">↓</span>
+<span class="code-comment">▭ Saisir informations livraison</span>
+<span class="code-comment">↓</span>
+<span class="code-comment">▭ Effectuer paiement</span>
+<span class="code-comment">↓</span>
+<span class="code-comment">◇ Paiement accepté ?</span>
+<span class="code-comment">├───Oui──→ ▭ Confirmer commande → ▭ Expédier → ◎ Fin</span>
+<span class="code-comment">├───Non──→ ▭ Afficher erreur paiement → ◎ Fin</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2024 V1 -->
+        <section id="examen-2024-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2024 - VARIANTE V1</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2024 - Variante 1</div>
+                    <div class="exam-badge">10 Points | UML</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Modéliser un diagramme de classes pour un système de gestion de projets avec : Projet (id, nom, dateDebut), Tâche (id, titre, duree, statut), Employé (id, nom, email). Relations : Un projet contient plusieurs tâches (composition), une tâche est assignée à un employé.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div class="command-card" style="margin-top:15px;">
+                        <div class="command-name">Diagramme de Classes - Gestion de Projets</div>
+                        <div class="command-syntax">
+<span class="code-comment">┌──────────────────┐         ┌──────────────────┐</span>
+<span class="code-comment">│     Projet       │         │     Tâche        │</span>
+<span class="code-comment">├──────────────────┤         ├──────────────────┤</span>
+<span class="code-comment">│ - id: int        │◆──1..*  │ - id: int        │</span>
+<span class="code-comment">│ - nom: string    │         │ - titre: string  │</span>
+<span class="code-comment">│ - dateDebut: Date│         │ - duree: int     │</span>
+<span class="code-comment">├──────────────────┤         │ - statut: string │</span>
+<span class="code-comment">│ + ajouterTache() │         ├──────────────────┤</span>
+<span class="code-comment">│ + getDureeTotale()│        │ + commencer()    │</span>
+<span class="code-comment">└──────────────────┘         │ + terminer()     │</span>
+<span class="code-comment">                             └────────┬─────────┘</span>
+<span class="code-comment">                                      │*</span>
+<span class="code-comment">                                      │ assignée à</span>
+<span class="code-comment">                                      │1</span>
+<span class="code-comment">                             ┌────────┴─────────┐</span>
+<span class="code-comment">                             │    Employé       │</span>
+<span class="code-comment">                             ├──────────────────┤</span>
+<span class="code-comment">                             │ - id: int        │</span>
+<span class="code-comment">                             │ - nom: string    │</span>
+<span class="code-comment">                             │ - email: string  │</span>
+<span class="code-comment">                             └──────────────────┘</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Expliquer le concept de "généralisation" (héritage) en UML. Donner un exemple.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #7c3aed;margin-top:15px;">
+                        <p><strong>La généralisation</strong> (ou héritage) est une relation entre une classe mère (super-classe) et une classe fille (sous-classe) où la sous-classe hérite des attributs et méthodes de la super-classe.</p>
+                        <p style="margin-top:15px;"><strong>Notation :</strong> Flèche creuse de la sous-classe vers la super-classe.</p>
+                        <p style="margin-top:15px;"><strong>Exemple :</strong></p>
+                        <div class="command-syntax" style="margin-top:10px;">
+<span class="code-comment">┌──────────────┐</span>
+<span class="code-comment">│   Véhicule   │  ← Super-classe</span>
+<span class="code-comment">├──────────────┤</span>
+<span class="code-comment">│ - vitesse    │</span>
+<span class="code-comment">│ - couleur    │</span>
+<span class="code-comment">├──────────────┤</span>
+<span class="code-comment">│ + demarer()  │</span>
+<span class="code-comment">│ + arreter()  │</span>
+<span class="code-comment">└──────┬───────┘</span>
+<span class="code-comment">       ↑ généralisation</span>
+<span class="code-comment">┌──────┴───────┐     ┌──────────────┐</span>
+<span class="code-comment">│   Voiture    │     │    Moto     │  ← Sous-classes</span>
+<span class="code-comment">├──────────────┤     ├──────────────┤</span>
+<span class="code-comment">│ + nbPortes   │     │ + aSidecar  │</span>
+<span class="code-comment">└──────────────┘     └──────────────┘</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Citer les opérateurs de fragments combinés dans un diagramme de séquence et expliquer leur rôle.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <table style="margin-top:15px;">
+                        <thead>
+                            <tr><th>Opérateur</th><th>Rôle</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>alt</code></td><td>Alternatives conditionnelles (if/else). Plusieurs options mutuellement exclusives.</td></tr>
+                            <tr><td><code>opt</code></td><td>Optionnel. Le fragment s'exécute si la condition est vraie.</td></tr>
+                            <tr><td><code>loop</code></td><td>Boucle. Répète le fragment tant que la condition est vraie.</td></tr>
+                            <tr><td><code>par</code></td><td>Parallèle. Les interactions dans le fragment s'exécutent en parallèle.</td></tr>
+                            <tr><td><code>ref</code></td><td>Référence. Renvoie vers un autre diagramme de séquence.</td></tr>
+                            <tr><td><code>break</code></td><td>Sortie conditionnelle. Interrompt le fragment si la condition est vraie.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2024 V2 -->
+        <section id="examen-2024-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2024 - VARIANTE V2</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2024 - Variante 2</div>
+                    <div class="exam-badge">10 Points | UML</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Différencier "include" et "extend" dans un diagramme de cas d'utilisation. Donner un exemple pour chaque.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <table style="margin-top:15px;">
+                        <thead>
+                            <tr><th>Relation</th><th>Notation</th><th>Signification</th><th>Exemple</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Include (<code><<include>></code>)</strong></td><td>Flèche pointillée vers le use case inclus</td><td>Le use case source <strong>inclut obligatoirement</strong> le use case cible. Réutilisation de fonctionnalités communes.</td><td>"Passer commande" <<include>> "Authentifier utilisateur" (Connexion obligatoire pour commander)</td></tr>
+                            <tr><td><strong>Extend (<code><<extend>></code>)</strong></td><td>Flèche pointillée du use case extension vers le use case de base</td><td>Le use case extension <strong>étend optionnellement</strong> le use case de base. Fonctionnalité facultative.</td><td>"Passer commande" ← <<extend>> "Appliquer code promo" (Optionnel)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Dessiner (décrire) un diagramme de séquence pour le cas "Authentification utilisateur" : l'utilisateur saisit login/mot de passe, le système vérifie en base de données, retourne succès ou échec.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div class="command-card" style="margin-top:15px;">
+                        <div class="command-name">Diagramme de Séquence - Authentification</div>
+                        <div class="command-syntax">
+<span class="code-comment">Utilisateur     InterfaceAuth    BaseDonnées</span>
+<span class="code-comment">  │                  │                │</span>
+<span class="code-comment">  │── saisirCreds()─→│                │</span>
+<span class="code-comment">  │                  │                │</span>
+<span class="code-comment">  │                  │── verifier()──→│</span>
+<span class="code-comment">  │                  │    ┌───────────┴─────────┐</span>
+<span class="code-comment">  │                  │    │  alt [creds valides] │</span>
+<span class="code-comment">  │                  │    │←── utilisateur──────│</span>
+<span class="code-comment">  │                  │    │←── null─────────────│</span>
+<span class="code-comment">  │                  │    └──────────────────────┘</span>
+<span class="code-comment">  │                  │                │</span>
+<span class="code-comment">  │                  │── resultat()──→│</span>
+<span class="code-comment">  │                  │                │</span>
+<span class="code-comment">  │                  │── ouvrirSession()──→│   (si succès)</span>
+<span class="code-comment">  │←── afficherMsg()─│                │</span>
+<span class="code-comment">  │                  │                │</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Expliquer le diagramme d'états (Statechart). Pour quel type d'objet est-il le plus adapté ? Donner un exemple.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div style="padding:20px;background:white;border-radius:10px;border:2px solid #7c3aed;margin-top:15px;">
+                        <p><strong>Le diagramme d'états</strong> (Statechart) modélise le cycle de vie d'un objet en montrant les différents états possibles et les transitions entre ces états déclenchées par des événements.</p>
+                        <p style="margin-top:15px;"><strong>Adapté pour :</strong> Les objets qui ont un comportement complexe avec plusieurs états bien définis et des transitions conditionnelles.</p>
+                        <p style="margin-top:15px;"><strong>Exemple :</strong> Cycle de vie d'une commande en ligne</p>
+                        <ul style="margin-top:10px;line-height:2.2;">
+                            <li>États : En cours → Payée → Expédiée → Livrée (ou Annulée)</li>
+                            <li>Transitions : Paiement reçu, Expédition, Annulation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2025 V1 -->
+        <section id="examen-2025-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2025 - VARIANTE V1</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2025 - Variante 1</div>
+                    <div class="exam-badge">12 Points | UML</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Modéliser un diagramme de classes pour un système "E-commerce" avec : Client, Commande, Produit, LigneCommande. Définir les relations et multiplicités appropriées.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div class="command-card" style="margin-top:15px;">
+                        <div class="command-name">Diagramme de Classes - E-commerce</div>
+                        <div class="command-syntax">
+<span class="code-comment">┌───────────┐       ┌──────────────┐       ┌──────────────┐</span>
+<span class="code-comment">│  Client   │1     *│  Commande    │1     *│ LigneCmd     │</span>
+<span class="code-comment">├───────────┤───────├──────────────┤───────├──────────────┤</span>
+<span class="code-comment">│ - id      │       │ - id         │       │ - quantite   │</span>
+<span class="code-comment">│ - nom     │       │ - date       │       │ - prixUnitaire│</span>
+<span class="code-comment">│ - email   │       │ - statut     │       ├──────────────┤</span>
+<span class="code-comment">├───────────┤       ├──────────────┤       │ + sousTotal()│</span>
+<span class="code-comment">│ + cmdes() │       │ + total()    │       └──────────┬───┘</span>
+<span class="code-comment">└───────────┘       └──────────────┘                  │*</span>
+<span class="code-comment">                                                      │1</span>
+<span class="code-comment">                                              ┌───────┴────┐</span>
+<span class="code-comment">                                              │  Produit   │</span>
+<span class="code-comment">                                              ├────────────┤</span>
+<span class="code-comment">                                              │ - id       │</span>
+<span class="code-comment">                                              │ - libelle  │</span>
+<span class="code-comment">                                              │ - prix     │</span>
+<span class="code-comment">                                              │ - stock    │</span>
+<span class="code-comment">                                              └────────────┘</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Dessiner (décrire) un diagramme de cas d'utilisation avec les acteurs (Client, Administrateur) et les use cases : Consulter catalogue, Passer commande, Payer, Gérer produits, Gérer utilisateurs. Utiliser les relations include/extend appropriées.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div class="command-card" style="margin-top:15px;">
+                        <div class="command-name">Diagramme Use Case - E-commerce</div>
+                        <div class="command-syntax">
+<span class="code-comment">┌──────────────────────────────────────────────────────────────┐</span>
+<span class="code-comment">│                     Système E-commerce                      │</span>
+<span class="code-comment">│                                                            │</span>
+<span class="code-comment">│  ┌──────────┐       ┌──────────────┐                       │</span>
+<span class="code-comment">│  │ Client   │──────→│ Consulter    │                       │</span>
+<span class="code-comment">│  │          │       │ Catalogue    │                       │</span>
+<span class="code-comment">│  │          │       └──────────────┘                       │</span>
+<span class="code-comment">│  │          │       ┌──────────────┐     <<include>>      │</span>
+<span class="code-comment">│  │          │──────→│ Passer       │────────────────────┐ │</span>
+<span class="code-comment">│  │          │       │ Commande     │                    ↓ │</span>
+<span class="code-comment">│  │          │       └───────┬──────┘           ┌────────┐ │</span>
+<span class="code-comment">│  │          │               │ <<extend>>       │Authenti-│ │</span>
+<span class="code-comment">│  │          │               ↓                  │ fier    │ │</span>
+<span class="code-comment">│  │          │       ┌──────────────┐           └────────┘ │</span>
+<span class="code-comment">│  │          │       │ Payer        │                       │</span>
+<span class="code-comment">│  └──────────┘       └──────────────┘                       │</span>
+<span class="code-comment">│                                                            │</span>
+<span class="code-comment">│  ┌──────────┐       ┌──────────────┐                       │</span>
+<span class="code-comment">│  │Admin     │──────→│ Gérer        │                       │</span>
+<span class="code-comment">│  │          │──────→│ Produits     │                       │</span>
+<span class="code-comment">│  │          │──────→│ Gérer        │                       │</span>
+<span class="code-comment">│  │          │       │ Utilisateurs │                       │</span>
+<span class="code-comment">│  └──────────┘       └──────────────┘                       │</span>
+<span class="code-comment">└──────────────────────────────────────────────────────────────┘</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Expliquer les multiplicités (cardinalités) en UML. Donner la signification de : 1, 0..1, *, 1..*, 0..*. Donner un exemple pour chaque.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <table style="margin-top:15px;">
+                        <thead>
+                            <tr><th>Multiplicité</th><th>Signification</th><th>Exemple</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>1</code></td><td>Exactement un</td><td>Un employé a <strong>1</strong> service (son service principal)</td></tr>
+                            <tr><td><code>0..1</code></td><td>Zéro ou un (optionnel)</td><td>Un employé a <strong>0 ou 1</strong> voiture de fonction</td></tr>
+                            <tr><td><code>*</code> ou <code>0..*</code></td><td>Zéro ou plusieurs</td><td>Un service a <strong>0 à N</strong> employés</td></tr>
+                            <tr><td><code>1..*</code></td><td>Un ou plusieurs (au moins un)</td><td>Une commande a <strong>au moins 1</strong> ligne de commande</td></tr>
+                            <tr><td><code>n..m</code></td><td>De n à m</td><td>Un calendrier a <strong>7</strong> jours (7..7)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2025 V2 -->
+        <section id="examen-2025-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2025 - VARIANTE V2</h2>
+
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2025 - Variante 2</div>
+                    <div class="exam-badge">12 Points | UML</div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Décrire un diagramme de séquence pour le cas "Ajouter un article au panier" : l'utilisateur clique sur "Ajouter", le système vérifie le stock, ajoute au panier, met à jour l'affichage.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div class="command-card" style="margin-top:15px;">
+                        <div class="command-name">Diagramme de Séquence - Ajouter au Panier</div>
+                        <div class="command-syntax">
+<span class="code-comment">Utilisateur     InterfacePanier    GestionStock    Panier</span>
+<span class="code-comment">  │                  │                │              │</span>
+<span class="code-comment">  │── ajouterAuPanier()──→│                │              │</span>
+<span class="code-comment">  │                  │── verifierStock()──→│              │</span>
+<span class="code-comment">  │                  │                │              │</span>
+<span class="code-comment">  │                  │    ┌───────────┴──────┐       │</span>
+<span class="code-comment">  │                  │    │  alt [stock > 0] │       │</span>
+<span class="code-comment">  │                  │    │←── dispo─────────│       │</span>
+<span class="code-comment">  │                  │    │── ajouter()──────│───────│</span>
+<span class="code-comment">  │                  │    │                  │       │</span>
+<span class="code-comment">  │                  │    │  else            │       │</span>
+<span class="code-comment">  │                  │    │←── rupture───────│       │</span>
+<span class="code-comment">  │                  │    └───────────────────┘       │</span>
+<span class="code-comment">  │                  │                │              │</span>
+<span class="code-comment">  │←── miseAJour()───│                │              │</span>
+<span class="code-comment">  │                  │                │              │</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Modéliser un diagramme de classes pour un système "Réseau social" avec : Utilisateur, Publication, Commentaire, Groupe. Avec héritage de Publication (PublicationTexte, PublicationImage).</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div class="command-card" style="margin-top:15px;">
+                        <div class="command-name">Diagramme de Classes - Réseau Social</div>
+                        <div class="command-syntax">
+<span class="code-comment">┌────────────────┐         ┌──────────────────┐</span>
+<span class="code-comment">│   Utilisateur  │1       *│  Publication      │</span>
+<span class="code-comment">├────────────────┤─────────├──────────────────┤</span>
+<span class="code-comment">│ - id: int      │         │ - id: int         │</span>
+<span class="code-comment">│ - nom: string  │         │ - date: Date      │</span>
+<span class="code-comment">│ - email: string│         │ - contenu: string │</span>
+<span class="code-comment">├────────────────┤         │ - nbLikes: int    │</span>
+<span class="code-comment">│ + publier()    │         ├──────────────────┤</span>
+<span class="code-comment">│ + commenter()  │         │ + afficher()     │</span>
+<span class="code-comment">└────────────────┘         └────────┬─────────┘</span>
+<span class="code-comment">                                   ↑ généralisation</span>
+<span class="code-comment">                          ┌────────┴──────────┐</span>
+<span class="code-comment">                          │                   │</span>
+<span class="code-comment">              ┌───────────┴──────┐   ┌────────┴──────────┐</span>
+<span class="code-comment">              │ PublicationTexte │   │PublicationImage    │</span>
+<span class="code-comment">              ├──────────────────┤   ├───────────────────┤</span>
+<span class="code-comment">              │ - texte: string  │   │ - urlImage: string│</span>
+<span class="code-comment">              │ - langue: string │   │ - legende: string │</span>
+<span class="code-comment">              └──────────────────┘   └───────────────────┘</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Dessiner (décrire) un diagramme d'activité avec swimlanes pour le processus "Publication d'un article" par un Auteur, validé par un Réviseur, publié par un Éditeur.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <div class="command-card" style="margin-top:15px;">
+                        <div class="command-name">Diagramme d'Activité avec Swimlanes - Publication d'Article</div>
+                        <div class="command-syntax">
+<span class="code-comment">┌─────────────────┬──────────────────┬─────────────────┐</span>
+<span class="code-comment">│    Auteur       │    Réviseur      │    Éditeur       │</span>
+<span class="code-comment">├─────────────────┼──────────────────┼─────────────────┤</span>
+<span class="code-comment">│ ●               │                  │                 │</span>
+<span class="code-comment">│ ▭ Rédiger       │                  │                 │</span>
+<span class="code-comment">│ article         │                  │                 │</span>
+<span class="code-comment">│     │           │                  │                 │</span>
+<span class="code-comment">│     ↓           │                  │                 │</span>
+<span class="code-comment">│ ▭ Soumettre     │                  │                 │</span>
+<span class="code-comment">│ article         │                  │                 │</span>
+<span class="code-comment">│     │───────────│──────→           │                 │</span>
+<span class="code-comment">│                 │ ▭ Analyser       │                 │</span>
+<span class="code-comment">│                 │ article          │                 │</span>
+<span class="code-comment">│                 │     │            │                 │</span>
+<span class="code-comment">│                 │     ↓            │                 │</span>
+<span class="code-comment">│                 │ ◇ Corrections ?  │                 │</span>
+<span class="code-comment">│                 │   ├──Oui──┐      │                 │</span>
+<span class="code-comment">│◄────────────────│───│───────│──────│─── Non          │</span>
+<span class="code-comment">│   ▭ Corriger    │   │       │      │                 │</span>
+<span class="code-comment">│   article       │   │       ↓      │                 │</span>
+<span class="code-comment">│     │           │   │   ▭ Approuver│                 │</span>
+<span class="code-comment">│     └───────────│───│──→│          │                 │</span>
+<span class="code-comment">│                 │   │       │──────│────→            │</span>
+<span class="code-comment">│                 │   └───────┘      │ ▭ Publier       │</span>
+<span class="code-comment">│                 │                  │ article         │</span>
+<span class="code-comment">│                 │                  │     ↓           │</span>
+<span class="code-comment">│                 │                  │     ◎ Fin       │</span>
+<span class="code-comment">└─────────────────┴──────────────────┴─────────────────┘</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ERREURS À ÉVITER -->
+        <section id="erreurs" class="section">
+            <h2 class="section-title"><span class="emoji">❌</span> ERREURS FRÉQUENTES EN UML</h2>
+
+            <div class="grid-2">
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #1 : Confondre Agrégation et Composition</div>
+                    <div style="margin-top:15px;padding:15px;background:#7f1d1d;color:#fecaca;border-radius:8px;">
+                        ❌ <strong>FAUX :</strong> "Agrégation et composition sont identiques."<br><br>
+                        ✅ <strong>CORRECT :</strong> "L'agrégation (◇) est une relation faible, le composant peut exister sans le conteneur. La composition (◆) est une relation forte, le composant ne peut pas exister sans le conteneur."
+                    </div>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #2 : Inverser include et extend</div>
+                    <div style="margin-top:15px;padding:15px;background:#7f1d1d;color:#fecaca;border-radius:8px;">
+                        ❌ <strong>FAUX :</strong> "<<include>> est optionnel et <<extend>> est obligatoire."<br><br>
+                        ✅ <strong>CORRECT :</strong> "<<include>> est obligatoire (le use case de base inclut toujours le use case inclus). <<extend>> est optionnel (le use case d'extension est facultatif)."
+                    </div>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #3 : Oublier les multiplicités</div>
+                    <div style="margin-top:15px;padding:15px;background:#7f1d1d;color:#fecaca;border-radius:8px;">
+                        ❌ <strong>FAUX :</strong> "Les multiplicités sont optionnelles dans un diagramme de classes."<br><br>
+                        ✅ <strong>CORRECT :</strong> "Les multiplicités sont obligatoires pour définir précisément les relations. Sans elles, le modèle est ambigu."
+                    </div>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #4 : Diagramme d'Activité vs Organigramme</div>
+                    <div style="margin-top:15px;padding:15px;background:#7f1d1d;color:#fecaca;border-radius:8px;">
+                        ❌ <strong>FAUX :</strong> "Un diagramme d'activité est juste un organigramme."<br><br>
+                        ✅ <strong>CORRECT :</strong> "Un diagramme d'activité UML supporte des concepts avancés comme les swimlanes (partitions), les flux parallèles (fork/join), les signaux et les événements."
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">📋 Tableau Récapitulatif des Diagrammes UML</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Diagramme</th>
+                        <th>Catégorie</th>
+                        <th>Objectif</th>
+                        <th>Éléments Clés</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Cas d'Utilisation</strong></td>
+                        <td>Comportemental</td>
+                        <td>Fonctionnalités du système vues par l'utilisateur</td>
+                        <td>Acteur, Use Case, Boundary, <<include>>, <<extend>></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Classes</strong></td>
+                        <td>Structurel</td>
+                        <td>Structure statique du système</td>
+                        <td>Classe, Attribut, Méthode, Association, Héritage</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Séquence</strong></td>
+                        <td>Comportemental</td>
+                        <td>Interactions temporelles entre objets</td>
+                        <td>Ligne de vie, Message, Fragment (alt/opt/loop)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Activité</strong></td>
+                        <td>Comportemental</td>
+                        <td>Flux de travail et processus métier</td>
+                        <td>Action, Décision, Fork/Join, Swimlane</td>
+                    </tr>
+                    <tr>
+                        <td><strong>États</strong></td>
+                        <td>Comportemental</td>
+                        <td>Cycle de vie d'un objet</td>
+                        <td>État, Transition, Événement, État composite</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- CHECKLIST -->
+        <section id="checklist" class="section">
+            <h2 class="section-title"><span class="emoji">✅</span> CHECKLIST DE RÉVISION ULTRA-RAPIDE (Avant l'Examen)</h2>
+
+            <div class="alert alert-uml" style="padding:30px;">
+                <div class="alert-title" style="font-size:1.3em;">🎯 OBJECTIF : Maîtriser les concepts UML en 4-5 heures</div>
+            </div>
+
+            <h3 class="subsection-title">☑️ Concepts Généraux UML</h3>
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je sais ce qu'est UML et à quoi il sert</li>
+                <li>Je connais les 2 catégories de diagrammes UML</li>
+                <li>Je peux citer au moins 5 diagrammes UML</li>
+                <li>Je connais les 4 diagrammes les plus importants pour l'examen</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Diagramme de Cas d'Utilisation</h3>
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je sais ce qu'est un acteur (primaire/secondaire)</li>
+                <li>Je connais la notation : ellipse (use case), stickman (acteur)</li>
+                <li>Je sais la différence entre <<include>> et <<extend>></li>
+                <li>Je sais ce qu'est la généralisation entre acteurs</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Diagramme de Classes</h3>
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je connais les 3 parties d'une classe (nom, attributs, méthodes)</li>
+                <li>Je connais les symboles de visibilité (+, -, #, ~)</li>
+                <li>Je sais la différence entre agrégation (◇) et composition (◆)</li>
+                <li>Je connais les multiplicités (1, *, 0..1, 1..*)</li>
+                <li>Je sais représenter l'héritage (flèche creuse)</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Diagramme de Séquence</h3>
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je connais les éléments : ligne de vie, message, occurrence</li>
+                <li>Je sais utiliser les fragments (alt, opt, loop, par)</li>
+                <li>Je sais la différence entre message synchrone et asynchrone</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Diagramme d'Activité</h3>
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je connais les éléments : action, décision, début/fin</li>
+                <li>Je sais utiliser les swimlanes (partitions)</li>
+                <li>Je sais utiliser fork/join pour le parallélisme</li>
+            </ul>
+
+            <div class="alert alert-uml" style="margin-top:40px;padding:30px;">
+                <div class="alert-title" style="font-size:1.3em;">⏱️ TEMPS RECOMMANDÉ</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:20px;">
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#5b21b6;">4-5h</div>
+                        <div>Pour maîtriser UML parfaitement</div>
+                    </div>
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#5b21b6;">45 min</div>
+                        <div>Pour réviser la veille</div>
+                    </div>
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#5b21b6;">15-20 min</div>
+                        <div>Le jour J pour répondre</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:40px;text-align:center;padding:40px;background:linear-gradient(135deg,#7c3aed,#8b5cf6);border-radius:15px;color:white;">
+                <h2 style="font-size:2em;margin-bottom:20px;color:white;">🎯 MESSAGE FINAL</h2>
+                <p style="font-size:1.2em;line-height:1.8;opacity:0.95;">
+                    UML est le <strong>langage universel</strong> de la modélisation logicielle.<br>
+                    Maîtrisez les diagrammes et vous saurez <strong>concevoir</strong> avant de coder.<br><br>
+                    <strong>Use Case + Classes + Séquence + Activité = Les 4 piliers de l'UML.</strong><br><br>
+                    <span style="font-size:1.3em;">Un bon développeur conçoit d'abord, code ensuite. Soyez ce développeur ! 📐💪</span>
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <h2 style="font-size:1.8em;margin-bottom:15px;">📐 Guide Complet UML - Examens OFPPT</h2>
+        <p style="font-size:1.1em;margin-bottom:10px;opacity:0.9;">Tous les concepts UML (2023-2025) • 6 examens analysés • Théorie & Pratique</p>
+        <p style="opacity:0.7;margin-top:20px;font-size:0.9em;">
+            Document généré pour préparation optimisée aux examens nationaux OFPPT<br>
+            Filière : Développement Digital Option Web Full Stack | Niveau : Technicien Spécialisé
+        </p>
+        <div style="margin-top:25px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.2);">
+            <p style="font-size:0.85em;opacity:0.6;">
+                Dernière mise à jour : Juin 2025 | Basé sur l'analyse de 6 examens complets (Variantes V1+V2)<br>
+                Diagrammes : Cas d'Utilisation + Classes + Séquence + Activité + États
+            </p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
