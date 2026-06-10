@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚛ Guide Complet React Front-End - Examens OFPPT Web Full Stack</title>
+    
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)'], ['$$', '$$'], ['\\[', '\\]']], 
+                displayMath: []
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        /* Header React Themed */
+        .header {
+            background: linear-gradient(135deg, #61DAFB 0%, #3B82F6 50%, #2563EB 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "⚛";
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.15;
+            top: -30px;
+            right: -30px;
+            transform: rotate(15deg);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .react-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: #2c3e50;
+            padding: 18px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.1);
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .nav-bar a:hover {
+            background: #61DAFB;
+            transform: translateY(-2px);
+        }
+
+        /* Content */
+        .content {
+            padding: 50px 60px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.3em;
+            color: #3B82F6;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #61DAFB;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .subsection-title {
+            font-size: 1.7em;
+            color: #2563EB;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 6px solid #61DAFB;
+        }
+
+        .subsubsection-title {
+            font-size: 1.35em;
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Code Blocks - React Style */
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 25px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            line-height: 1.7;
+            border-left: 5px solid #61DAFB; /* React Blue */
+            position: relative;
+        }
+
+        pre::before {
+            content: "React JSX";
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.75em;
+            color: #888;
+            background: #333;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92em;
+        }
+
+        .code-keyword { color: #c678dd; }
+        .code-string { color: #98c379; }
+        .code-number { color: #b5cea8; }
+        .code-comment { color: #5c6370; font-style: italic; }
+        .code-operator { color: #569cd6; }
+        .code-method { color: #61DAFB; }
+        .code-variable { color: #e06c75; }
+        .code-react { color: #61DAFB; font-weight: bold; }
+        .code-jsx { color: #61DAFB; }
+        .code-hook { color: #d19a66; }
+
+        /* Alert Boxes */
+        .alert {
+            padding: 22px 28px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 6px solid;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .alert-react {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-color: #3B82F6;
+            color: #1e40af;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-color: #22c55e;
+            color: #166534;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-color: #10b981;
+            color: #065f46;
+        }
+
+        .alert-title {
+            font-weight: bold;
+            font-size: 1.15em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #61DAFB 0%, #3B82F6 100%);
+            color: white;
+        }
+
+        th {
+            padding: 18px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.92em;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+            transition: all 0.3s;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafbfc;
+        }
+
+        /* Exam Cards */
+        .exam-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 35px;
+            margin: 35px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #61DAFB 0%, #3B82F6 100%);
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .exam-year {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #3B82F6;
+        }
+
+        .exam-badge {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            background: linear-gradient(135deg, #61DAFB, #3B82F6);
+            color: white;
+        }
+
+        .question-block {
+            background: #f8fafc;
+            border-left: 4px solid #61DAFB;
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #3B82F6;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .points-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: #61DAFB;
+            box-shadow: 0 8px 24px rgba(97, 218, 251, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Command Reference Cards */
+        .pattern-card {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+            color: #d4d4d4;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #61DAFB;
+        }
+
+        .pattern-name {
+            color: #61DAFB;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            font-family: 'Consolas', monospace;
+        }
+
+        /* Progress bars */
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .progress-bar {
+            height: 32px;
+            background: #e5e7eb;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #61DAFB 0%, #3B82F6 50%, #10b981 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.88em;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content {
+                padding: 35px 30px;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 25px 20px;
+            }
+            
+            .nav-bar {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+            
+            th, td {
+                padding: 12px 10px;
+                font-size: 0.85em;
+            }
+        }
+
+        /* Highlight styles */
+        .highlight-blue {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-family: 'Consolas', monospace;
+        }
+
+        .highlight-green {
+            background: #dcfce7;
+            color: #166534;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .highlight-red {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        /* Emoji styling */
+        .emoji {
+            font-style: normal;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li:before {
+            content: "✅ ";
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        /* UI Mockup Box */
+        .ui-mockup {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .ui-mockup h3 {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .ui-mockup input, .ui-mockup select, .ui-mockup button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .ui-mockup button {
+            background: #3B82F6;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .ui-mockup ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ui-mockul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="react-icon">⚛</div>
+        <h1>GUIDE COMPLET REACT FRONT-END</h1>
+        <div class="subtitle">Examens Nationaux OFPPT - Développement Digital Option Web Full Stack</div>
+        <div class="subtitle" style="font-size:1.1em;opacity:0.85;">Dossier Pratique Front-End : Toutes les Réponses Détaillées (2023-2025)</div>
+        <div style="margin-top:20px;font-size:0.95em;opacity:0.8;">
+            📚 6 Examens Analysés | 💯 24 Points par Examen | ⏱️ Temps de maîtrise : 6-8 heures
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <a href="#introduction">📖 Introduction</a>
+        <a href="#patterns">🔄 Les 5 Patterns Obligatoires</a>
+        <a href="#pattern-formulaire">📝 Pattern Formulaire</a>
+        <a href="#pattern-api">📝 Pattern API</a>
+        <a href="#pattern-liste">📝 Pattern Liste</a>
+        <a href="#pattern-recherche">📝 Pattern Recherche</a>
+        <a href="#pattern-routage">📝 Pattern Routage</a>
+        <a href="#examen-2023-v1">📝 2023-V1</a>
+        <a href="#examen-2023-v2">📝 2023-V2</a>
+        <a href="#examen-2024-v1">📝 2024-V1</a>
+        <a href="#examen-2024-v2">📝 2024-V2</a>
+        <a href="#examen-2025-v1">📝 2025-V1</a>
+        <a href="#examen-2025-v2">📝 2025-V2</a>
+        <a href="#erreurs">❌ Erreurs à Éviter</a>
+        <a href="#checklist">✅ Checklist Révision</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- INTRODUCTION -->
+        <section id="introduction" class="section">
+            <h2 class="section-title"><span class="emoji">📖</span> INTRODUCTION : Pourquoi React est le ROI de l'Examen ?</h2>
+
+            <div class="alert alert-react">
+                <div class="alert-title">🎯 Ce que vous devez savoir ABSOLUMENT</div>
+                <ul style="margin-top:12px;line-height:1.9;">
+                    <li><strong>Points attribués</strong> : <span class="highlight-blue">24 points</span> sur 60 en pratique (soit <strong>40% de la partie pratique</strong>)</li>
+                    <li><strong>Fréquence d'apparition</strong> : <strong>100%</strong> (présent dans les 6 examens analysés)</li>
+                    <li><strong>Temps recommandé</strong> : <strong>35-45 minutes maximum</strong> le jour de l'examen</li>
+                    <li><strong>Niveau de difficulté</strong> : Moyen → Élevé (syntaxe JSX + logique composant)</li>
+                    <li><strong>Technologie</strong> : <strong>React.js</strong> (avec Hooks : useState, useEffect)</li>
+                    <li><strong>Bonus 2025</strong> : <strong>Redux</strong> (state management global) apparaît !</li>
+                </ul>
+            </div>
+
+            <h3 class="subsection-title">📊 Statistiques React dans les Examens OFPPT</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrique</th>
+                        <th>Valeur</th>
+                        <th>Observation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nombre d'examens analysés</strong></td>
+                        <td>6</td>
+                        <td>Juin 2023, 2024, 2025 (V1+V2)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Présence du dossier Front-End</strong></td>
+                        <td style="color:#10b981;font-weight:bold;font-size:1.2em;">6/6 (100%)</td>
+                        <td>Obligatoire à chaque session</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Points moyens par examen</strong></td>
+                        <td><strong>24 points</strong></td>
+                        <td>Toujours 24 pts (le plus rentable !)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre moyen de questions</strong></td>
+                        <td><strong>5-6 questions</strong></td>
+                        <td>+ parfois Q bonus (Redux)</td>
+                    </tr>
+                    <tr style="background:#eff6ff;">
+                        <td colspan="3"><strong>SUJETS LES PLUS FRÉQUENTS (toujours présents)</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1. Composant Formulaire+Récapitulatif</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Avec useState + onSubmit + affichage conditionnel</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Appel API Backend</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Avec fetch/axios + useEffect + setState</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Liste/Tableau de données</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Avec .map() + key obligatoire</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Recherche/Filtre</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Avec useState searchTerm + .filter()</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. Routage React Router</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>BrowseRouter + Route + Routes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">⚛ Qu'est-ce que React ? (Rappel Rapide)</h3>
+
+            <div class="grid-2">
+                <div class="info-card">
+                    <h4 style="color:#3B82F6;margin-bottom:15px;">Définition Officielle</h4>
+                    <p><strong>React</strong> est une bibliothèque JavaScript open-source pour construire des interfaces utilisateur.</p>
+                    <ul style="margin-top:15px;">
+                        <li>Créée par Facebook (2013)</li>
+                        <li>Basée sur les <strong>composants</strong> (réutilisables)</li>
+                        <li>Utilise un <strong>DOM virtuel</strong> (performances)</li>
+                        <li>Syntaxe <strong>JSX</strong> (HTML-like dans JavaScript)</li>
+                        <li><strong>Hooks</strong> (useState, useEffect) depuis React 16.8</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h4 style="color:#3B82F6;margin-bottom:15px">Pourquoi dans les Examens OFPPT ?</h4>
+                    <ul>
+                        <li><strong>Standard industriel</strong> : Utilisé par Facebook, Netflix, Airbnb...</li>
+                        <li><strong>Composants</strong> : Architecture modulaire et maintenable</li>
+                        <li><strong>React Hooks</strong> : Syntaxe moderne demandée</li>
+                        <li><strong>Intégration Laravel</strong> : API REST facile à consommer</li>
+                        <li><strong>Évaluable objectivement</strong> : Code clair, pas d'ambiguïté</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-title">💡 Bonne Nouvelle pour Vous</div>
+                <p style="font-size:1.05em;">Les questions React suivent <strong>toujours la même séquence</strong> depuis 3 ans ! Seuls le contexte (données) et les noms de variables changent. Si vous maîtrisez les <strong>5 patterns de composants</strong>, vous assurez <strong>24/24 points</strong> à chaque fois.</p>
+            </div>
+        </section>
+
+        <!-- LES 5 PATTERNS -->
+        <section id="patterns" class="section">
+            <h2 class="section-title"><span class="emoji">🔄</span> LES 5 PATTERNS OBLIGATOIRES (À MAÎTRISER PAR CŒUR)</h2>
+
+            <div class="alert alert-success">
+                <div class="alert-title" style="font-size:1.3em;">🎯 Ces 5 patterns = 100% des questions React depuis 3 ans</div>
+                <p style="font-size:1.05em;margin-top:10px;">Mémorisez-les parfaitement et vous n'aurez aucune surprise le jour J.</p>
+            </div>
+
+            <div class="grid-2" style="margin-top:30px;">
+                <div class="info-card" style="border:3px solid #3B82F6;background:linear-gradient(135deg,#ffffff,#eff6ff);">
+                    <h3 style="color:#3B82F6;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #3B82F6;">
+                        📝 PATTERN #1<br>FORMULAIRE + RÉCAPITULATIF
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:2.8em;font-weight:bold;color:#3B82F6;">4-6 pts</span><br>
+                        <small style="color:#666;">Toujours la première question</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Hook</strong> : <code>useState</code> × 2 (formData + showRecap)</li>
+                        <li><strong>Inputs contrôlés</strong> : value + onChange</li>
+                        <li><strong>onSubmit</strong> : Gestionnaire d'événement</li>
+                        <li><strong>Affichage conditionnel</strong> : <code>{showRecap && ...}</code></li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #10B981;background:linear-gradient(135deg,#ffffff,#ecfdf5);">
+                    <h3 style="color:#059669;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #10B981;">
+                        🔌 PATTERN #2<br>APPEL API BACKEND
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:2.8em;font-weight:bold;color:#059669;">4 pts</span><br>
+                        <small style="color:#666;">Toujours la deuxième question</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Hook</strong> : <code>useEffect</code> avec tableau de dépendances vide</li>
+                        <li><strong>Méthode HTTP</strong> : <code>fetch()</code> ou <code>axios.get()</code></li>
+                        <li><strong>Conversion</strong> : <code>.then(res => res.json())</code></li>
+                        <li><strong>Mise à jour</strong> : <code>setData(result)</code></li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #F59E0B;background:linear-gradient(135deg,#ffffff,#fffbeb);">
+                    <h3 style="color:#D97706;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #F59E0B;">
+                        📋 PATTERN #3<br>LISTE/TABLEAU DE DONNÉES
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:2.8em;font-weight:bold;color:#D97706;">4-6 pts</span><br>
+                        <small style="color:#666;">Toujours la troisième question</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Méthode</strong> : <code>.map()</code> sur le tableau de données</li>
+                        <li><strong>Key obligatoire</strong> : <code>key={item.id}</code></li>
+                        <li><strong>Rendu</strong> : Retourne du JSX pour chaque élément</li>
+                        <li><strong>Accès aux propriétés</strong> : <code>{item.champ}</code></li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #8B5CF6;background:linear-gradient(135deg,#ffffff,#ede9fe);">
+                    <h3 style="color:#6D28D9;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #8B5CF6;">
+                        🔍 PATTERN #4<br>RECHERCHE / FILTRAGE
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:2.8em;font-weight:bold;color:#6D28D9;">4-6 pts</span><br>
+                        <small style="color:#666;">Souvent la quatrième question</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Hook</strong> : <code>useState(searchTerm)</code></li>
+                        <li><strong>Input recherche</strong> : onChange met à jour searchTerm</li>
+                        <li><strong>Filtrage</strong> : <code>.filter(item => item.champ.includes(searchTerm))</code></li>
+                        <li><strong>Case insensitive</strong> : <code>.toLowerCase().includes(...)</code></li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #EC4899;background:linear-gradient(135deg,#ffffff,#fdf2f8);">
+                    <h3 style="color:#DB2777;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #EC4899;">
+                        🔗 PATTERN #5<br>ROUTAGE REACT ROUTER
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:2.8em;font-weight:bold;color:#DB2777;">4 pts</span><br>
+                        <small style="color:#666;">Toujours la dernière question</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Import</strong> : <code>BrowserRouter, Route, Routes</code></li>
+                        <li><strong>Structure</strong> : <code>&lt;BrowserRouter&gt;&lt;Routes&gt;...&lt;/Routes&gt;&lt;/BrowserRouter&gt;</code></li>
+                        <li><strong>Route</strong> : <code>&lt;Route path="/comp" element={&lt;Comp /&gt;} /&gt;</code></li>
+                        <li><strong>Lien</strong> : <code>&lt;Link to="/chemin"&gt;</code> ou <code>useNavigate()</code></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PATTERN FORMULAIRE DETAILLE -->
+        <section id="pattern-formulaire" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> PATTERN #1 : COMPOSANT FORMULAIRE + RÉCAPITULATIF</h2>
+
+            <div class="pattern-card">
+                <div class="pattern-name">TEMPLATE UNIVERSEL - À MÉMORISER PAR CŒUR</div>
+                
+<div class='code'><span class='code-keyword'>import</span> { useState } <span class='code-keyword'>from</span> <span class='code-string'>'react'</span>;
+
+<span class='code-keyword'>function</span> <span class='code-method'>ComposantFormulaire</span>() {
+    
+    <span class='code-comment'>// ╔══════════════════════════════════════╗</span>
+    <span class='code-comment'>// ║  ÉTAT 1 : Données du formulaire               ║</span>
+    <span class='code-comment'>// ╚══════════════════════════════════════╝</span>
+    <span class='code-keyword'>const</span> [formData, setFormData] = useState({
+        champ1: <span class='code-string'>''</span>,
+        champ2: <span class='code-string'>''</span>,
+        champ3: <span class='code-string'>''</span>
+    });
+    
+    <span class='code-comment'>// ╔══════════════════════════════════════╗</span>
+    <span class='code-comment'>// ║  ÉTAT 2 : Contrôle d'affichage du récapitulatif   ║</span>
+    <span class='code-comment'>// ╚══════════════════════════════════════╝</span>
+    <span class='code-keyword'>const</span> [showRecap, setShowRecap] = useState(<span class='code-keyword'>false</span>);
+    
+    <span class='code-comment'>// ╔═════════════════════════════════════════════╗</span>
+    <span class='code-comment'>// ║  GESTIONNAIRE : Mise à jour d'un champ             ║</span>
+    <span class='code-comment'>// ╚═════════════════════════════════════════════╝</span>
+    <span class='code-keyword'>const</span> handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+    
+    <span class='code-comment'>// ╔═════════════════════════════════════════════╗</span>
+    <span class='code-comment'>// ║  GESTIONNAIRE : Soumission du formulaire          ║</span>
+    <span class='code-comment'>// ╚═════════════════════════════════════════════╝</span>
+    <span class='code-keyword'>const</span> handleSubmit = (e) => {
+        e.preventDefault();  <span class='code-comment'>// Empêche le rechargement de page</span>
+        setShowRecap(<span class='code-keyword'>true</span>);   <span class='code-comment'>// Affiche le récapitulatif</span>
+    };
+
+    <span class='code-keyword'>return</span> (
+        &lt;<span class='code-jsx'>div</span>&gt;
+            &lt;<span class='code-jsx'>h2</span>&gt;Titre du Formulaire&lt;/<span class='code-jsx'>h2</span>&gt;
+            
+            &lt;<span class='code-jsx'>form</span> onSubmit={handleSubmit}&gt;
+                &lt;<span class='code-jsx'>input</span>
+                    type=<span class='code-string'>"text"</span>
+                    name=<span class='code-string'>"champ1"</span>
+                    value={formData.champ1}
+                    onChange={handleChange}
+                    placeholder=<span class='code-string'>"Entrez..."/&gt;
+                /&gt;
+                
+                &lt;<span class='code-jsx'>input</span>
+                    type=<span class='code-string'>"text"</span>
+                    name=<span class='code-string'>"champ2"</span>
+                    value={formData.champ2}
+                    onChange={handleChange}
+                /&gt;
+
+                &lt;<span class='code-jsx'>select</span>
+                    name=<span class='code-string'>"champ3"</span>
+                    value={formData.champ3}
+                    onChange={handleChange}
+                &gt;
+                    &lt;<span class='code-jsx'>option</span> value=<span class='code-string'>""</span>&gt;Choisir...&lt;/<span class='code-jsx'>option</span>&gt;
+                    &lt;<span class='code-jsx'>option</span> value=<span class='code-string'>"A"&gt;Option A&lt;/<span class='code-jsx'>option</span>&gt;
+                    &lt;<span class='code-jsx'>option</span> value=<span class='code-string'>"B"&gt;Option B&lt;/<span class='code-jsx'>option</span>&gt;
+                &lt;/<span class='code-jsx'>select</span>&gt;
+                
+                &lt;<span class='code-jsx'>button</span> type=<span class='code-string'>"submit"</span>&gt;Confirmer&lt;/<span class='code-jsx'>button</span>&gt;
+            &lt;/<span class='code-jsx'>form</span>&gt;
+            
+            <span className='code-comment'>{/* Affichage conditionnel du récapitulatif */</span>}
+            {showRecap && (
+                &lt;<span class='code-jsx'>div</span>&gt;
+                    &lt;<span class='code-jsx'>h3</span>&gt;Récapitulatif des informations :&lt;/<span class='code-jsx'>h3</span>&gt;
+                    &lt;<span class='code-jsx'>ul</span>&gt;
+                        &lt;<span class='code-jsx'>li</span>&gt;<span class='code-string'>Champ 1:</span> {formData.champ1}&lt;/<span class='code-jsx'>li</span>&gt;
+                        &lt;<span class='code-jsx'>li</span>&gt;<span class='code-string'>Champ 2:</span> {formData.champ2}&lt;/<span class='code-jsx'>li</span>&gt;
+                        &lt;<span class='code-jsx'>li</span>&gt;<span class='code-string'>Champ 3:</span> {formData.champ3}&lt;/<span class='code-jsx'>li</span>&gt;
+                    &lt;/<span class='code-jsx'>ul</span>&gt;
+                &lt;/<span class='code-jsx'>div</span>&gt;
+            )}
+        &lt;/<span class='code-jsx'>div</span>&gt;
+    );
+}
+
+<span class='code-keyword'>export default</span> <span class='code-method'>ComposantFormulaire</span>;</div>
+            </div>
+
+            <div class="ui-mockup">
+                <h3>Gestion Voitures</h3>
+                <input type="text" placeholder="Matricule: 1-h-11111" />
+                <select>
+                    <option>Marque: Toyota</option>
+                    <option>Renault</option>
+                    <option>Peugeot</option>
+                </select>
+                <input type="date" placeholder="Date mise en circulation:" />
+                <input type="text" placeholder="Couleur: Noir" />
+                <button>Confirmer</button>
+                
+                <h3>Récapitulatif des informations :</h3>
+                <ul>
+                    <li><strong>Matricule:</strong> 1-h-11111</li>
+                    <li><strong>Marque:</strong> Toyota</li>
+                    <li><strong>Date Mise en circulation:</strong> 2022-12-12</li>
+                    <li><strong>Couleur:</strong> Noir</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-warning">
+                <div class="alert-title">⚠️ RÈGLES D'OR À RESPECTER</div>
+                <ol style="margin-top:12px;line-height:2;font-size:1.05em;">
+                    <li><strong>Toujours utiliser <code>value={formData.xxx}</code></strong> sur les inputs (controlled components)</li>
+                    <li><strong>Toujours ajouter <code>name="xxx"</code></strong> pour identifier le champ dans handleChange</li>
+                    <li><strong>Toujours appeler <code>e.preventDefault()</code></strong> dans onSubmit</li>
+                    <li><strong>L'opérateur spread <code>...</code></strong> est OBLIGATOIRE dans setFormData</li>
+                    <li><strong>Le rendu conditionnel <code>{showRecap && (...)}</code></strong> doit être après le formulaire</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- PATTERN API DETAILLE -->
+        <section id="pattern-api" class="section">
+            <h2 class="section-title"><span class="emoji">🔌</span> PATTERN #2 : APPEL API BACKEND (fetch/axios)</h2>
+
+            <div class="pattern-card">
+                <div class="pattern-name">TEMPLATE UNIVERSEL - À MÉMORISER PAR CŒUR</div>
+                
+<div class='code'><span class='code-keyword'>import</span> { useState, useEffect } <span class='code-keyword'>from</span> <span class='code-string'>'react'</span>;
+
+<span class='code-keyword'>function</span> <span class='code-method'>ComposantPrincipal</span>() {
+    
+    <span class='code-comment'>// ╔═════════════════════════════════════════════╗</span>
+    <span class='code-comment'>// ║  ÉTAT : Stockage des données reçues de l'API         ║</span>
+    <span class='code-comment'>// ╚═════════════════════════════════════════════╝</span>
+    <span class='code-keyword'>const</span> [data, setData] = useState([]);
+    <span class='code-keyword'>const</span> [loading, setLoading] = useState(<span class='code-keyword'>true</span>);
+    <span class='code-keyword'>const</span> [error, setError] = useState(<span class='code-keyword'>null</span>);
+
+    <span class='code-comment'>// ╔═════════════════════════════════════════════╗</span>
+    <span class='code-comment'>// ║  EFFET DE BORD : Appel API au montage du composant     ║</span>
+    <span class='code-comment'>// ╚═════════════════════════════════════════════╝</span>
+    useEffect(() => {
+        fetchData();
+    }, []);  <span class='code-comment">// [] = exécution unique au montage</span>
+
+    <span class='code-keyword'>const</span> fetchData = async () => {
+        <span class='code-keyword'>try</span> {
+            setLoading(<span class='code-keyword'>true</span>);
+            
+            <span class='code-comment">// Option 1 : Avec fetch (natif)</span>
+            <span class='code-keyword">const</span> response = await fetch(<span class='code-string">'http://localhost:8000/api/resource'</span>);
+            <span class='code-keyword">const</span> jsonData = await response.json();
+            setData(jsonData);
+            
+            <span class='code-comment">// Option 2 : Avec axios (si disponible)</span>
+            <span class='code-comment">// const response = await axios.get('http://localhost:8000/api/resource');</span>
+            <span class='code-comment">// setData(response.data);</span>
+            
+            setLoading(<span class='code-keyword'>false</span>);
+        } <span class='code-keyword'>catch</span> (err) {
+            setError(err.message);
+            setLoading(<span class='code-keyword'>false</span>);
+        }
+    };
+
+    <span class='code-keyword'>return</span> (
+        &lt;<span class='code-jsx'>div</span>&gt;
+            {loading &amp;&amp; &lt;<span class='code-jsx'>p</span>&gt;Chargement...&lt;/<span class='code-jsx'>p</span>&gt;}
+            {error &amp;&amp; &lt;<span class='code-jsx'>p</span> style={{color: <span class='code-string'>'red'</span>}}&gt;Erreur: {error}&lt;/<span class='code-jsx'>p</span>&gt;}
+            
+            {!loading &amp;&amp; !error &amp;&amp; (
+                &lt;<span class='code-jsx'>AutreComposant</span> data={data} /&gt;
+            )}
+        &lt;/<span class='code-jsx'>div</span>&gt;
+    );
+}
+
+<span class='code-keyword'>export default</span> <span class='code-method'>ComposantPrincipal</span>;</div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-title">💡 Données Fournies dans l'Examen</div>
+                <p style="margin-top:10px;">L'énoncé fournit TOUJOURS :</p>
+                <ul style="margin-top:10px;line-height:1.8;">
+                    <li><strong>Méthode HTTP</strong> : GET (pour lecture)</li>
+                    <li><strong>URL de l'API</strong> : <code>http://localhost:8000/salaries</code> (exemple)</li>
+                    <li><strong>Structure du résultat JSON</strong> : Tableau d'objets</li>
+                </ul>
+<pre style="margin-top:15px;background:white;border:1px solid #ddd;padding:15px;border-radius:8px;"><code>{
+  "Méthode HTTP": "GET",
+  "URL de l'api": "http://localhost:8000/salaries",
+  "Résultat": [
+    {
+      "_id": "s1",
+      "nomSal": "Alami",
+      "prenomSal": "Sara",
+      "fonction": "Technicien",
+      "service": {"codeser": "I", "nomser": "informatique"}
+    },
+    ...
+  ]
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- PATTERN LISTE DETAILLE -->
+        <section id="pattern-liste" class="section">
+            <h2 class="section-title"><span class="emoji">📋</span> PATTERN #3 : LISTE/TABLEAU DE DONNÉES</h2>
+
+            <div class="pattern-card">
+                <div class="pattern-name">TEMPLATE UNIVERSEL - À MÉMORISER PAR CŒUR</div>
+                
+<div class='code'><span class='code-keyword'>function</span> <span class='code-method'>ListeDonnees</span>({ data }) {
+    <span class='code-keyword'>return</span> (
+        &lt;<span class='code-jsx'>div</span>&gt;
+            &lt;<span class='code-jsx'>h2</span>&gt;Liste des {NomPluriel}&lt;/<span class='code-jsx'>h2</span>&gt;
+            
+            &lt;<span class='code-jsx'>table</span>&gt;
+                &lt;<span class='code-jsx'>thead</span>&gt;
+                    &lt;<span class='code-jsx'>tr</span>&gt;
+                        &lt;<span class='code-jsx'>th</span>&gt;Nom&lt;/<span class='code-jsx'>th</span>&gt;
+                        &lt;<span class='code-jsx'>th</span>&gt;Prénom&lt;/<span class='code-jsx'>th</span>&gt;
+                        &lt;<span class='code-jsx'>th</span>&gt;Fonction&lt;/<span class='code-jsx'>th</span>&gt;
+                        &lt;<span class='code-jsx'>th</span>&gt;Service&lt;/<span class='code-jsx'>th</span>&gt;
+                    &lt;/<span class='code-jsx'>tr</span>&gt;
+                &lt;/<span class='code-jsx'>thead</span>&gt;
+                
+                &lt;<span class='code-jsx'>tbody</span>&gt;
+                    {data.map((item) =&gt; (
+                        &lt;<span class='code-jsx'>tr</span> key={item.<span class='code-variable'>id</span>}&gt;
+                            &lt;<span class='code-jsx'>td</span>&gt;{item.nom}&lt;/<span class='code-jsx'>td</span>&gt;
+                            &lt;<span class='code-jsx'>td</span>&gt;{item.prenom}&lt;/<span class='code-jsx'>td</span>&gt;
+                            &lt;<span class='code-jsx'>td</span>&gt;{item.fonction}&lt;/<span class='code-jsx'>td</span>&gt;
+                            &lt;<span class='code-jsx'>td</span>&gt;{item.service?.nomser}&lt;/<span class='code-jsx'>td</span>&gt;
+                            
+                            <span className='code-comment'>{/* Colonne Actions */}</span>
+                            &lt;<span class='code-jsx'>td</span>&gt;
+                                &lt;<span class='code-jsx'>button</span>&gt;Détails&lt;/<span class='code-jsx'>button</span>&gt;
+                                &lt;<span class='code-jsx'>button</span&gt;Supprimer&lt;/<span class='code-jsx'>button</span>&gt;
+                            &lt;/<span class='code-jsx'>td</span>&gt;
+                        &lt;/<span class='code-jsx'>tr</span>&gt;
+                    ))}
+                &lt;/<span class='code-jsx'>tbody</span&gt;
+            &lt;/<span class='code-jsx'>table</span>&gt;
+        &lt;/<span class='code-jsx'>div</span>&gt;
+    );
+}</div>
+            </div>
+
+            <div class="alert alert-danger">
+                <div class="alert-title">⚠️ PIÈGE CLASSIQUE : OUBLIER LA PROPRIÉTÉ key</div>
+                <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ ERREUR - Sans key (Warning React)</span>
+{data.map((item) => (
+    &lt;tr&gt;  ← React ne sait pas comment identifier efficacement
+        &lt;td&gt;{item.nom}&lt;/td&gt;
+    &lt;/tr&gt;
+))}
+
+<span style="color:#86efac;">// ✅ CORRECT - Avec key unique</span>
+{data.map((item) => (
+    &lt;tr key={item.id}&gt;  ← Identifiant unique pour optimisation
+        &lt;td&gt;{item.nom}&lt;/td&gt;
+    &lt;/tr&gt;
+))}</code></pre>
+                <p style="margin-top:10px;"><strong>Pourquoi key est obligatoire ?</strong></p>
+                <ul style="margin-top:8px;font-size:0.95em;">
+                    <li>Permet à React d'identifier quel item a changé (ajout/suppression)</li>
+                    <li>Optimise le re-rendering (évite de recalculer tout le tableau)</li>
+                    <li>Doit être UNIQUE et STABLE (utiliser id, pas index de tableau)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PATTERN RECHERCHE -->
+        <section id="pattern-recherche" class="section">
+            <h2 class="section-title"><span class="emoji">🔍</span> PATTERN #4 : RECHERCHE / FILTRAGE</h2>
+
+            <div class="pattern-card">
+                <div class="pattern-name">TEMPLATE UNIVERSEL - À MÉMORISER PAR CŒUR</div>
+                
+<div class='code'><span class='code-keyword'>function</span> <span class='code-method'>ComposantRecherche</span>({ data }) {
+
+    <span class='code-comment'>// État pour le terme de recherche</span>
+    <span class='code-keyword">const</span> [searchTerm, setSearchTerm] = useState(<span class='code-string'>''</span>);
+
+    <span class='comment'>// Filtrer les données selon le terme de recherche</span>
+    <span class='code-keyword'>const</span> filteredData = data.filter((item) =&gt; {
+        <span class='code-keyword'>return</span> item.nomService
+            ?.toLowerCase()
+            .includes(searchTerm.toLowerCase());
+    });
+
+    <span class='code-keyword'>return</span> (
+        &lt;<span class='code-jsx'>div</span>&gt;
+            &lt;<span class='code-jsx'>h3</span>&gt;Recherche par Service:&lt;/<span class='code-jsx'>h3</span>&gt;
+            
+            &lt;<span class='code-jsx'>input</span>
+                type=<span class='code-string'>"text"</span>
+                placeholder=<span class='code-string'>"Entrer le nom du service"</span>
+                value={searchTerm}
+                onChange={(e) =&gt; setSearchTerm(e.target.value)}
+            /&gt;
+            
+            &lt;<span class='code-jsx'>p</span>&gt;
+                Résultat : {filteredData.length} éléments trouvés
+            &lt;/<span class='code-jsx'>p</span>&gt;
+            
+            {filteredData.length &gt; 0 ? (
+                &lt;<span class='code-jsx'>ul</span>&gt;
+                    {filteredData.map((item) =&gt; (
+                        &lt;<span class='code-jsx'>li</span> key={item.id}&gt;
+                            {item.nomSal} - {item.prenomSal} ({item.fonction})
+                        &lt;/<span class='code-jsx'>li</span>&gt;
+                    ))}
+                &lt;/<span class='code-jsx'>ul</span>&gt;
+            ) : (
+                &lt;<span class='code-jsx'>p</span>&gt;Aucun service n'est affecté à cet employé&lt;/<span class='code-jsx'>p</span>&gt;
+            )}
+        &lt;/<span class='code-jsx'>div</span>&gt;
+    );
+}</div>
+            </div>
+        </section>
+
+        <!-- PATTERN ROUTAGE -->
+        <section id="pattern-routage" class="section">
+            <h2 class="section-title"><span class="emoji">🔗</span> PATTERN #5 : ROUTAGE REACT ROUTER</h2>
+
+            <div class="pattern-card">
+                <div class="pattern-name">TEMPLATE UNIVERSEL - À MÉMORISER PAR CŒUR</div>
+                
+<div class='code'><span class='code-comment'>// ════════════════════════════════════════════</span>
+<span class='code-comment'>// ║  FICHIER : App.js (Composant Principal)           ║</span>
+<span class='code-comment'>// ════════════════════════════════════════════</span>
+<span class='code-keyword'>import</span> { BrowserRouter, Routes, Route } <span class='code-keyword'>from</span> <span class='code-string'>'react-router-dom'</span>;
+<span class='code-keyword'>import</span> Formulaire from <span class='code-string'>'./components/Formulaire'</span>;
+<span class='code-keyword'>import</span> Liste from <span class='code-string'>'./components/Liste'</span>;
+<span class='code-keyword'>import</span> Recherche from <span class='code-string'>'./components/Recherche'</span>;
+
+<span class='code-keyword'>function</span> <span class='code-method'>App</span>() {
+  <span class='code-keyword'>return</span> (
+    &lt;<span class='code-jsx'>BrowserRouter</span>&gt;
+      &lt;<span class='code-jsx'>Routes</span>&gt;
+        &lt;<span class='code-jsx'>Route</span> path=<span class='code-string'>"/"</span> element={&lt;Formulaire /&gt;} /&gt;
+        &lt;<span class='code-jsx'>Route</span> path=<span class='code-string'>"/liste"</span> element={&lt;Liste /&gt;} /&gt;
+        &lt;<span class='code-jsx'>Route</span> path=<span class='code-string">"/recherche"</span> element={&lt;Recherche /&gt;} /&gt;
+      &lt;/<span class='code-jsx'>Routes</span>&gt;
+    &lt;/<span class='code-jsx'>BrowserRouter</span>&gt;
+  );
+}
+
+<span class='code-keyword'>export default</span> <span class='code-method'>App</span>;</div>
+
+<div class='code-comment' style='margin-top:20px;'>&nbsp;</div>
+
+<div class='code'><span class='code-comment'>// ════════════════════════════════════════════</span>
+<span class='code-comment'>// ║  NAVIGATION : Lien vers une autre page           ║</span>
+<span class='code-comment'>// ════════════════════════════════════════════</span>
+<span class='code-comment'>// Option 1 : Avec Link (recommandé)</span>
+<span class='code-keyword'>import</span> { Link } <span class='code-keyword'>from</span> <span class='code-string'>'react-router-dom'</span>;
+
+&lt;Link to=<span class='code-string'>"/liste"</span>&gt;Voir la liste complète&lt;/Link&gt;
+
+
+<span class='code-comment' style='margin-top:15px;'>&nbsp;</span>
+<span class='code-comment'>// Option 2 : Avec useNavigate (programmatique)</span>
+<span class='code-keyword'>import</span> { useNavigate } <span class='code-keyword'>from</span> <span class='code-string'>'react-router-dom'</span>;
+
+<span class='code-keyword">const</span> navigate = useNavigate();
+
+&lt;<span class='code-jsx'>button</span> onClick={() =&gt; navigate(<span class='code-string">'/liste'</span>)}&gt;
+    Voir la liste
+&lt;/<span class='code-jsx'>button</span>&gt;;</div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2023 V1 -->
+        <section id="examen-2023-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2023 - VARIANTE 1</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2023 - Variante 1</div>
+                    <div class="exam-badge">24 Points | Dossier Front-End</div>
+                </div>
+
+                <div style="background:#eff6ff;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #3B82F6;">
+                    <h4 style="color:#1e40af;margin-bottom:12px;">📋 Contexte & Données</h4>
+                    <p><strong>Société DKM</strong> : Agence de location nationale de voitures</p>
+                    <p style="margin-top:8px;"><strong>API Backend</strong> : <code>GET http://localhost:8000/salaries</code></p>
+                    
+                    <pre style="margin-top:15px;background:white;border:1px solid #ddd;padding:15px;border-radius:8px;"><code>Résultat API :
+{
+  "_id": "s1",
+  "nomSal": "Alami",
+  "prenomSal": "Sara",
+  "fonction": "Technicien",
+  "service": {"codeser": "I", "nomser": "informatique"}
+},
+{
+  "_id": "s2",
+  "nomSal": "Hilal",
+  "prenomSal": "Hamza",
+  "fonction": "Gérant",
+  "service": {"codeser": "L", "nomser": "logistique"}
+},
+{
+  "_id": "s3",
+  "nomSal": "Cham",
+  "prenomSal": "Nabil",
+  "fonction": "Gérant",
+  "service": {"codeser": "L", "nomser": "logistique"}
+}</code></pre>
+                </div>
+
+                <!-- Question 1 -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 1 <span class="points-badge">4 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Réaliser un composant <code>composant1.js</code> permettant à l'utilisateur de saisir les informations d'une voiture, lors du clic sur le bouton confirmer on doit afficher le récapitulatif des informations sur la même page comme suit :</p>
+                </div>
+
+                <div class="ui-mockup">
+                    <h3>Gestion Voitures</h3>
+                    <input type="text" placeholder="Matricule: 1-h-11111" />
+                    <select><option>Marque: Toyota</option></select>
+                    <input type="date" placeholder="Date de mise en circulation:" />
+                    <input type="text" placeholder="Couleur: Noir" />
+                    <button>Confirmer</button>
+                    
+                    <h3>Récapitulatif des informations :</h3>
+                    <ul>
+                        <li><strong>Matricule:</strong> 1-h-11111</li>
+                        <li><strong>Marque:</strong> Toyota</li>
+                        <li><strong>Date Mise en circulation:</strong> 2022-12-12</li>
+                        <li><strong>Couleur:</strong> Noir</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+<pre><code><span class='code-keyword'>import</span> { useState } <span class='code-keyword'>from</span> <span class='code-string'>'react'</span>;
+
+<span class='code-keyword'>function</span> <span class='code-method'>Composant1</span>() {
+  <span class='code-keyword'>const</span> [voiture, setVoiture] = useState({
+    matricule: <span class='code-string'>''</span>,
+    marque: <span class='code-string'>''</span>,
+    dateCirculation: <span class='code-string'>''</span>,
+    couleur: <span class='code-string'>''</span>
+  });
+
+  <span class='code-keyword'>const</span> [showRecap, setShowRecap] = useState(<span class='code-keyword'>false</span>);
+
+  <span class='code-keyword'>const</span> handleChange = (e) => {
+    setVoiture({ ...voiture, [e.target.name]: e.target.value });
+  };
+
+  <span class='code-keyword'>const</span> handleSubmit = (e) => {
+    e.preventDefault();
+    setShowRecap(<span class='code-keyword'>true</span>);
+  };
+
+  <span class='code-keyword'>return</span> (
+    &lt;<span class='code-jsx'>div</span>&gt;
+      &lt;<span class='code-jsx'>h2</span>&gt;Gestion Voitures&lt;/<span class='code-jsx'>h2</span>&gt;
+      
+      &lt;<span class='code-jsx'>form</span> onSubmit={handleSubmit}&gt;
+        &lt;<span class='code-jsx'>input</span>
+          type=<span class='code-string'>"text"</span>
+          name=<span class='code-string'>"matricule"</span>
+          value={voiture.matricule}
+          onChange={handleChange}
+          placeholder=<span class='code-string'>"Matricule: 1-h-11111"</span>
+        /&gt;
+        
+        &lt;<span class='code-jsx'>select</span>
+          name=<span class='code-string'>"marque"</span>
+          value={voiture.marque}
+          onChange={handleChange}
+        &gt;
+          &lt;<span class='code-jsx'>option</span> value=<span class='code-string'>""</span>&gt;Marque:&lt;/<span class='code-jsx'>option</span>&gt;
+          &lt;<span class='code-jsx'>option</span> value=<span class='code-string'>"Toyota"</span>&gt;Toyota&lt;/<span class='code-jsx'>option</span>&gt;
+          &lt;<span class='code-jsx'>option</span> value=<span class='code-string'>"Renault"</span>&gt;Renault&lt;/<span class='code-jsx'>option</span>&gt;
+        &lt;/<span class='code-jsx'>select</span>&gt;
+        
+        &lt;<span class='code-jsx'>input</span>
+          type=<span class='code-string'>"date"</span>
+          name=<span class='code-string'>"dateCirculation"</span>
+          value={voiture.dateCirculation}
+          onChange={handleChange}
+        /&gt;
+        
+        &lt;<span class='code-jsx'>input</span>
+          type=<span class='code-string'>"text"</span>
+          name=<span class='code-string'>"couleur"</span>
+          value={voiture.couleur}
+          onChange={handleChange}
+          placeholder=<span class='code-string'>"Couleur: Noir"</span>
+        /&gt;
+        
+        &lt;<span class='code-jsx'>button</span> type=<span class='code-string'>"submit"</span>&gt;Confirmer&lt;/<span class='code-jsx'>button</span>&gt;
+      &lt;/<span class='code-jsx'>form</span>&gt;
+      
+      {showRecap &amp;&amp; (
+        &lt;<span class='code-jsx'>div</span>&gt;
+          &lt;<span class='code-jsx'>h3</span>&gt;Récapitulatif des informations :&lt;/<span class='code-jsx'>h3</span>&gt;
+          &lt;<span class='code-jsx'>ul</span>&gt;
+            &lt;<span class='code-jsx'>li</span>&gt;&lt;<span class='code-string'>Matricule:</span&gt; {voiture.matricule}&lt;/<span class='code-jsx'>li</span>&gt;
+            &lt;<span class='code-jsx'>li</span>&gt;&lt;<span class='code-string'>Marque:</span&gt; {voiture.marque}&lt;/<span class='code-jsx'>li</span>&gt;
+            &lt;<span class='code-jsx'>li</span>&gt;&lt;<span class='code-string'>Date Mise en circulation:</span&gt; {voiture.dateCirculation}&lt;/<span class='code-jsx'>li</span>&gt;
+            &lt;<span class='code-jsx'>li</span>&gt;&lt;<span class='code-string'>Couleur:</span&gt; {voiture.couleur}&lt;/<span class='code-jsx'>li</span>&gt;
+          &lt;/<span class='code-jsx'>ul</span>&gt;
+        &lt;/<span class='code-jsx'>div</span>&gt;
+      )}
+    &lt;/<span class='code-jsx'>div</span>&gt;
+  );
+}
+
+<span class='code-keyword'>export default</span> <span class='code-method'>Composant1</span>;</code></pre>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 2 <span class="points-badge">4 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Initialiser la variable du state <code>salaries</code> du composante principale <code>App.js</code> en appelant l'api du backend suivant :</p>
+                    <pre style="background:white;border:1px solid #ddd;padding:10px;border-radius:5px;"><code>Méthode HTTP: GET
+URL de l'api: http://localhost:8000/salaries
+Résultat:
+[
+  {
+    "_id": "s1",
+    "nomSal": "Alami",
+    ...
+  },
+  ...
+]</code></pre>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+<pre><code><span class='code-keyword'>import</span> { useState, useEffect } <span class='code-keyword'>from</span> <span class='code-string'>'react'</span>;
+
+<span class='code-keyword'>function</span> <span class='code-method'>App</span>() {
+  <span class='code-keyword'>const</span> [salaries, setSalaries] = useState([]);
+
+  useEffect(() =&gt; {
+    fetch(<span class='code-string'>'http://localhost:8000/salaries'</span>)
+      .then(res =&gt; res.json())
+      .then(data =&gt; setSalaries(data));
+  }, []);
+
+  <span class='code-keyword'>return</span> (
+    &lt;<span class='code-jsx'>Composant1</span> salaries={salaries} /&gt;
+  );
+}</code></pre>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 3 <span class="points-badge">6 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Afficher les informations des salariés stockées dans la variable du state <code>salaries</code> dans la composante <code>composant1.js</code> (voir figure2) :</p>
+                </div>
+
+                <div class="ui-mockup">
+                    <h3>Liste des Salariés</h3>
+                    <table style="width:100%;border-collapse:collapse;">
+                        <thead>
+                            <tr><th>Nom</th><th>Prénoms</th><th>Fonction</th><th>Service</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Alami</td><td>Sara</td><td>Technicien</td><td>informatique</td></tr>
+                            <tr><td>Hilal</td><td>Hamza</td><td>Gérant</td><td>logistique</td></tr>
+                            <tr><td>Cham</td><td>Nabil</td><td>Gérant</td><td>logistique</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+<pre><code><span class='code-keyword'>function</span> <span class='code-method'>Composant1</span>({ salaries }) {
+  <span class='code-keyword'>return</span> (
+    &lt;<span class='code-jsx'>div</span>&gt;
+      &lt;<span class='code-jsx'>h2</span>&gt;Liste des Salariés&lt;/<span class='code-jsx'>h2</span>&gt;
+      
+      &lt;<span class='code-jsx'>table</span>&gt;
+        &lt;<span class='code-jsx'>thead</span>&gt;
+          &lt;<span class='code-jsx'>tr</span>&gt;
+            &lt;<span class='code-jsx'>th</span>&gt;Nom&lt;/<span class='code-jsx'>th</span>&gt;
+            &lt;<span class='code-jsx'>th</span>&gt;Prénoms&lt;/<span class='code-jsx'>th</span>&gt;
+            &lt;<span class='code-jsx'>th</span>&gt;Fonction&lt;/<span class='code-jsx'>th</span>&gt;
+            &lt;<span class='code-jsx'>th</span>&gt;Service&lt;/<span class='code-jsx'>th</span>&gt;
+          &lt;/<span class='code-jsx'>tr</span>&gt;
+        &lt;/<span class='code-jsx'>thead</span>&gt;
+        
+        &lt;<span class='code-jsx'>tbody</span>&gt;
+          {salaries.map((salarie) =&gt; (
+            &lt;<span class='code-jsx'>tr</span> key={salarie._id}&gt;
+              &lt;<span class='code-jsx'>td</span>&gt;{salarie.nomSal}&lt;/<span class='code-jsx'>td</span>&gt;
+              &lt;<span class='code-jsx'>td</span>&gt;{salarie.prenomSal}&lt;/<span class='code-jsx'>td</span>&gt;
+              &lt;<span class='code-jsx'>td</span>&gt;{salarie.fonction}&lt;/<span class='code-jsx'>td</span>&gt;
+              &lt;<span class='code-jsx'>td</span>&gt;{salarie.service?.nomser}&lt;/<span class='code-jsx'>td</span>&gt;
+            &lt;/<span class='code-jsx'>tr</span>&gt;
+          ))}
+        &lt;/<span class='code-jsx'>tbody</span>&gt;
+      &lt;/<span class='code-jsx'>table</span>&gt;
+    &lt;/<span class='code-jsx'>div</span>&gt;
+  );
+}</code></pre>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 4 <span class="points-badge">6 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Créer le composant <code>composant3.js</code> permettant d'effectuer une recherche par service sur les données stockées dans la variable du state <code>salaries</span> du composante <code>App.js</code>, si le service contient des données, les afficher sous forme de liste, sinon afficher le message « Aucun salarié n'est affecté à ce service » (voir figure3) :</p>
+                </div>
+
+                <div class="ui-mockup">
+                    <h3>Recherche par service:</h3>
+                    <input type="text" placeholder="Entrer le nom du service" />
+                    <button>Rechercher</button>
+                    
+                    <h3>Résultat</h3>
+                    <ul>
+                        <li><strong>Nom:</strong> Hilal Prénom: Hamza</li>
+                        <li><strong>Nom:</strong> Cham Prénom: Nabil</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+<pre><code><span class='code-keyword'>function</span> <span class='code-method'>Composant3</span>({ salaries }) {
+  <span class='code-keyword">const</span> [searchTerm, setSearchTerm] = useState(<span class='code-string'>''</span>);
+
+  <span class='code-keyword">const</span> filteredSalaries = salaries.filter((s) =&gt;
+    s.service?.nomser
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+
+  <span class='code-keyword">return</span> (
+    &lt;<span class='code-jsx'>div</span>&gt;
+      &lt;<span class='code-jsx'>h3</span>&gt;Recherche par service:&lt;/<span class='code-jsx'>h3</span>&gt;
+      
+      &lt;<span class='code-jsx'>input</span>
+        type=<span class='code-string'>"text"</span>
+        value={searchTerm}
+        onChange={(e) =&gt; setSearchTerm(e.target.value)}
+        placeholder=<span class='code-string'>"Entrer le nom du service"</span>
+      /&gt;
+      
+      &lt;<span class='code-jsx'>button</span>&gt;Rechercher&lt;/<span class='code-jsx'>button</span>&gt;
+      
+      &lt;<span class='code-jsx'>p</span>&gt;
+        Résultat : {filteredSalaries.length} éléments trouvés
+      &lt;/<span class='code-jsx'>p</span>&gt;
+      
+      {filteredSalaries.length &gt; 0 ? (
+        &lt;<span class='code-jsx'>ul</span>&gt;
+          {filteredSalaries.map((s) =&gt; (
+            &lt;<span class='code-jsx'>li</span> key={s._id}&gt;
+              {s.nomSal} - {s.prenomSal} ({s.fonction})
+            &lt;/<span class='code-jsx'>li</span>&gt;
+          ))}
+        &lt;/<span class='code-jsx'>ul</span>&gt;
+      ) : (
+        &lt;<span class='code-jsx'>p</span>&gt;Aucun salarié n'est affecté à ce service&lt;/<span class='code-jsx'>p</span>&gt;
+      )}
+    &lt;/<span class='code-jsx'>div</span>&gt;
+  );
+}</code></pre>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 5 <span class="points-badge">4 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Ajouter dans la composante principale <code>App.js</code> la partie de routage pour les deux composantes <code>composant2.js</code> et <code>composant3.js</code> (4pts)</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+<pre><code><span class='code-keyword'>import</span> { BrowserRouter, Routes, Route } <span class='code-keyword'>from</span> <span class='code-string'>'react-router-dom'</span>;
+<span class='code-keyword'>import</span> Composant1 from <span class='code-string'>'./composant1'</span>;
+<span class='code-keyword'>import</span> Composant3 from <span class='code-string'>'./composant3'</span>;
+
+<span class='code-keyword'>function</span> <span class='code-method'>App</span>() {
+  <span class='code-keyword'>return</span> (
+    &lt;<span class='code-jsx'>BrowserRouter</span>&gt;
+      &lt;<span class='code-jsx'>Routes</span>&gt;
+        &lt;<span class='code-jsx'>Route</span> path=<span class='code-string'>"/"</span> element={&lt;Composant1 /&gt;} /&gt;
+        &lt;<span class='code-jsx'>Route</span> path=<span class='code-string'>"/recherche"</span> element={&lt;Composant3 salaries={salaries} /&gt;} /&gt;
+      &lt;/<span class='code-jsx'>Routes</span>&gt;
+    &lt;/<span class='code-jsx'>BrowserRouter</span>&gt;
+  );
+}
+
+<span class='code-keyword'>export default</span> <span class='code-method'>App</span>;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMENS 2023-V2 à 2025-V2 (Version abrégée pour éviter répétition excessive) -->
+        <section class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> AUTRES EXAMENS (2023-V2 → 2025-V2)</h2>
+
+            <div class="grid-2">
+                <div class="info-card" style="border-left:5px solid #8B5CF6;">
+                    <h4 style="color:#6D28D9;margin-bottom:15px;">📝 2023-V2 (Entreprise BFA)</h4>
+                    <p><strong>Contexte</strong> : Employés/Matériels informatiques</p>
+                    <ul style="margin-top:10px;line-height:1.8;">
+                        <li><strong>Q1 (4pts)</strong> : Formulaire saisie matériel + récapitulatif</li>
+                        <li><strong>Q2 (4pts)</strong> : Appel API <code>GET http://localhost:8000/employes</code></li>
+                        <li><strong>Q3 (6pts)</strong> : Tableau employés avec données</li>
+                        <li><strong>Q4 (6pts)</strong> : Recherche par département</li>
+                        <li><strong>Q5 (4pts)</strong> : Routage vers composants</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left:5px solid #EC4899;">
+                    <h4 style="color:#DB2777;margin-bottom:15px;">📝 2024-V1 (AdvancedEventSolutions)</h4>
+                    <p><strong>Contexte</strong> : Experts/Événements/Ateliers</p>
+                    <ul style="margin-top:10px;line-height:1.8;">
+                        <li><strong>Q1 (4pts)</strong> : Formulaire événement + récapitulatif + coût total calculé</li>
+                        <li><strong>Q2 (4pts)</strong> : Appel API experts + useState</li>
+                        <li><strong>Q3 (6pts)</strong> : Liste événements avec tableau HTML + coût total</li>
+                        <li><strong>Q4 (6pts)</strong> : Recherche par expert (objet props)</li>
+                        <li><strong>Q5 (4pts)</strong> : Routage + passage props</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left:5px solid #F59E0B;">
+                    <h4 style="color:#D97706;margin-bottom:15px;">📝 2024-V2 (AdvancedSeminarsSolutions)</h4>
+                    <p><strong>Contexte</strong> : Animateurs/Séminaires/Activités</p>
+                    <ul style="margin-top:10px;line-height:1.8;">
+                        <li><strong>Q1 (4pts)</strong> : Formulaire séminaire + récapitulatif</li>
+                        <li><strong>Q2 (4pts)</strong> : Appel API animateurs</li>
+                        <li><strong>Q3 (4pts)</strong> : Liste animateurs + leurs séminaires</li>
+                        <li><strong>Q4 (4pts)</strong> : Composant Expert (props) + liste séminaires</li>
+                        <li><strong>Q5 (4pts)</strong> : Composant Animateurs1 (import constante) + routage</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left:5px solid #10B981;">
+                    <h4 style="color:#059669;margin-bottom:15px;">⚡ 2025-V1 (FastFoodDelivery) ⭐ NOUVEAUTÉ</h4>
+                    <p><strong>Contexte</strong> : Vélos électriques/Batteries + <span class="highlight-red">REDUX</span></p>
+                    <ul style="margin-top:10px;line-height:1.8;">
+                        <li><strong>Q1 (4pts)</strong> : Composant DetailsVelo avec <span class="highlight-red">useSelector</span> Redux</li>
+                        <li><strong>Q2 (6pts)</strong> : Formulaire AjouterChangement avec <span class="highlight-red">POST API</span></li>
+                        <li><strong>Q3 (6pts)</strong> : ListeBatteries avec <span class="highlight-red">filtre déroulant</span> + moyenne cycles</li>
+                        <li><strong>Q4 (4pts)</strong> : Menu.js avec liens vers autres pages</li>
+                        <li><strong>Q5 (4pts)</strong> : App.js avec <span class="highlight-red">Provider Redux</span> + routage</li>
+                    </ul>
+                    <div style="margin-top:15px;padding:10px;background:#dcfce7;border-radius:8px;">
+                        <strong>🆕 NOUVEAUTÉ 2025 :</strong> Redux remplace partiellement useState pour le store global
+                    </div>
+                </div>
+
+                <div class="info-card" style="border-left:5px solid #6366F1;">
+                    <h4 style="color:#4338CA;margin-bottom:15px;">⚡ 2025-V2 (FastFoodDelivery)</h4>
+                    <p><strong>Contexte</strong> : Trottinettes/Batteries + <span class="highlight-red">REDUX</span></p>
+                    <ul style="margin-top:10px;line-height:1.8;">
+                        <li><strong>Q1 (4pts)</strong> : Composant DetailsTrottinette avec <span class="highlight-red">useSelector</span></li>
+                        <li><strong>Q2 (6pts)</strong> : Formulaire AjouterRemplacement avec POST</li>
+                        <li><strong>Q3 (6pts)</strong> : ListeBatteries avec filtre statut</li>
+                        <li><strong>Q4 (4pts)</strong> : Menu.js avec navigation</li>
+                        <li><strong>Q5 (4pts)</strong> : App.js avec Provider Redux</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ERREURS -->
+        <section id="erreurs" class="section">
+            <h2 class="section-title"><span class="emoji">❌</span> ERREURS FATALES À NE JAMAIS FAIRE (React)</h2>
+
+            <div class="grid-2">
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #1 : Mutation Directe de State</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Le composant ne se re-pas pas, données inchangées à l'écran</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Mutation directe (interdit en React)</span>
+const [count, setCount] = useState(0);
+
+function increment() {
+    count = count + 1;  ← Ne provoque PAS de re-render !
+}
+
+<span style="color:#86efac;">// ✅ CORRECT - Utiliser setter</span>
+const [count, setCount] = useState(0);
+
+function increment() {
+    setCount(count + 1);  ← Provoque le re-render
+}</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #2 : Oublier key dans .map()</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Warning React "Each child in a list should have a unique key prop", performances dégradées</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ SANS key - Warning + problèmes de performance</span>
+{items.map((item) => (
+    &lt;div&gt;{item.name}&lt;/div&gt;  ← React ne peut pas optimiser
+))}
+
+<span style="color:#86efac;">// ✅ AVEC key - Optimisation + identification correcte</span>
+{items.map((item) => (
+    &lt;div key={item.id}&gt;{item.name}&lt;/div&gt;  ← Parfait !
+))}</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #3 : Boucle Infinie avec useEffect</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Boucle infinie d'appels API, crash du navigateur ou consommation mémoire excessive</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Pas de tableau de dépendances = boucle infinie</span>
+useEffect(() => {
+    fetchData();  ← Exécuté à CHAQUE render !
+});
+
+<span style="color:#86efac;">// ✅ CORRECT - Tableau vide = exécution unique au montage</span>
+useEffect(() => {
+    fetchData();
+}, []);  ← Exécuté UNE seule fois</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #4 : Oublier preventDefault() dans onSubmit</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : La page se recharge entièrement, perdant tout le state React</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Page rechargée, state perdu</span>
+const handleSubmit = () => {
+    setShowRecap(true);  ← Trop tard, le form a déjà été soumis au serveur
+};
+
+<span style="color:#86efac;">// ✅ CORRECT - Bloquer le comportement par défaut</span>
+const handleSubmit = (e) => {
+    e.preventDefault();  ← Bloque le rechargement AVANT tout
+    setShowRecap(true);
+};</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #5 : Props Non Déstructurées Correctement</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Accès aux props incorrect, undefined errors</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Accès direct à props (objet)</span>
+function Composant(props) {
+    return &lt;div&gt;{props.data}&lt;/div&gt;;  ← OK mais pas destructuré
+}
+
+<span style="color:#86efac;">// ✅ CORRECT - Déstructuring pour clarté</span>
+function Composant({ data }) {  ← Extraction explicite
+    return &lt;div&gt;{data}&lt;/div&gt;;
+}</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #6 : Async/Await mal utilisé dans useEffect</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Promesses non résolues, erreurs non capturées</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Pas de try/catch, promesse non gérée</span>
+useEffect(async () => {
+    const res = await fetch(url);  ← Si erreur = crash !
+    const data = await res.json();
+    setData(data);
+}, []);
+
+<span style="color:#86efac;">// ✅ CORRECT - Gestion d'erreur complète</span>
+useEffect(() => {
+    const fetchData = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch(url);
+            const data = await res.json();
+            setData(data);
+        } catch (err) {
+            console.error(err);
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+    fetchData();
+}, []);</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHECKLIST -->
+        <section id="checklist" class="section">
+            <h2 class="section-title"><span class="emoji">✅</span> CHECKLIST DE RÉVISION ULTRA-RAPIDE (Avant l'Examen)</h2>
+
+            <div class="alert alert-react" style="padding:30px;">
+                <div class="alert-title" style="font-size:1.3em;">🎯 OBJECTIF : Assurer 24/24 Points en 35-45 Minutes Maximum</div>
+                <p style="font-size:1.05em;margin-top:10px;">Cochez chaque item après l'avoir mémorisé parfaitement.</p>
+            </div>
+
+            <h3 class="subsection-title">☑️ Fondamentaux React (Avant tout)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je sais importer <code>useState</code> depuis <code>'react'</code></li>
+                <li>Je sais importer <code>useEffect</code> depuis <code>'react'</code></li>
+                <li>Je comprends que <code>useState</code> retourne [valeur, setter]</li>
+                <li>Je sais que <code>useEffect</code> prend une fonction + tableau de dépendances</li>
+                <li>Je connais la syntaxe JSX (HTML-like dans JS)</li>
+                <li>Je sais exporter le composant par défaut</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Formulaire (4-6 pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>J'utilise <code>useState({})</code> pour initialiser formData (objet vide)</li>
+                <li>J'utilise <code>useState(false)</code> pour showRecap</li>
+                <li>Mon handler <code>handleChange</code> utilise <code>...formData</code> (spread operator)</li>
+                <li>Mon handler <code>handleSubmit</code> appelle <code>e.preventDefault()</code></li>
+                <li>Je place le rendu conditionnel <code>{showRecap && (...)}</code> APRÈS le formulaire</li>
+                <li>Tous mes inputs ont <code>name</code>, <code>value</code>, <code>onChange</code></li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern API (4 pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>J'utilise <code>useEffect(() =&gt; {...}, [])</code> pour appeler au montage</li>
+                <li>J'utilise <code>fetch(url)</code> ou <code>axios.get(url)</code></li>
+                <li>Je convertis la réponse avec <code>.then(res =&gt; res.json())</code></li>
+                <li>Je stocke le résultat avec <code>setData(result)</code></li>
+                <li>Je peux gérer loading et error states</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Liste/Tableau (4-6 pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>J'utilise <code>data.map((item) =&gt; (...))</code> pour itérer</li>
+                <li>J'ajoute OBLIGATOIREMENT <code>key={item.id}</code> ou <code>key={index}</code></li>
+                <li>Je retourne du JSX pour chaque élément (&lt;tr&gt;, &lt;li&gt;, etc.)</li>
+                <li>J'accède aux propriétés avec <code>{item.property}</code></li>
+                <li>Je gère le cas tableau vide (message "Aucun résultat")</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Recherche/Filtre (4-6 pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>J'ajoute un état <code>searchTerm</code> avec <code>useState('')</code></li>
+                <li>Mon input de recherche met à jour <code>searchTerm</code> via <code>onChange</code></li>
+                <li>Je filtre avec <code>.filter(item =&gt; ...)</code></li>
+                <li>J'utilise <code>.includes()</code> pour la recherche partielle</li>
+                <li>J'applique <code>.toLowerCase()</code> pour ignorer la casse</li>
+                <li>J'affiche un comptage des résultats filtrés</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Routage (4 pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>J'importe <code>BrowserRouter, Routes, Route</code> depuis <code>react-router-dom</code></li>
+                <li>J'encadre mes routes dans <code>&lt;BrowserRouter&gt;&lt;Routes&gt;...&lt;/Routes&gt;&lt;/BrowserRouter&gt;</code></li>
+                <li>Chaque route a un <code>path</code> et un <code>element</code></li>
+                <li>Je peux utiliser <code>&lt;Link to="/chemin"&gt;</code> pour la navigation</li>
+                <li>Je peux passer des <code>props</code> aux composants routés</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ BONUS 2025 : Redux (Si demandé)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je connais <code>createStore()</code> pour créer le store</li>
+                <li>Je connais <code>Provider</code> pour envelopper l'app</li>
+                <li>Je connais <code>useSelector(state =&gt; state.data)</code> pour lire</li>
+                <li>Je connais <code>useDispatch({type: 'ACTION', payload})</code> pour écrire</li>
+                <li>Je connais le reducer avec <code>switch(action.type)</code></li>
+            </ul>
+
+            <div class="alert alert-react" style="margin-top:40px;padding:30px;">
+                <div class="alert-title" style="font-size:1.3em;">⏱️ TEMPS DE RÉCOMMANDÉ</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:20px;">
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#1e40af;">6-8h</div>
+                        <div>Pour maîtriser React parfaitement</div>
+                    </div>
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#1e40af;">2h</div>
+                        <div>Pour réviser la veille de l'examen</div>
+                    </div>
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#1e40af;">35-45 min</div>
+                        <div>Le jour J pour répondre aux questions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:40px;text-align:center;padding:40px;background:linear-gradient(135deg,#61DAFB,#3B82F6);border-radius:15px;color:white;">
+                <h2 style="font-size:2em;margin-bottom:20px;color:white;">🎯 MESSAGE FINAL</h2>
+                <p style="font-size:1.2em;line-height:1.8;opacity:0.95;">
+                    React est le dossier <strong>le plus rentable</strong> de l'examen (24 pts = 40% de la pratique).<br>
+                    Les 5 patterns ne changent jamais depuis 3 ans.<br>
+                    Seules les données et les noms de variables changent.<br><br>
+                    <strong>Maîtrisez ces 5 templates = 24 points assurés.</strong><br><br>
+                    <span style="font-size:1.3em;">La syntaxe JSX est verbeuse mais aussi très logique.<br>
+                    Une fois compris, c'est automatique. Vous pouvez le faire ! ⚛💪</span>
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <h2 style="font-size:1.8em;margin-bottom:15px;">⚛ Guide Complet React Front-End - Examens OFPPT</h2>
+        <p style="font-size:1.1em;margin-bottom:10px;opacity:0.9;">Toutes les réponses du dossier pratique Front-End (2023-2025) • 6 examens analysés • 24 points garantis</p>
+        <p style="opacity:0.7;margin-top:20px;font-size:0.9em;">
+            Document généré pour préparation optimisée aux examens nationaux OFPPT<br>
+            Filière : Développement Digital Option Web Full Stack | Niveau : Technicien Spécialisé<br>
+            Patterns identifiés : Formulaire + API + Liste + Recherche + Routage | Fréquence : 100%
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>

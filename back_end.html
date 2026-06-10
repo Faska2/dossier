@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Guide Complet Back-End Laravel - Examens OFPPT Web Full Stack</title>
+    
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)'], ['$$', '$$'], ['\\[', '\\]']], 
+                displayMath: []
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        /* Header Laravel Themed */
+        .header {
+            background: linear-gradient(135deg, #FF2D20 0%, #FF6B35 50%, #FF9505 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "🚀";
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -30px;
+            right: -30px;
+            transform: rotate(15deg);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .laravel-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: #2c3e50;
+            padding: 18px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.1);
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .nav-bar a:hover {
+            background: #FF2D20;
+            transform: translateY(-2px);
+        }
+
+        /* Content */
+        .content {
+            padding: 50px 60px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.3em;
+            color: #FF2D20;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #FF2D20;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .subsection-title {
+            font-size: 1.7em;
+            color: #FF6B35;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 6px solid #FF2D20;
+        }
+
+        .subsubsection-title {
+            font-size: 1.35em;
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Code Blocks - PHP/Laravel Style */
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 25px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            line-height: 1.7;
+            border-left: 5px solid #FF2D20; /* Laravel Red/Orange */
+            position: relative;
+        }
+
+        pre::before {
+            content: "PHP/Laravel";
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.75em;
+            color: #888;
+            background: #333;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92em;
+        }
+
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-number { color: #b5cea8; }
+        .code-comment { color: #6a9955; font-style: italic; }
+        .code-operator { color: #d4d4d4; }
+        .code-method { color: #dcdcaa; }
+        .code-variable { color: #9cdcfe; }
+        .code-laravel { color: #FF2D20; font-weight: bold; }
+        .code-class { color: #4ec9b0; }
+        .code-function { color: #dcdcaa; }
+
+        /* Blade template style */
+        pre.blade-code {
+            border-left-color: #FF6B35;
+        }
+        
+        pre.blade-code::before {
+            content: "Blade Template";
+            background: #FF6B35;
+        }
+
+        pre.route-code {
+            border-left-color: #FF9505;
+        }
+        
+        pre.route-code::before {
+            content: "Routes (web.php)";
+            background: #FF9505;
+        }
+
+        /* Alert Boxes */
+        .alert {
+            padding: 22px 28px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 6px solid;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .alert-laravel {
+            background: linear-gradient(135deg, #fff5f5 0%, #fee2e2 100%);
+            border-color: #FF2D20;
+            color: #991b1b;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-color: #10b981;
+            color: #065f46;
+        }
+
+        .alert-title {
+            font-weight: bold;
+            font-size: 1.15em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #FF2D20 0%, #FF6B35 100%);
+            color: white;
+        }
+
+        th {
+            padding: 18px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.92em;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+            transition: all 0.3s;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafbfc;
+        }
+
+        /* Exam Cards */
+        .exam-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
+            border: 2px solid #fecaca;
+            border-radius: 16px;
+            padding: 35px;
+            margin: 35px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #FF2D20 0%, #FF6B35 100%);
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #fecaca;
+        }
+
+        .exam-year {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #FF2D20;
+        }
+
+        .exam-badge {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            background: linear-gradient(135deg, #FF2D20, #FF6B35);
+            color: white;
+        }
+
+        .question-block {
+            background: #fff;
+            border-left: 4px solid #FF2D20;
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #FF2D20;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .points-badge {
+            display: inline-block;
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: #FF2D20;
+            box-shadow: 0 8px 24px rgba(255, 45, 32, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Command Reference Cards */
+        .command-card {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+            color: #d4d4d4;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #FF2D20;
+        }
+
+        .command-name {
+            color: #FF2D20;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            font-family: 'Consolas', monospace;
+        }
+
+        .command-syntax {
+            background: #0d1117;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 0.92em;
+            overflow-x: auto;
+        }
+
+        /* Progress bars */
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .progress-bar {
+            height: 32px;
+            background: #e5e7eb;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF2D20 0%, #FF6B35 50%, #FF9505 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.88em;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content {
+                padding: 35px 30px;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 25px 20px;
+            }
+            
+            .nav-bar {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+            
+            th, td {
+                padding: 12px 10px;
+                font-size: 0.85em;
+            }
+        }
+
+        /* Highlight styles */
+        .highlight-red {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-family: 'Consolas', monospace;
+        }
+
+        .highlight-green {
+            background: #dcfce7;
+            color: #166534;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .highlight-blue {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        /* Emoji styling */
+        .emoji {
+            font-style: normal;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li:before {
+            content: "✅ ";
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="laravel-icon">🚀</div>
+        <h1>GUIDE COMPLET BACK-END LARAVEL</h1>
+        <div class="subtitle">Examens Nationaux OFPPT - Développement Digital Option Web Full Stack</div>
+        <div class="subtitle" style="font-size:1.1em;opacity:0.85;">Dossier Pratique Back-End : Toutes les Réponses Détaillées (2023-2025)</div>
+        <div style="margin-top:20px;font-size:0.95em;opacity:0.8;">
+            📚 6 Examens Analysés | 💯 24 Points par Examen | ⏱️ Temps de maîtrise : 6-8 heures
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <a href="#introduction">📖 Introduction</a>
+        <a href="#architecture">🏗️ Architecture MVC</a>
+        <a href="#patterns">🔄 Les 5 Patterns Obligatoires</a>
+        <a href="#pattern-migration">📦 Pattern Migration</a>
+        <a href="#pattern-modele">🗂️ Pattern Modèle</a>
+        <a href="#pattern-controleur">🎮 Pattern Contrôleur</a>
+        <a href="#pattern-vue">🎨 Pattern Vue Blade</a>
+        <a href="#pattern-route">🛣️ Pattern Route</a>
+        <a href="#examen-2023-v1">📝 2023-V1</a>
+        <a href="#examen-2023-v2">📝 2023-V2</a>
+        <a href="#examen-2024-v1">📝 2024-V1</a>
+        <a href="#examen-2024-v2">📝 2024-V2</a>
+        <a href="#examen-2025-v1">📝 2025-V1</a>
+        <a href="#examen-2025-v2">📝 2025-V2</a>
+        <a href="#erreurs">❌ Erreurs à Éviter</a>
+        <a href="#checklist">✅ Checklist Révision</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- INTRODUCTION -->
+        <section id="introduction" class="section">
+            <h2 class="section-title"><span class="emoji">📖</span> INTRODUCTION : Pourquoi le Back-End est le ROI Maximum ?</h2>
+
+            <div class="alert alert-laravel">
+                <div class="alert-title">🎯 Ce que vous devez savoir ABSOLUMENT</div>
+                <ul style="margin-top:12px;line-height:1.9;">
+                    <li><strong>Points attribués</strong> : <span class="highlight-red">24 points</span> sur 60 en pratique (soit <strong>40% de la partie pratique</strong>)</li>
+                    <li><strong>Fréquence d'apparition</strong> : <strong>100%</strong> (présent dans les 6 examens analysés)</li>
+                    <li><strong>Temps recommandé</strong> : <strong>35-40 minutes maximum</strong> le jour de l'examen</li>
+                    <li><strong>Niveau de difficulté</strong> : Élevé (syntaxe stricte + logique métier + architecture MVC)</li>
+                    <li><strong>Framework utilisé</strong> : <strong>Laravel</strong> (PHP) dans 100% des cas</li>
+                </ul>
+            </div>
+
+            <h3 class="subsection-title">📊 Statistiques Back-End dans les Examens OFPPT</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrique</th>
+                        <th>Valeur</th>
+                        <th>Observation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nombre d'examens analysés</strong></td>
+                        <td>6</td>
+                        <td>Juin 2023, 2024, 2025 (V1+V2)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Présence du dossier Back-End</strong></td>
+                        <td style="color:#10b981;font-weight:bold;font-size:1.2em;">6/6 (100%)</td>
+                        <td>Obligatoire à chaque session</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Points moyens par examen</strong></td>
+                        <td><strong>24 points</strong></td>
+                        <td>Toujours 24 pts (stable !)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Poids dans la partie pratique</strong></td>
+                        <td><strong>40%</strong></td>
+                        <td>C'est le dossier le plus rentable !</td>
+                    </tr>
+                    <tr style="background:#fff5f5;">
+                        <td colspan="3"><strong>SUJETS LES PLUS FRÉQUENTS (toujours présents)</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1. Migration</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Création/modification de table</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Modèle + Relations</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Eloquent ORM (hasMany, belongsTo...)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Contrôleur CRUD</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Ressource Controller (index/show/store/destroy)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Vues Blade</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>@extends, @yield, @foreach, @csrf</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. Routes</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>web.php (Route::resource ou Route::get/post)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">🍃 Qu'est-ce que Laravel ? (Rappel Rapide)</h3>
+
+            <div class="grid-2">
+                <div class="info-card">
+                    <h4 style="color:#FF2D20;margin-bottom:15px;">Définition Officielle</h4>
+                    <p><strong>Laravel</strong> est un framework PHP open-source pour le développement d'applications web suivant le pattern <strong>MVC (Modèle-Vue-Contrôleur)</strong>.</p>
+                    <ul style="margin-top:15px;">
+                        <li><strong>M</strong>odèle = Eloquent ORM (Base de données)</li>
+                        <li><strong>V</strong>ue = Blade Templates (Interface utilisateur)</li>
+                        <li><strong>C</strong>ontrôleur = Logique métier (Traitement des requêtes)</li>
+                        <li><strong>R</strong>outes = URL → Contrôleur@Méthode</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h4 style="color:#FF2D20;margin-bottom:15px;">Pourquoi Laravel dans les Examens OFPPT ?</h4>
+                    <ul>
+                        <li><strong>Standard industriel</strong> : Le framework PHP le plus populaire au monde</li>
+                        <li><strong>Eloquent ORM puissant</strong> : Relations faciles (hasMany, belongsTo, belongsToMany)</li>
+                        <li><strong>Blade Templates</strong> : Moteur de templates élégant et sécurisé</li>
+                        <li><strong>Artisan CLI</strong> : Commandes pour générer du code (make:model, make:controller...)</li>
+                        <li><strong>Migration</strong> : Versioning de la base de données</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-title">💡 Bonne Nouvelle pour Vous</div>
+                <p style="font-size:1.05em;">Le dossier Back-End est <strong>le plus structuré</strong> de l'examen. Il suit TOUJOURS la même architecture MVC. Si vous maîtrisez les <strong>5 composants</strong> (Migration, Modèle, Contrôleur, Vue, Route), vous assurez <strong>24/24 points</strong> à chaque fois.</p>
+            </div>
+        </section>
+
+        <!-- ARCHITECTURE MVC -->
+        <section id="architecture" class="section">
+            <h2 class="section-title"><span class="emoji">🏗️</span> ARCHITECTURE MVC LARAVEL (Le Fondamental)</h2>
+
+            <div class="grid-2" style="margin-top:30px;">
+                <div class="info-card" style="border:3px solid #FF2D20;background:linear-gradient(135deg,#ffffff,#fff5f5);">
+                    <h3 style="color:#FF2D20;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #FF2D20;">
+                        📦 MIGRATION<br>(Structure BDD)
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:2.5em;font-weight:bold;color:#FF2D20;">2pts</span><br>
+                        <small style="color:#666;">Toujours Q1</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Fichier</strong> : <code>database/migrations/YYYY_MM_DD_HHMMSS_create_nom_table_table.php</code></li>
+                        <li><strong>Commande</strong> : <code>php artisan make:migration create_nom_table_table</code></li>
+                        <li><strong>Méthode up()</strong> : Crée la table (<code>Schema::create</code>)</li>
+                        <li><strong>Méthode down()</strong> : Supprime la table (<code>Schema::drop</code>)</li>
+                        <li><strong>Exécution</strong> : <code>php artisan migrate</code></li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #FF6B35;background:linear-gradient(135deg,#ffffff,#fffbeb);">
+                    <h3 style="color:#FF6B35;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #FF6B35;">
+                        🗂️ MODÈLE<br>(Eloquent ORM)
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:2.5em;font-weight:bold;color:#FF6B35;">4-5pts</span><br>
+                        <small style="color:#666;">Toujours Q2</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Fichier</strong> : <code>app/Models/NomModele.php</code></li>
+                        <li><strong>Commande</strong> : <code>php artisan make:model NomModele</code></li>
+                        <li><strong>$fillable</strong> : Champs autorisés en mass assignment</li>
+                        <li><strong>Relations</strong> : hasMany(), belongsTo(), belongsToMany()</li>
+                        <li><strong>Héritage</strong> : <code>extends Model</code></li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #FF9505;background:linear-gradient(135deg,#ffffff,#fff7ed);">
+                    <h3 style="color:#FF9505;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #FF9505;">
+                        🎮 CONTRÔLEUR<br>(Logique Métier)
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:2.5em;font-weight:bold;color:#FF9505;">9-11pts</span><br>
+                        <small style="color:#666;">Cœur du dossier !</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Fichier</strong> : <code>app/Http/Controllers/NomController.php</code></li>
+                        <li><strong>Commande</strong> : <code>php artisan make:controller NomController --resource</code></li>
+                        <li><strong>index()</strong> : Liste avec filtres optionnels</li>
+                        <li><strong>show($id)</strong> : Détail avec relations eager loading</li>
+                        <li><strong>store(Request)</strong> : Création avec validation</li>
+                        <li><strong>destroy($id)</strong> : Suppression avec redirect</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #10b981;background:linear-gradient(135deg,#ffffff,#ecfdf5);">
+                    <h3 style="color:#10b981;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #10b981;">
+                        🎨 VUE BLADE<br>(Interface Utilisateur)
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:2.5em;font-weight:bold;color:#10b981;">4-6pts</span><br>
+                        <small style="color:#666;">Toujours Q4</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Fichier</strong> : <code>resources/views/nomvue/index.blade.php</code></li>
+                        <li><strong>Héritage</strong> : <code>@extends('layouts.app')</code></li>
+                        <li><strong>Sections</strong> : <code>@yield('content')</code>, <code>@section('content')</code></li>
+                        <li><strong>Boucles</strong> : <code>@foreach ($items as $item)</code></li>
+                        <li><strong>Formulaires</strong> : <code>@csrf</code>, <code>@method('DELETE')</code></li>
+                        <li><strong>Affichage</strong> : <code>{{ $variable }}</code>, <code>{!! $html !!}</code></li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #8b5cf6;background:linear-gradient(135deg,#ffffff,#eff6ff);">
+                    <h3 style="color:#8b5cf6;font-size:1.4em;text-align:center;padding-bottom:15px;border-bottom:2px solid #8b5cf6;">
+                        🛣️ ROUTES<br>(URL → Action)
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:2.5em;font-weight:bold;color:#8b5cf6;">1-3pts</span><br>
+                        <small style="color:#666;">Toujours Q5/Q6</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Fichier</strong> : <code>routes/web.php</code></li>
+                        <li><strong>Resource Route</strong> : <code>Route::resource('url', Controller::class)</code></li>
+                        <li><strong>Manuelle</strong> : <code>Route::get('url', [Controller::class, 'methode'])</code></li>
+                        <li><strong>Nommage</strong> : <code>->name('nomroute')</code> pour <code>route('nomroute')</code></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- LES 5 PATTERNS OBLIGATOIRES -->
+        <section id="patterns" class="section">
+            <h2 class="section-title"><span class="emoji">🔄</span> LES 5 PATTERNS OBLIGATOIRES DU BACK-END LARAVEL</h2>
+
+            <div class="alert alert-success">
+                <div class="alert-title" style="font-size:1.3em;">🎯 Ces 5 patterns = 100% des questions Back-End depuis 3 ans</div>
+                <p style="font-size:1.05em;margin-top:10px;">Mémorisez-les parfaitement et vous n'aurez aucune surprise le jour J.</p>
+            </div>
+
+            <h3 class="subsubsection-title">📊 Répartition Typique des Points (24 points totaux)</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Pattern</th>
+                        <th>Points</th>
+                        <th>Complexité</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background:#fff5f5;">
+                        <td><strong>Migration</strong></td>
+                        <td>Schema::create/up/down</td>
+                        <td><strong>2pts</strong></td>
+                        <td>⭐ Facile</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Modèle</strong></td>
+                        <td>$fillable + Relations</td>
+                        <td><strong>4-5pts</strong></td>
+                        <td>⭐⭐ Moyen</td>
+                    </tr>
+                    <tr style="background:#fff5f5;">
+                        <td><strong>Contrôleur</strong></td>
+                        <td>CRUD complet (index/show/store/destroy)</td>
+                        <td><strong>9-11pts</strong></td>
+                        <td>⭐⭐⭐ Élevé</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vues Blade</strong></td>
+                        <td>@extends/@yield/@foreach/@csrf</td>
+                        <td><strong>4-6pts</strong></td>
+                        <td>⭐⭐ Moyen</td>
+                    </tr>
+                    <tr style="background:#fff5f5;">
+                        <td><strong>Routes</strong></td>
+                        <td>Route::resource ou manuelle</td>
+                        <td><strong>1-3pts</strong></td>
+                        <td>⭐ Très facile</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- PATTERN MIGRATION -->
+        <section id="pattern-migration" class="section">
+            <h2 class="section-title"><span class="emoji">📦</span> PATTERN #1 : MIGRATION (Création de Table)</h2>
+
+            <div class="command-card">
+                <div class="command-name">TEMPLATE UNIVERSEL - Création de Table</div>
+                
+                <div class="command-syntax">
+<span class="code-comment">// Commande Artisan pour générer le fichier :</span>
+<span class="code-laravel">php artisan make:migration create_nom_table_table</span>
+
+<span class="code-comment">// Fichier généré : database/migrations/xxxx_xx_xx_xxxxxx_create_nom_table_table.php</span>
+
+<span class="code-keyword">use</span> Illuminate\Database\Migrations\Migration;
+<span class="code-keyword">use</span> Illuminate\Database\Schema\Blueprint;
+<span class="code-keyword">use</span> Illuminate\Support\Facades\Schema;
+
+<span class="code-keyword">class</span> <span class="code-class">CreateNomTableTable</span> <span class="code-keyword">extends</span> Migration
+{
+    <span class="code-comment">/**
+     * Run the migrations.
+     *
+     * @return void
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">up</span>()
+    {
+        Schema::<span class="code-method">create</span>(<span class="code-string">'nom_table'</span>, <span class="code-keyword">function</span> (Blueprint <span class="code-variable">$table</span>) {
+            <span class="code-variable">$table</span>-><span class="code-method">id</span>();
+            <span class="code-variable">$table</span>-><span class="code-method">string</span>(<span class="code-string">'colonne1'</span>);
+            <span class="code-variable">$table</span>-><span class="code-method">string</span>(<span class="code-string">'colonne2'</span>);
+            <span class="code-variable">$table</span>-><span class="code-method">foreignId</span>(<span class="code-string">'autre_id'</span>)-><span class="code-method">constrained</span>();
+            <span class="code-variable">$table</span>-><span class="code-method">timestamps</span>();
+        });
+    }
+
+    <span class="code-comment">/**
+     * Reverse the migrations.
+     *
+     * @return void
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">down</span>()
+    {
+        Schema::<span class="code-method">dropIfExists</span>(<span class="code-string">'nom_table'</span>);
+    }
+};</code></pre>
+            </div>
+
+            <div class="alert alert-warning">
+                <div class="alert-title">⚠️ Points Clés à Retenir</div>
+                <ul style="margin-top:12px;line-height:2;font-size:1.05em;">
+                    <li><code>Schema::create('nom_table')</code> : Crée la table</li>
+                    <li><code>$table->id()</code> : Clé primaire auto-incrémentée (INT UNSIGNED AUTO_INCREMENT)</li>
+                    <li><code>$table->string('champ')</code> : VARCHAR(255) par défaut</li>
+                    <li><code>$table->foreignId('autre_id')->constrained()</code> : Clé étrangère avec contrainte</li>
+                    <li><code>$table->timestamps()</code> : created_at ET updated_at automatiques</li>
+                    <li><code>down()</code> : Toujours implémenter (rollback possible)</li>
+                    <li><strong>Exécution</strong> : <code>php artisan migrate</code></li>
+                </ul>
+            </div>
+
+            <h3 class="subsubsection-title">📋 Variantes Observées (2023-2025)</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Examen</th>
+                        <th>Table à Créer</th>
+                        <th>Colonnes Spéciales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>2023-V1</strong></td>
+                        <td>Utilisation</td>
+                        <td>idUtil, dateDebut, dateFin, idSal (FK), matricule (FK)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2023-V2</strong></td>
+                        <td>Affectation</td>
+                        <td>codeMat (FK), codeEmp (FK), dates</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2024-V1</strong></td>
+                        <td>Evenement / Atelier / Participant / Inscription</td>
+                        <td>Plusieurs tables liées (expert_id, evenement_id)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2024-V2</strong></td>
+                        <td>Seminaire / Activite / Membre / Reservation</td>
+                        <td>animateur_id, seminaire_id, membre_id</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2025-V1</strong></td>
+                        <td>Battery / Changement / Reparation</td>
+                        <td>velo_id (FK), ancienne_batterie (FK), nouvelle_batterie (FK)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2025-V2</strong></td>
+                        <td>Battery / Remplacement / Reparation</td>
+                        <td>trottinette_id (FK), id_ancienne_batterie (FK)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- PATTERN MODELE -->
+        <section id="pattern-modele" class="section">
+            <h2 class="section-title"><span class="emoji">🗂️</span> PATTERN #2 : MODÈLE ELOQUENT AVEC RELATIONS</h2>
+
+            <div class="command-card">
+                <div class="command-name">TEMPLATE UNIVERSEL - Modèle + Relations</div>
+                
+                <div class="command-syntax">
+<span class="code-comment">// Commande Artisan pour générer le modèle :</span>
+<span class="code-laravel">php artisan make:model NomModele</span>
+
+<span class="code-comment">// Fichier généré : app/Models/NomModele.php</span>
+
+<span class="code-keyword">namespace</span> App\Models;
+
+<span class="code-keyword">use</span> Illuminate\Database\Eloquent\Model;
+
+<span class="code-keyword">class</span> <span class="code-class">NomModele</span> <span class="code-keyword">extends</span> Model
+{
+    <span class="code-comment">/**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */</span>
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [
+        <span class="code-string">'colonne1'</span>,
+        <span class="code-string">'colonne2'</span>,
+        <span class="code-string">'id_etranger'</span>,
+    ];
+
+    <span class="code-comment">/**
+     * Relation One-to-Many (ce modèle possède plusieurs enfants)
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">enfants</span>()
+    {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">hasMany</span>(Enfant::<span class="code-keyword">class</span>, <span class="code-string">'id_parent'</span>);
+    }
+
+    <span class="code-comment">/**
+     * Relation Many-to-One (ce modèle appartient à un parent)
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">parent</span>()
+    {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">belongsTo</span>(Parent::<span class="code-keyword">class</span>, <span class="code-string">'id_etranger'</span>);
+    }
+
+    <span class="code-comment">/**
+     * Relation Many-to-Many (avec table pivot)
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">tags</span>()
+    {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">belongsToMany</span>(Tag::<span class="code-keyword">class</span>, <span class="code-string">'pivot_table'</span>);
+    }
+}</code></pre>
+            </div>
+
+            <div class="alert alert-warning">
+                <div class="alert-title">⚠️ Les 3 Types de Relations à Maîtriser</div>
+                <div class="grid-2" style="margin-top:15px;">
+                    <div>
+                        <h4 style="color:#FF2D20;margin-bottom:10px;"><code>hasMany()</code> → Un-à-Plusieurs</h4>
+                        <p style="font-size:0.95em;"><strong>Exemple</strong> : Un Service a plusieurs Salariés</p>
+                        <pre style="margin-top:10px;background:white;border:1px solid #ddd;padding:10px;border-radius:8px;"><code><span style="color:#FF2D20;">// Dans Service.php</span>
+public function salaries() {
+    return $this->hasMany(Salarie::class, 'codeSer');
+}</code></pre>
+                    </div>
+                    <div>
+                        <h4 style="color:#FF6B35;margin-bottom:10px;"><code>belongsTo()</code> → Plusieurs-à-Un</h4>
+                        <p style="font-size:0.95em;"><strong>Exemple</strong> : Un Salarié appartient à un Service</p>
+                        <pre style="margin-top:10px;background:white;border:1px solid #ddd;padding:10px;border-radius:8px;"><code><span style="color:#FF6B35;">// Dans Salarie.php</span>
+public function service() {
+    return $this->belongsTo(Service::class, 'codeSer');
+}</code></pre>
+                    </div>
+                </div>
+                <div class="grid-2" style="margin-top:15px;">
+                    <div>
+                        <h4 style="color:#FF9505;margin-bottom:10px;"><code>belongsToMany()</code> → Plusieurs-à-Plusieurs</h4>
+                        <p style="font-size:0.95em;"><strong>Exemple</strong> : Un Événement a plusieurs Participants (et vice-versa)</p>
+                        <pre style="margin-top:10px;background:white;border:1px solid #ddd;padding:10px;border-radius:8px;"><code><span style="color:#FF9505;">// Dans Evenement.php</span>
+public function participants() {
+    return $this->belongsToMany(
+        Participant::class,
+        'inscriptions',  // table pivot
+        'evenement_id', // FK dans table pivot
+        'participant_id'  // FK dans table pivot
+    );
+}</code></pre>
+                    </div>
+                    <div>
+                        <h4 style="color:#10b981;margin-bottom:10px;"><code>$fillable</code> ⚠️ OBLIGATOIRE</h4>
+                        <p style="font-size:0.95em;">Sans $fillabe, erreur <strong>"MassAssignmentException"</strong></p>
+                        <pre style="margin-top:10px;background:white;border:1px solid #ddd;padding:10px;border-radius:8px;"><code><span style="color:#10b981;">protected $fillable = [
+    'nom',
+    'email',
+    'telephone'
+];</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PATTERN CONTROLEUR -->
+        <section id="pattern-controleur" class="section">
+            <h2 class="section-title"><span class="emoji">🎮</span> PATTERN #3 : CONTRÔLEUR RESSOURCE (CRUD COMPLET)</h2>
+
+            <div class="command-card">
+                <div class="command-name">TEMPLATE UNIVERSEL - Resource Controller Complet</div>
+                
+                <div class="command-syntax">
+<span class="code-comment">// Commande Artisan pour générer le contrôleur :</span>
+<span class="code-laravel">php artisan make:controller NomController --resource</span>
+
+<span class="code-comment">// Fichier généré : app/Http/Controllers/NomController.php</span>
+
+<span class="code-keyword">namespace</span> App\Http\Controllers;
+
+<span class="code-keyword">use</span> App\Models\NomModele;
+<span class="code-keyword">use</span> Illuminate\Http\Request;
+
+<span class="code-keyword">class</span> <span class="code-class">NomController</span> <span class="code-keyword">extends</span> Controller
+{
+    <span class="code-comment">/**
+     * Display a listing of the resource.
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">index</span>()
+    {
+        <span class="code-comment">// Récupérer tous les enregistrements</span>
+        <span class="code-variable">$donnees</span> = Modele::<span class="code-method">with</span>([<span class="code-string">'relation1'</span>, <span class="code-string">'relation2'</span>])
+                      -><span class="code-method">get</span>();
+
+        <span class="code-comment">// Optionnel : Filtrer si paramètre présent</span>
+        <span class="code-keyword">if</span> (<span class="code-variable">request</span>-><span class="code-method">has</span>(<span class="code-string">'filtre'</span>)) {
+            <span class="code-variable">$donnees</span> = <span class="code-variable">$donnees</span>-><span class="code-method">where</span>(<span class="code-string">'champ'</span>, <span class="code-variable">request</span>-><span class="code-method">input</span>(<span class="code-string">'filtre'</span>));
+        }
+
+        <span class="code-comment">// Retourner la vue avec les données</span>
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'nomvue.index'</span>, [<span class="code-string">'donnees'</span> => <span class="code-variable">$donnees</span>]);
+    }
+
+    <span class="code-comment">/**
+     * Show the form for creating a new resource.
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">create</span>()
+    {
+        <span class="code-comment">// Afficher formulaire de création</span>
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'nomvue.create'</span>);
+    }
+
+    <span class="code-comment">/**
+     * Store a newly created resource in storage.
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">store</span>(Request <span class="code-variable">$request</span>)
+    {
+        <span class="code-comment">// Valider les données</span>
+        <span class="code-variable">$validated</span> = <span class="code-variable">$request</span>-><span class="code-method">validate</span>([
+            <span class="code-string">'champ1'</span> => <span class="code-string">'required'</span>,
+            <span class="code-string">'champ2'</span> => <span class="code-string">'required|email'</span>,
+        ]);
+
+        <span class="code-comment">// Créer l'enregistrement</span>
+        Modele::<span class="code-method">create</span>(<span class="code-variable">$validated</span>);
+
+        <span class="code-comment">Rediriger vers liste avec message succès</span>
+        <span class="code-keyword">return</span> <span class="code-method">redirect</span>()-><span class="code-method">route</span>(<span class="code-string">'nomroute.index'</span>)
+                     -><span class="code-method">with</span>(<span class="code-string">'success'</span>, <span class="code-string">'Élément créé avec succès'</span>);
+    }
+
+    <span class="code-comment">/**
+     * Display the specified resource.
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">show</span>(<span class="code-variable">$id</span>)
+    {
+        <span class="code-comment">// Trouver l'enregistrement avec ses relations</span>
+        <span class="code-variable">$item</span> = Modele::<span class="code-method">with</span>([<span class="code-string">'relation1'</span>, <span class="code-string">'relation2'</span>])
+                     -><span class="code-method">find</span>(<span class="code-variable">$id</span>);
+
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'nomvue.show'</span>, [<span class="code-string">'item'</span> => <span class="code-variable">$item</span>]);
+    }
+
+    <span class="code-comment">/**
+     * Show the form for editing the specified resource.
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">edit</span>(<span class="code-variable">$id</span>)
+    {
+        <span class="code-variable">$item</span> = Modele::<span class="code-method">find</span>(<span class="code-variable">$id</span>);
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'nomvue.edit'</span>, [<span class="code-string">'item'</span> => <span class="code-variable">$item</span>]);
+    }
+
+    <span class="code-comment">/**
+     * Update the specified resource in storage.
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">update</span>(Request <span class="code-variable">$request</span>, <span class="code-variable">$id</span>)
+    {
+        <span class="code-variable">$validated</span> = <span class="code-variable">$request</span>-><span class="code-method">validate</span>([...]);
+
+        <span class="code-variable">$item</span> = Modele::<span class="code-method">find</span>(<span class="code-variable">$id</span>);
+        <span class="code-variable">$item</span>-><span class="code-method">update</span>(<span class="code-variable">$validated</span>);
+
+        <span class="code-keyword">return</span> <span class="code-method">redirect</span>()-><span class="code-method">route</span>(<span class="code-string">'nomroute.index'</span>)
+                     -><span class="code-method">with</span>(<span class="code-string">'success'</span>, <span class="code-string">'Élément modifié avec succès'</span>);
+    }
+
+    <span class="code-comment">/**
+     * Remove the specified resource from storage.
+     */</span>
+    <span class="code-keyword">public function</span> <span class="code-method">destroy</span>(<span class="code-variable">$id</span>)
+    {
+        <span class="code-variable">$item</span> = Modele::<span class="code-method">find</span>(<span class="code-variable">$id</span>);
+        <span class="code-variable">$item</span>-><span class="code-method">delete</span>();
+
+        <span class="code-keyword">return</span> <span class="code-method">redirect</span>()-><span class="code-method">route</span>(<span class="code-string">'nomroute.index'</span>)
+                     -><span class="code-method">with</span>(<span class="code-string">'success'</span>, <span class="code-string">'Élément supprimé avec succès'</span>);
+    }
+}</code></pre>
+            </div>
+
+            <div class="alert alert-danger">
+                <div class="alert-title">⚠️ Erreurs Fréquentes dans les Contrôleurs</div>
+                <ul style="margin-top:12px;line-height:2;font-size:1.05em;">
+                    <li><strong>Oublier <code>with(['relation'])</code></strong> → N+1 queries problème (lazy loading)</li>
+                    <li><strong>Oublier <code>validate()</code></strong> → Données invalides en BDD</li>
+                    <li><strong>Oublier <code>$fillable</code> dans le modèle</strong> → MassAssignmentException</li>
+                    <li><strong>Mauvais nom de route</strong> → Erreur 404</li>
+                    <li><strong>Oublier <code>redirect()->with('success', ...)</code></strong> → Pas de feedback utilisateur</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PATTERN VUE BLADE -->
+        <section id="pattern-vue" class="section">
+            <h2 class="section-title"><span class="emoji">🎨</span> PATTERN #4 : VUES BLADE (Templates)</h2>
+
+            <div class="command-card">
+                <div class="command-name">TEMPLATE UNIVERSEL - Liste (index.blade.php)</div>
+                
+                <div class="command-syntax blade-code">
+<span class="code-comment">{-- resources/views/nomvue/index.blade.php --}</span>
+
+<span class="code-operator">@extends</span>(<span class="code-string">'layouts.app'</span>)
+
+<span class="code-operator">@section</span>(<span class="code-string">'content'</span>)
+
+<div class="container">
+    <h1>Liste des [Entités]</h1>
+    
+    <span class="code-comment">{-- Lien vers le formulaire de création --}</span>
+    <a href="{{ route('nomroute.create') }}" class="btn btn-primary">
+        Ajouter une nouvelle [entité]
+    </a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Colonne 1</th>
+                <th>Colonne 2</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <span class="code-operator">@foreach</span> ($donnees as $item)
+            <tr>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->colonne1 }}</td>
+                <td>{{ $item->colonne2 }}</td>
+                <td>
+                    <a href="{{ route('nomroute.show', $item->id) }}" 
+                       class="btn btn-sm btn-info">
+                        Détails
+                    </a>
+                    
+                    <form action="{{ route('nomroute.destroy', $item->id) }}" 
+                          method="POST"
+                          style="display:inline-block;">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" 
+                                class="btn btn-sm btn-danger"
+                                onclick="return confirm('Êtes-vous sûr ?')">
+                            Supprimer
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            <span class="code-operator">@endforeach</span>
+        </tbody>
+    </table>
+    
+    <span class="code-comment">{-- Message de succès --}</span>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+</div>
+
+<span class="code-operator">@endsection</span></code></pre>
+            </div>
+
+            <div class="command-card">
+                <div class="command-name">TEMPLATE UNIVERSEL - Détail (show.blade.php)</div>
+                
+                <div class="command-syntax blade-code">
+<span class="code-comment">{-- resources/views/nomvue/show.blade.php --}</span>
+
+<span class="code-operator">@extends</span>(<span class="code-string">'layouts.app'</span>)
+
+<span class="code-operator">@section</span>(<span class="code-string">'content'</span>)
+
+<div class="container">
+    <h1>Détails de l'[Entité]'</h1>
+    
+    <dl class="row">
+        <dt class="col-sm-3">ID :</dt>
+        <dd class="col-sm-9">{{ $item->id }}</dd>
+        
+        <dt class="col-sm-3">Colonne 1 :</dt>
+        <dd class="col-sm-9">{{ $item->colonne1 }}</dd>
+        
+        <dt class="col-sm-3">Colonne 2 :</dt>
+        <dd class="col-sm-9">{{ $item->colonne2 }}</dd>
+    </dl>
+
+    <span class="code-comment">{-- Afficher les relations si elles existent --}</span>
+    @if($item->relation)
+        <h3>Relation : {{ $item->relation->nom }}</h3>
+    @endif
+
+    <hr>
+    
+    <a href="{{ route('nomroute.index') }}" class="btn btn-secondary">
+        ← Retour à la liste
+    </a>
+    
+    <a href="{{ route('nomroute.edit', $item->id) }}" class="btn btn-warning">
+        Modifier
+    </a>
+</div>
+
+<span class="code-operator">@endsection</span></code></pre>
+            </div>
+
+            <div class="alert alert-warning">
+                <div class="alert-title">⚡ Directives Blade à Connaître Absolument</div>
+                <div class="grid-2" style="margin-top:15px;">
+                    <div>
+                        <h4 style="color:#FF2D20;margin-bottom:10px;">Structure de Base</h4>
+                        <ul style="font-size:0.95em;line-height:1.8;">
+                            <li><code>@extends('layout.app')</code> : Hériter le layout principal</li>
+                            <li><code>@yield('content')</code> : Définir la section principale</li>
+                            <li><code>@section('content') ... @endsection</code> : Contenu de la section</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color:#FF6B35;margin-bottom:10px">Affichage & Boucles</h4>
+                        <ul style="font-size:0.95em;line-height:1.8;">
+                            <li><code>{{ $variable }}</code> : Affichage échappé (auto-escaped)</li>
+                            <li><code>{!! $html !!}</code> : Affichage brut (HTML non échappé)</li>
+                            <li><code>@foreach ($array as $item) ... @endforeach</code> : Boucle</li>
+                            <li><code>@if(condition) ... @endif</code> : Condition</li>
+                            <li><code>@empty($array) ... @endempty</code> : Si tableau vide</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color:#FF9505;margin-bottom:10px">Formulaires & Sécurité</h4>
+                        <ul style="font-size:0.95em;line-height:1.8;">
+                            <li><code>@csrf</code> : Token CSRF obligatoire (POST forms)</li>
+                            <li><code>@method('DELETE')</code> : Méthode HTTP masquée (PUT/PATCH/DELETE)</li>
+                            <li><code>{{ route('nom.route', $id)}}</code> : Génération d'URL</li>
+                            <li><code>{{ session('key') }}</code> : Messages flash</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PATTERN ROUTE -->
+        <section id="pattern-route" class="section">
+            <h2 class="section-title"><span class="emoji">🛣️</span> PATTERN #5 : ROUTES (web.php)</h2>
+
+            <div class="command-card">
+                <div class="command-name">TEMPLATE UNIVERSEL - Fichier routes/web.php</div>
+                
+                <div class="command-syntax route-code">
+<span class="code-comment"><?php
+
+use App\Http\Controllers\NomController;
+use Illuminate\Support\Facades\Route;
+
+<span class="code-comment">/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+<span class="code-comment">/* Route Resource (génère 7 routes automatiquement) */</span>
+Route::<span class="code-method">resource</span>(<span class="code-string">'nomroute'</span>, NomController::<span class="code-keyword">class</span>);
+
+<span class="code-comment">/* Résultat :
+   GET    /nomroute          → index
+   GET    /nomroute/create    → create
+   POST   /nomroute          → store
+   GET    /nomroute/{id}      → show
+   GET    /nomroute/{id}/edit → edit
+   PUT    /nomroute/{id}      → update
+   DELETE /nomroute/{id}      → destroy
+*/</span>
+
+<span class="code-comment">/* Route personnalisée (si besoin) */</span>
+Route::<span class="code-method">get</span>(<span class="code-string">'nomroute/special'</span>, [NomController::<span class="code-keyword">class</span>, <span class="code-string">'methodSpecial'</span>])-><span class="code-method">name</span>(<span class="code-string">'nomroute.special'</span>);</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-title">💡 Commandes Utiles</div>
+                <ul style="margin-top:12px;line-height:2;font-size:1.05em;">
+                    <li><code>php artisan route:list</code> → Voir toutes les routes enregistrées</li>
+                    <li><code>php artisan route:clear</code> → Vider le cache des routes</li>
+                    <li><code>->name('nom')</code> dans route → Permet d'utiliser <code>route('nom')</code> dans les vues</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- EXAMENS COMPLETS -->
+        <section id="examen-2023-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2023 - VARIANTE 1</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2023 - Variante 1</div>
+                    <div class="exam-badge">24 Points | Dossier Back-End</div>
+                </div>
+
+                <div style="background:#eff6ff;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #3b82f6;">
+                    <h4 style="color:#1e40af;margin-bottom:12px;">📋 Contexte & Schéma</h4>
+                    <p><strong>Société DKM</strong> : Agence de location nationale de voitures</p>
+                    <p><strong>Tables principales</strong> : service, salarie, voiture, utilisation</p>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">2pts</span></div>
+                    <p><strong>Énoncé :</strong> Écrire la commande de création de la migration de la table <code>Utilisation</code> ainsi que le contenu de la fonction <code>up()</code> de la migration.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">php artisan make:migration</span> create_utilisations_table
+
+<span class="code-keyword">public function</span> <span class="code-method">up</span>() {
+    Schema::<span class="code-method">create</span>(<span class="code-string">'utilisations'</span>, <span class="code-keyword">function</span> (Blueprint <span class="code-variable">$table</span>) {
+        <span class="code-variable">$table</span>-><span class="code-method">id</span>();
+        <span class="code-variable">$table</span>-><span class="code-method">dateDebutUtilisation</span>(<span class="code-string">'date_debut_utilisation'</span>);
+        <span class="code-variable">$table</span>-><span class="code-method">dateFinUtilisation</span>(<span class="code-string">'date_fin_utilisation'</span>);
+        <span class="code-variable">$table</span>-><span class="code-method">foreignId</span>(<span class="code-string">'idSal'</span>)-><span class="code-method">constrained</span>();
+        <span class="code-variable">$table</span>-><span class="code-method">foreignId</span>(<span class="code-string">'matricule'</span>)-><span class="code-method">constrained</span>();
+        <span class="code-variable">$table</span>-><span class="code-method">timestamps</span>();
+    });
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">5pts</span></div>
+                    <p><strong>Énoncé :</strong> Créer les modèles pour chacune des tables suivantes : voiture, salarié et service avec leurs attributs et fonctions de relations.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-comment">// app/Models/Service.php</span>
+<span class="code-keyword">class</span> <span class="code-class">Service</span> <span class="code-keyword">extends</span> Model {
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [<span class="code-string">'codeser'</span>, <span class="code-string">'nomser'</span>];
+    
+    <span class="code-keyword">public function</span> <span class="code-method">salaries</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">hasMany</span>(Salarie::<span class="code-keyword">class</span>, <span class="code-string">'codeSer'</span>);
+    }
+}
+
+<span class="code-comment">// app/Models/Salarie.php</span>
+<span class="code-keyword">class</span> <span class="code-class">Salarie</span> <span class="code-keyword">extends</span> Model {
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [
+        <span class="code-string">'nomSal'</span>, <span class="code-string">'prenomSal'</span>, <span class="code-string">'fonction'</span>, <span class="code-string">'dateEmbauche'</span>
+    ];
+    
+    <span class="code-keyword">public function</span> <span class="code-method">service</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">belongsTo</span>(Service::<span class="code-keyword">class</span>, <span class="code-string">'codeSer'</span>);
+    }
+    
+    <span class="code-keyword">public function</span> <span class="code-method">utilisations</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">hasMany</span>(Utilisation::<span class="code-keyword">class</span>, <span class="code-string">'idSal'</span>);
+    }
+}
+
+<span class="code-comment">// app/Models/Voiture.php</span>
+<span class="code-keyword">class</span> <span class="code-class">Voiture</span> <span class="code-keyword">extends</span> Model {
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [
+        <span class="code-string">'matricule'</span>, <span class="code-string">'marque'</span>, <span class="code-string">'couleur'</span>, <span class="code-string">'dateMiseEnCirculation'</span>
+    ];
+    
+    <span class="code-keyword">public function</span> <span class="code-method">utilisations</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">hasMany</span>(Utilisation::<span class="code-keyword">class</span>, <span class="code-string">'matricule'</span>);
+    }
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">11pts</span></div>
+                    <p><strong>Énoncé :</strong> Créer le contrôleur <code>VoitureController</code> avec les méthodes suivantes :</p>
+                    <ol>
+                        <li><code>indexListeVoitures()</code> : qui permet de retourner et d'afficher la liste voitures dans la vue <code>index.blade.php</code></li>
+                        <li><code>AfficherListeVoitures($id)</code> : qui permet de retourner et d'afficher la liste des voitures utilisées par le salarié dont le code est passé en paramètre.</li>
+                    </ol>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">use</span> App\Models\Voiture;
+<span class="code-keyword">use</span> App\Models\Utilisation;
+<span class="code-keyword">use</span> Illuminate\Support\Facades\Route;
+
+<span class="code-keyword">class</span> VoitureController <span class="code-keyword">extends</span> Controller
+{
+    <span class="code-keyword">public function</span> <span class="code-method">indexListeVoitures</span>()
+    {
+        <span class="code-variable">$voitures</span> = Voiture::<span class="code-method">with</span>(<span class="code-string">'utilisations'</span>)-><span class="code-method">get</span>();
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'voiture.index'</span>, [<span class="code-string">'voitures'</span> => <span class="code-variable">$voitures</span>]);
+    }
+
+    <span class="code-keyword">public function</span> <span class="code-method">AfficherListeVoitures</span>(<span class="code-variable">$codeSal</span>)
+    {
+        <span class="code-variable">$voitures</span> = Voiture::<span class="code-method">whereHas</span>(<span class="code-string">'utilisations'</span>, <span class="code-keyword">function</span> (<span class="code-variable">$query</span>) {
+            <span class="code-variable">$query</span>-><span class="code-method">where</span>(<span class="code-string">'idSal'</span>, <span class="code-variable">$codeSal</span>);
+        })-><span class="code-method">get</span>();
+
+        <span class="code-keyword">if</span> (<span class="code-variable">$voitures</span>-><span class="code-method">isEmpty</span>()) {
+            <span class="code-keyword">return</span> <span class="code-method">back</span>()-><span class="code-method">with</span>(<span class="code-string">'error'</span>, <span class="code-string">'Aucun véhicule n\'est affecté ce salarié'</span>);
+        }
+
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'voiture.liste'</span>, [
+            <span class="code-string">'voitures'</span> => <span class="code-variable">$voitures</span>,
+            <span class="code-string">'codeSal'</span> => <span class="code-variable">$codeSal</span>
+        ]);
+    }
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 4 <span class="points-badge">6pts</span></div>
+                    <p><strong>Énoncé :</strong> Créer la vue <code>index.blade.php</code> du dossier <code>voiture</code> pour afficher la liste des voitures dans un tableau, avec les liens ajouter et supprimer.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code>@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h1>Gestion Voitures</h1>
+    
+    <a href="{{ route('voitures.create') }}" class="btn btn-primary">
+        Ajouter une nouvelle voiture
+    </a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Matricule</th>
+                <th>Marque</th>
+                <th>Date de mise en circulation</th>
+                <th>Couleur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($voitures as $voiture)
+            <tr>
+                <td>{{ $voiture->matricule }}</td>
+                <td>{{ $voiture->marque }}</td>
+                <td>{{ $voiture->dateMiseEnCirculation }}</td>
+                <td>{{ $voiture->couleur }}</td>
+                <td>
+                    <a href="{{ route('voitures.show', $voiture->id) }}" 
+                       class="btn btn-sm btn-info">
+                        Détails
+                    </a>
+                    
+                    <form action="{{ route('voitures.destroy', $voiture->id) }}" 
+                          method="POST" style="display:inline-block;">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" 
+                                class="btn btn-sm btn-danger"
+                                onclick="return confirm('Confirmer la suppression ?')">
+                            Supprimer
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+@endsection</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 5 <span class="points-badge">4pts</span></div>
+                    <p><strong>Énoncé :</strong> Ajouter dans le composante principale <code>App.js</code> la partie de routage pour les deux composants <code>composant2.js</code> et <code>composant3.js</code>.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE (Fichier routes/web.php)</div>
+                    <pre><code><span class="code-comment">// Ajouter ces lignes dans routes/web.php</span>
+<span class="code-keyword">use</span> App\Http\Controllers\VoitureController;
+
+Route::<span class="code-method">get</span>(<span class="code-string">'/composant2'</span>, [VoitureController::<span class="code-keyword">class</span>, <span class="code-string">'AfficherListeVoitures'</span>])-><span class="code-method">name</span>(<span class="code-string">'voiture.liste'</span>);
+
+Route::<span class="code-method">get</span>(<span class="code-string">'/composant3'</span>, [VoitureController::<span class="code-keyword">class</span>, <span class="code-string">'indexListeVoitures'</span>])-><span class="code-method">name</span>(<span class="code-string">'voiture.index'</span>);</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2023-V2 -->
+        <section id="examen-2023-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2023 - VARIANTE 2</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2023 - Variante 2</div>
+                    <div class="exam-badge">24 Points | Dossier Back-End</div>
+                </div>
+
+                <div style="background:#fef3c7;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #f59e0b;">
+                    <h4 style="color:#92400e;margin-bottom:12px;">📋 Contexte & Schéma</h4>
+                    <p><strong>Entreprise BFA</strong> : Gestion du parc de matériels informatiques</p>
+                    <p><strong>Tables principales</strong> : departement, employe, materiel, Affectation, technicien, intervention</p>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q1 (2pts) : Migration Affectation</div>
+                    <p><strong>Énoncé :</strong> Créer la migration de la table <code>Affectation</code></p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code>Schema::<span class="code-method">create</span>(<span class="code-string">'affectations'</span>, <span class="code-keyword">function</span> (Blueprint <span class="code-variable">$table</span>) {
+    <span class="code-variable">$table</span>-><span class="code-method">id</span>();
+    <span class="code-variable">$table</span>-><span class="code-method">dateDebutAffectation</span>(<span class="code-string">'date_debut_affectation'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">dateFinAffectation</span>(<span class="code-string">'date_fin_affectation'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">foreignId</span>(<span class="code-string">'codeMat'</span>)-><span class="code-method">constrained</span>();
+    <span class="code-variable">$table</span>-><span class="code-method">foreignId</span>(<span class="code-string">'codeEmp'</span>)-><span class="code-method">constrained</span>();
+    <span class="code-variable">$table</span>-><span class="code-method">timestamps</span>();
+});</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q2 (5pts) : Modèles Employe + Materiel + Departement</div>
+                <p><strong>Énoncé :</strong> Créer les modèles avec attributs et fonctions de relations</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-comment">// Employe.php</span>
+<span class="code-keyword">class</span> <span class="code-class">Employe</span> <span class="code-keyword">extends</span> Model {
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [<span class="code-string">'nomEmp'</span>, <span class="code-string">'prenomEmp'</span>, <span class="code-string">'poste'</span>, <span class="code-string">'dateEmbauche'</span>];
+    
+    <span class="code-keyword">public function</span> <span class="code-method">departement</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">belongsTo</span>(Departement::<span class="code-keyword">class</span>, <span class="code-string">'codeDep'</span>);
+    }
+    
+    <span class="code-keyword">public function</span> <span class="code-method">affectations</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">hasMany</span>(Affectation::<span class="code-keyword">class</span>, <span class="code-string">'codeEmp'</span>);
+    }
+}
+
+<span class="code-comment">// Materiel.php</span>
+<span class="code-keyword">class</span> <span class="code-class">Materiel</span> <span class="code-keyword">extends</span> Model {
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [<span class="code-string">'codeMat'</span>, <span class="code-string">'marque'</span>, <span class="code-string">'categorie'</span>, <span class="code-string">'dateDebutAffectation'</span>];
+    
+    <span class="code-keyword">public function</span> <span class="code-method">affectations</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">hasMany</span>(Affectation::<span class="code-keyword">class</span>, <span class="code-string">'codeMat'</span>);
+    }
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q3 (11pts) : Contrôleur MaterielController</div>
+                    <p><strong>Énoncé :</strong> Créer avec les méthodes :</p>
+                    <ol>
+                        <li><code>index.blade.php()</code> : qui permet de retourner et d'afficher la liste matériels dans la vue</li>
+                        <li><code>AfficherMateriels()</code> : qui permet de retourner et d'afficher la liste matériels</li>
+                        <li><code>AjouterMateriel()</code> : qui permet d'ajouter une nouveau matériel rediriger vers l'action</li>
+                        <li><code>SupprimerMateriel()</code> : qui permet de supprimer un matériel dont le code est passé en paramètre puis rediriger vers l'action AfficherListeMateriels()</code></li>
+                    </ol>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">class</span> <span class="code-class">MaterielController</span> <span class="code-keyword">extends</span> Controller
+{
+    <span class="code-keyword">public function</span> <span class="code-method">index</span>()
+    {
+        <span class="code-variable">$materiels</span> = Materiel::<span class="code-method">with</span>(<span class="code-string">'affectations'</span>)-><span class="code-method">get</span>();
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'materiel.index'</span>, [<span class="code-string">'materiels'</span> => <span class="code-variable">$materiels</span>]);
+    }
+
+    <span class="code-keyword">public function</span> <span class="code-method">AfficherListeMateriels</span>()
+    {
+        <span class="code-variable">$materiels</span> = Materiel::<span class="code-method">all</span>();
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'materiel.liste'</span>, [<span class="code-string">'materiels'</span> => <span class="code-variable">$materiels</span>]);
+    }
+
+    <span class="code-keyword">public function</span> <span class="code-method">AjouterMateriel</span>(Request <span class="code-variable">$request</span>)
+    {
+        <span class="code-variable">$validated</span> = <span class="code-variable">$request</span>-><span class="code-method">validate</span>([
+            <span class="code-string">'codeMat'</span> => <span class="code-string">'required|unique:materiels'</span>,
+            <span class="code-string">'marque'</span> => <span class="code-string">'required'</span>,
+            <span class="code-string">'categorie'</span> => <span class="code-string">'required'</span>,
+        ]);
+
+        Materiel::<span class="code-method">create</span>(<span class="code-variable">$validated</span>);
+
+        <span class="code-keyword">return</span> <span class="code-method">redirect</span>()-><span class="code-method">route</span>(<span class="code-string">'materiel.AfficherListeMateriels'</span>)
+                     -><span class="code-method">with</span>(<span class="code-string">'success'</span>, <span class="code-string">'Matériel ajouté avec succès'</span>);
+    }
+
+    <span class="code-keyword">public function</span> <span class="code-method">SupprimerMateriel</span>(<span class="code-variable">$codeMat</span>)
+    {
+        <span class="code-variable">$materiel</span> = Materiel::<span class="code-method">find</span>(<span class="code-variable">$codeMat</span>);
+        <span class="code-variable">$materiel</span>-><span class="code-method">delete</span>();
+
+        <span class="code-keyword">return</span> <span class="code-method">redirect</span>()-><span class="code-method">route</span>(<span class="code-string">'materiel.AfficherListeMateriels'</span>)
+                     -><span class="code-method">with</span>(<span class="code-string">'success'</span>, <span class="code-string">'Matériel supprimé avec succès'</span>);
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2024-V1 -->
+        <section id="examen-2024-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2024 - VARIANTE 1</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2024 - Variante 1</div>
+                    <div class="exam-badge">24 Points | Dossier Back-End</div>
+                </div>
+
+                <div style="background:#ede9fe;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #8b5cf6;">
+                    <h4 style="color:#5b21b6;margin-bottom:12px;">📋 Contexte & Schéma</h4>
+                    <p><strong>AdvancedEventSolutions</strong> : Organisation d'événements professionnels</p>
+                    <p><strong>Tables</strong> : Experts, Evenements, Ateliers, Participants, Inscriptions</p>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q1 (2pts) : Migration Evenement</div>
+                    <p><strong>Énoncé :</strong> Écrire la commande de création de la migration de la table <code>Evenement</code> ainsi que le contenu de la fonction <code>up()</code>.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code>Schema::<span class="code-method">create</span>(<span class="code-string">'evenements'</span>, <span class="code-keyword">function</span> (Blueprint <span class="code-variable">$table</span>) {
+    <span class="code-variable">$table</span>-><span class="code-method">id</span>();
+    <span class="code-variable">$table</span>-><span class="code-method">string</span>(<span class="code-string">'theme'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">text</span>(<span class="code-string">'description'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">decimal</span>(<span class="code-string">'cout_journalier'</span>, 10, 2);
+    <span class="code-variable">$table</span>-><span class="code-method">integer</span>(<span class="code-string">'duree'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">date</span>(<span class="code-string">'date_debut'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">date</span>(<span class="code-string">'date_fin'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">foreignId</span>(<span class="code-string">'expert_id'</span>)-><span class="code-method">constrained</span>();
+    <span class="code-variable">$table</span>-><span class="code-method">timestamps</span>();
+});</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q2 (5pts) : Modèles Expert + Evenement + Atelier</div>
+                    <p><strong>Énoncé :</strong> Donner le code de création des modèles pour chacune des tables suivantes : <code>Evenement</code>, <code>Expert</code>, <code>Atelier</code>. La relation « One To Many » entre Expert et Evenement et la relation « One To Many » entre Evenement et Atelier.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-comment">// Expert.php</span>
+<span class="code-keyword">class</span> <span class="code-class">Expert</span> <span class="code-keyword">extends</span> Model {
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [<span class="code-string">'prenomExp'</span>, <span class="code-string">'telExp'</span>, <span class="code-string">'specialiteExp'</span>, <span class="code-string">'emailExp'</span>];
+    
+    <span class="code-keyword">public function</span> <span class="code-method">evenements</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">hasMany</span>(Evenement::<span class="code-keyword">class</span>, <span class="code-string">'expert_id'</span>);
+    }
+}
+
+<span class="code-comment">// Evenement.php</span>
+<span class="code-keyword">class</span> <span class="code-class">Evenement</span> <span class="code-keyword">extends</span> Model {
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [<span class="code-string">'theme'</span>, <span class="code-string">'description'</span>, <span class="code-string">'cout_journalier'</span>, <span class="code-string">'duree'</span>];
+    
+    <span class="code-keyword">public function</span> <span class="code-method">expert</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">belongsTo</span>(Expert::<span class="code-keyword">class</span>, <span class="code-string">'expert_id'</span>);
+    }
+    
+    <span class="code-keyword">public function</span> <span class="code-method">ateliers</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">hasMany</span>(Atelier::<span class="code-keyword">class</span>, <span class="code-string">'evenement_id'</span>);
+    }
+}
+
+<span class="code-comment">// Atelier.php</span>
+<span class="code-keyword">class</span> <span class="code-class">Atelier</span> <span class="code-keyword">extends</span> Model {
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [<span class="code-string">'nomAtelier'</span>, <span class="code-string">'descriptionAtelier'</span>];
+    
+    <span class="code-keyword">public function</span> <span class="code-method">evenement</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">belongsTo</span>(Evenement::<span class="code-keyword">class</span>, <span class="code-string">'evenement_id'</span>);
+    }
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q3 (11pts) : Contrôleur EvenementController</div>
+                    <p><strong>Énoncé :</strong> Créer le contrôleur <code>EvenementController</code> en implémentant les méthodes suivantes :</p>
+                    <ol>
+                        <li><code>index()</code> : qui permet de retourner et d'afficher la liste des événements dans la page <code>index.blade.php</code></li>
+                        <li><code>Oq($id)</code> : qui permet de retourner et d'afficher la liste des événements dans la page <code>show.blade.php</code></li>
+                        <li><code>destroy($id)</code> : qui permet de supprimer un événement donné dans la page <code>index.blade.php</code> et de se rediriger vers la liste des événements avec un message de succès.</li>
+                    </ol>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">class</span> <span class="code-class">EvenementController</span> <span class="code-keyword">extends</span> Controller
+{
+    <span class="code-keyword">public function</span> <span class="code-method">index</span>()
+    {
+        <span class="code-variable">$evenements</span> = Evenement::<span class="code-method">with</span>(<span class="code-string">'expert'</span>, <span class="code-string">'ateliers'</span>)-><span class="code-method">orderBy</span>(<span class="code-string">'created_at'</span>, <span class="code-string">'desc'</span>)-><span class="code-method">get</span>();
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'evenement.index'</span>, [<span class="code-string">'evenements'</span> => <span class="code-variable">$evenements</span>]);
+    }
+
+    <span class="code-keyword">public function</span> <span class="code-method">Oq</span>(<span class="code-variable">$id</span>)
+    {
+        <span class="code-variable">$event</span> = Evenement::<span class="code-method">with</span>(<span class="code-string">'expert'</span>, <span class="code-string">'ateliers'</span>)-><span class="code-method">find</span>(<span class="code-variable">$id</span>);
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'evenement.show'</span>, [<span class="code-string">'event'</span> => <span class="code-variable">$event</span>]);
+    }
+
+    <span class="code-keyword">public function</span> <span class="code-method">destroy</span>(<span class="code-variable">$id</span>)
+    {
+        <span class="code-variable">$event</span> = Evenement::<span class="code-method">find</span>(<span class="code-variable">$id</span>);
+        <span class="code-variable">$event</span>-><span class="code-method">delete</span>();
+
+        <span class="code-keyword">return</span> <span class="code-method">redirect</span>()-><span class="code-method">route</span>(<span class="code-string">'evenement.index'</span>)
+                     -><span class="code-method">with</span>(<span class="code-string">'success'</span>, <span class="code-string">'Événement supprimé avec succès'</span>);
+    }
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q4 (6pts) : Vues index.blade.php + show.blade.php</div>
+                    <p><strong>Énoncé :</strong> Créer la vue <code>index.blade.php</code> du dossier <code>evenement</code> pour afficher la liste des événements et les actions (Consulter, Modifier, Supprimer) comme suit :</span>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE (index.blade.php)</div>
+                    <pre><code>@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h1>Liste des Événements</h1>
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Thème</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Description</th>
+                <th>Cout Journalier</th>
+                <th>Durée</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($evenements as $event)
+            <tr>
+                <td>{{ $event->theme }}</td>
+                <td>{{ $event->date_debut }}</td>
+                <td>{{ $event->date_fin }}</td>
+                <td>{{ $event->description }}</td>
+                <td>{{ $event->cout_journalier }} DH</td>
+                <td>{{ $event->duree }}</td>
+                <td>
+                    <a href="{{ route('evenement.Oq', $event->id) }}" class="btn btn-info btn-sm">
+                        Consulter
+                    </a>
+                    
+                    <a href="{{ route('evenement.edit', $event->id) }}" class="btn btn-warning btn-sm">
+                        Modifier
+                    </a>
+                    
+                    <form action="{{ route('evenement.destroy', $event->id) }}" method="POST" style="display:inline-block;">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer ?')">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+@endsection</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2024-V2 -->
+        <section id="examen-2024-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2024 - VARIANTE 2</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2024 - Variante 2</div>
+                    <div class="exam-badge">24 Points | Dossier Back-End</div>
+                </div>
+
+                <div style="background:#fce7f3;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #ec4899;">
+                    <h4 style="color:#9f1239;margin-bottom:12px;">📋 Contexte & Schéma</h4>
+                    <p><strong>AdvancedSeminarsSolutions</strong> : Organisation de séminaires de formation</p>
+                    <p><strong>Tables</strong> : Animateurs, Seminaires, Activites, Membres, Reservations</p>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q1 (2pts) : Migration Seminaire</div>
+                    <p><strong>Énoncé :</strong> Créer la migration de la table <code>Seminaire</code></p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code>Schema::<span class="code-method">create</span>(<span class="code-string">'seminaires'</span>, <span class="code-keyword">function</span> (Blueprint <span class="code-variable">$table</span>) {
+    <span class="code-variable">$table</span>-><span class="code-method">id</span>();
+    <span class="code-variable">$table</span>-><span class="code-method">string</span>(<span class="code-string">'theme'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">text</span>(<span class="code-string">'description'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">decimal</span>(<span class="code-string">'cout_journalier'</span>, 10, 2);
+    <span class="code-variable">$table</span>-><span class="code-method">integer</span>(<span class="code-string">'duree'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">date</span>(<span class="code-string">'date_debut'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">date</span>(<span class="code-string">'date_fin'</span>);
+    <span class="code-variable">$table</span>-><span class="code-method">foreignId</span>(<span class="code-string">'animateur_id'</span>)-><span class="code-method">constrained</span>();
+    <span class="code-variable">$table</span>-><span class="code-method">timestamps</span>();
+});</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q2 (5pts) : Modèles Seminaire + Activite + Animateur + Membre</div>
+                    <p><strong>Énoncé :</strong> Donner le code de création des modèles : <code>Seminaire</code>, <code>Activite</code>. La relation « One To Many » entre Animateur et Séminaire et la relation « One To Many » entre Séminaire et Activité.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-comment">// Seminaire.php</span>
+<span class="code-keyword">class</span> <span class="code-class">Seminaire</span> <span class="code-keyword">extends</span> Model {
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [<span class="code-string">'theme'</span>, <span class="code-string">'description'</span>, <span class="code-string">'cout_journalier'</span>, <span class="code-string">'duree'</span>];
+    
+    <span class="code-keyword">public function</span> <span class="code-method">animateur</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">belongsTo</span>(Animateur::<span class="code-keyword">class</span>, <span class="code-string">'animateur_id'</span>);
+    }
+    
+    <span class="code-keyword">public function</span> <span class="code-method">activites</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">hasMany</span>(Activite::<span class="code-keyword">class</span>, <span class="code-string">'seminaire_id'</span>);
+    }
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q3 (11pts) : Contrôleur SeminaireController</div>
+                    <p><strong>Énoncé :</strong> Créer le contrôleur <code>SeminaireController</code> avec les méthodes :</p>
+                    <ol>
+                        <li><code>index()</code> : qui permet de retourner et d'afficher la liste des séminaires</li>
+                        <li><code>Oq($id)</code> : qui permet de retourner et d'afficher la liste des séminaires</li>
+                        <li><code>destroy($id)</code> : qui permet de supprimer un séminaire donné et de se rediriger vers la liste</li>
+                    </ol>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">class</span> <span class="code-class">SeminaireController</span> <span class="code-keyword">extends</span> Controller
+{
+    <span class="code-keyword">public function</span> <span class="code-method">index</span>()
+    {
+        <span class="code-variable">$seminaires</span> = Seminaire::<span class="code-method">with</span>(<span class="code-string">'animateur'</span>, <span class="code-string">'activites'</span>)
+                      -><span class="code-method">orderBy</span>(<span class="code-string">'created_at'</span>, <span class="code-string">'desc'</span>)-><span class="code-method">get</span>();
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'seminaire.index'</span>, [<span class="code-string">'seminaires'</span> => <span class="code-variable">$seminaires</span>]);
+    }
+
+    <span class="code-keyword">public function</span> <span class="code-method">Oq</span>(<span class="code-variable">$id</span>)
+    {
+        <span class="code-variable">$seminaire</span> = Seminaire::<span class="code-method">with</span>(<span class="code-string">'animateur'</span>, <span class="code-string">'activites'</span>)-><span class="code-method">find</span>(<span class="code-variable">$id</span>);
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'seminaire.show'</span>, [<span class="code-string">'seminaire'</span> => <span class="code-variable">$seminaire</span>]);
+    }
+
+    <span class="code-keyword">public function</span> <span class="code-method">destroy</span>(<span class="code-variable">$id</span>)
+    {
+        <span class="code-variable">$seminaire</span> = Seminaire::<span class="code-method">find</span>(<span class="code-variable">$id</span>);
+        <span class="code-variable">$seminaire</span>-><span class="code-method">delete</span>();
+
+        <span class="code-keyword">return</span> <span class="code-method">redirect</span>()-><span class="code-method">route</span>(<span class="code-string">'seminaire.index'</span>)
+                     -><span class="code-method">with</span>(<span class="code-string">'success'</span>, <span class="code-string">'Séminaire supprimé avec succès'</span>);
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2025-V1 -->
+        <section id="examen-2025-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2025 - VARIANTE 1 ⚡ NOUVEAUTÉS</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2025 - Variante 1</div>
+                    <div class="exam-badge">24 Points | Dossier Back-End</div>
+                </div>
+
+                <div style="background:#ecfccb;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #84cc16;">
+                    <h4 style="color:#3f6212;margin-bottom:12px;">📋 Contexte & Schéma</h4>
+                    <p><strong>FastFoodDelivery</strong> : Service de livraison avec vélos électriques</p>
+                    <p><strong>Tables</strong> : Veloid, Battery, Changement, Technicien, Reparation</p>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q1 (1pt) : Migration Batteries</div>
+                    <p><strong>Énoncé :</strong> Donner la commande de création de la migration pour la table batteries.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-laravel">php artisan make:migration</span> create_batteries_table</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q2 (2pts) : Migration up/down Batteries</div>
+                    <p><strong>Énoncé :</strong> Donner le code des méthodes up() et down() du fichier de migration de la table batteries en définissant le champ numero_serie comme unique et le champ capacity par défaut à En service (100%).</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">public function</span> <span class="code-method">up</span>() {
+    Schema::<span class="code-method">create</span>(<span class="code-string">'batteries'</span>, <span class="code-keyword">function</span> (Blueprint <span class="code-variable">$table</span>) {
+        <span class="code-variable">$table</span>-><span class="code-method">id</span>();
+        <span class="code-variable">$table</span>-><span class="code-method">string</span>(<span class="code-string">'numero_serie'</span>)-><span class="code-method">unique</span>();
+        <span class="code-variable">$table</span>-><span class="code-method">string</span>(<span class="code-string">'capacity'</span>)-><span class="code-method">default</span>(<span class="code-string">'En service (100%)'</span>);
+        <span class="code-variable">$table</span>-><span class="code-method">string</span>(<span class="code-string">'sante_battery'</span>);
+        <span class="code-variable">$table</span>-><span class="code-method">string</span>(<span class="code-string">'nombre_cycles'</span>);
+        <span class="code-variable">$table</span>-><span class="code-method">enum</span>(<span class="code-string">'statut'</span>, [<span class="code-string">'En Stock'</span>, <span class="code-string">'En Utilisation'</span>, <span class="code-string">'Retiré'</span>]);
+        <span class="code-variable">$table</span>-><span class="code-method">timestamps</span>();
+    });
+}
+
+<span class="code-keyword">public function</span> <span class="code-method">down</span>() {
+    Schema::<span class="code-method">dropIfExists</span>(<span class="code-string">'batteries'</span>);
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q3 (5pts) : Modèles Battery + Veloid</div>
+                    <p><strong>Énoncé :</strong> Créer les modèles des tables batteries et velos avec leurs attributs et fonctions de relations.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-comment">// Battery.php</span>
+<span class="code-keyword">class</span> <span class="code-class">Battery</span> <span class="code-keyword">extends</span> Model {
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [
+        <span class="code-string">'numero_serie'</span>, <span class="code-string">'capacity'</span>, <span class="code-string">'sante_battery'</span>, 
+        <span class="code-string">'nombre_cycles'</span>, <span class="code-string">'statut'</span>
+    ];
+    
+    <span class="code-keyword">public function</span> <span class="code-method">velos</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">belongsToMany</span>(Veloid::<span class="code-keyword">class</span>, <span class="code-string">'battery_id'</span>, <span class="code-string">'pivot'</span>);
+    }
+}
+
+<span class="code-comment">// Veloid.php</span>
+<span class="code-keyword">class</span> <span class="code-class">Veloid</span> <span class="code-keyword">extends</span> Model {
+    <span class="code-keyword">protected</span> <span class="code-variable">$fillable</span> = [
+        <span class="code-string">'matricule'</span>, <span class="code-string">'marque'</span>, <span class="code-string">'sane_batterie'</span>, 
+        <span class="code-string">'nombre_cycles'</span>, <span class="code-string">'statut'</span>
+    ];
+    
+    <span class="code-keyword">public function</span> <span class="code-method">batteries</span>() {
+        <span class="code-keyword">return</span> <span class="code-variable">$this</span>-><span class="code-method">belongsToMany</span>(Battery::<span class="code-keyword">class</span>, <span class="code-string">'pivot'</span>);
+    }
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q4 (7pts) : Contrôleur VelocController</div>
+                    <p><strong>Énoncé :</strong> Créer la commande de création du contrôleur <code>VelocController</code> qui retourne les informations d'une batterie d'un vélo dont l'id est passé en paramètre.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">class</span> <span class="code-class">VelocController</span> <span class="code-keyword">extends</span> Controller
+{
+    <span class="code-keyword">public function</span> <span class="code-method">GetBattery</span>(<span class="code-variable">$id</span>)
+    {
+        <span class="code-variable">$velo</span> = Veloid::<span class="code-method">find</span>(<span class="code-variable">$id</span>);
+        <span class="code-variable">$battery</span> = <span class="code-variable">$velo</span>->batteries()-><span class="code-method">first</span>(); <span class="code-comment">// ou get() selon le cas</span>
+        
+        <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'velo.infoBattery'</span>, [
+            <span class="code-string">'velo'</span> => <span class="code-variable">$velo</span>,
+            <span class="code-string">'battery'</span> => <span class="code-variable">$battery</span>
+        ]);
+    }
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q5 (2pts) : Méthode AfficherListeVeloitures() dans VelocController</div>
+                    <p><strong>Énoncé :</strong> Créer la méthode <code>AfficherListeVeloitures()</span> dans le contrôleur <code>VelocController</code> qui retourne une vue nommée <code>InfoBattery</code> (seront créés dans les questions précédentes) avec les liens modifier et supprimer.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">public function</span> <span class="code-method">AfficherListeVeloitures</span>()
+{
+    <span class="code-variable">$velos</span> = Veloid::<span class="code-method">with</span>(<span class="code-string">'batteries'</span>)-><span class="code-method">get</span>();
+    <span class="code-keyword">return</span> <span class="code-method">view</span>(<span class="code-string">'velo.index'</span>, [<span class="code-string">'velos'</span> => <span class="code-variable">$velos</span>]);
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q6 (3pts) : SupprimerBatterie($id)</div>
+                    <p><strong>Énoncé :</strong> Créer la méthode <code>SupprimerBatterie</span> dans le contrôleur <code>VelocController</code> qui supprime une batterie dont l'id est passé en paramètre et qui redirige l'utilisateur vers la vue Welcome.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">public function</span> <span class="code-method">SupprimerBatterie</span>(<span class="code-variable">$id</span>)
+{
+    <span class="code-variable">$battery</span> = Battery::<span class="code-method">find</span>(<span class="code-variable">$id</span>);
+    <span class="code-variable">$battery</span>-><span class="code-method">delete</span>();
+
+    <span class="code-keyword">return</span> <span class="code-method">redirect</span>()-><span class="code-method">route</span>(<span class="code-string">'welcome'</span>)
+                 -><span class="code-method">with</span>(<span class="code-string">'success'</span>, <span class="code-string">'Batterie supprimée avec succès'</span>);
+}</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Q7 (4pts) : Middleware autorisationSuppression</div>
+                    <p><strong>Énoncé :</strong> Donner le code pour créer le middleware soi-même nommé <code>autorisationSuppression</span> qui accepte les requêtes provenant de l'utilisateur <code>todo</span> dans cette cas on affiche un code d'erreur 403 avec le message « Vous n'êtes pas autorisé à effectuer cette opération de suppression de batterie en protégeant pour le middleware <code>autorisationSuppression</span>.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE (NOUVEAU EN 2025 !)</div>
+                    <pre><code><span class="code-comment">// app/Http/Middleware/autorisationSuppression.php</span>
+<span class="code-keyword">namespace</span> App\Http\Middleware;
+
+<span class="code-keyword">use</span> Closure;
+<span class="code-keyword">use</span> Illuminate\Http\Response;
+
+<span class="code-keyword">class</span> autorisationSuppression
+{
+    <span class="code-keyword">public function</span> <span class="code-method">handle</span>(<span class="code-variable">$request</span>, Closure <span class="code-variable">$next</span>)
+    {
+        <span class="code-keyword">if</span> (<span class="code-variable">$request</span>-><span class="code-method">isMethod</span>(<span class="code-string">'delete'</span>) && <span class="code-variable">$request</span>-><span class="code-method">path</span>() == <span class="code-string">'api/*'</span>) {
+            <span class="code-keyword">return</span> <span class="code-method">response</span>(<span class="code-string">'{"error": "Vous n\\'êtes pas autorisé à effectuer cette opération de suppression de batterie en protégeant pour le middleware autorisationSuppression"}'</span>, 403);
+        }
+
+        <span class="code-keyword">return</span> <span class="code-variable">$next</span>(<span class="code-variable">$request</span>);
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ERREURS À ÉVITER -->
+        <section id="erreurs" class="section">
+            <h2 class="section-title"><span class="emoji">❌</span> ERREURS FATALES À NE JAMAIS FAIRE (Back-End Laravel)</h2>
+
+            <div class="grid-2">
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #1 : Oublier $fillable dans le Modèle</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : <strong>Illuminate\Database\Eloquent\MassAssignmentException</strong></p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Sans $fillable</span>
+class User extends Model {
+    // Pas de $fillable !
+}
+
+$user->create([
+    'name' => 'Ali',
+    'email' => 'ali@test.com'
+]);
+
+<span style="color:#86efac;">// ✅ CORRECT - Avec $fillable</span>
+class User extends Model {
+    protected $fillable = ['name', 'email'];
+    
+    // Maintenant ça fonctionne !
+}</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #2 : Mauvais nom de relation dans with()</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : SQL Error, colonne inexistante</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="code-comment">// ❌ FAUX - Nom de méthode incorrect</span>
+$users = User::with(['salaries'])->get();
+// SQL généré : SELECT * FROM users LEFT JOIN salaries ON users.salarie_id = salaries.id
+// Mais la relation s'appelle 'salaries()' pas 'salaries' !
+
+<span style="color:#86efac;">// ✅ CORRECT - Nom de la méthode de relation</span>
+$users = User::with(['salaries'])->get();
+// Ou mieux : User::with('salaries:id')->get();</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #3 : Oublier @csrf dans les formulaires POST</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : <strong>TokenMismatchException</strong> (CSRF token mismatch)</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Sans @csrf</span>
+<form method="POST" action="/submit">
+    <input name="name">
+    <button type="submit">Envoyer</button>
+</form>
+
+<span style="color:#86efac;">// ✅ CORRECT - Avec @csrf</span>
+<form method="POST" action="/submit">
+    @csrf  ← OBLIGATOIRE
+    <input name="name">
+    <button type="submit">Envoyer</button>
+</form></code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #4 : Oublier @method('DELETE') pour DELETE/PUT</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Les navigateurs ne supportent pas nativement PUT/DELETE</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Sans @method('DELETE')</span>
+<form action="/ressources/{{ $item->id }}" method="POST">
+    @csrf
+    <button type="submit">Supprimer</button>
+</form>
+<!-- Le formulaire fera un POST, pas un DELETE ! -->
+
+<span style="color:#86efac;">// ✅ CORRECT - Avec @method('DELETE')</span>
+<form action="/ressources/{{ $item->id }}" method="POST">
+    @csrf
+    @method('DELETE')  ← Ajoute ceci
+    <button type="submit">Supprimer</button>
+</form></code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #5 : Confondre route::resource vs route manuelle</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Erreur 404 ou mauvaise génération d'URL</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="code-comment">// ❌ FAUX - Mélanger les noms</span>
+Route::resource('produits', ProductController::class);
+// Génère : /produits, /produits/create, etc.
+
+// Mais dans la vue :
+<a href="{{ route('produit.show', $product->id) }}">Détails</a>
+// Erreur : Route [produit.show] not defined
+// Le bon nom de route est 'products.show' (pluriel) pas 'produit.show' !
+
+<span style="color:#86efac;">// ✅ CORRECT - Utiliser ->name() dans la définition</span>
+Route::resource('produits', ProductController::class)->name('products');
+// Maintenant : route('products.show', ...) fonctionne</span></code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #6 : Oublier de faire php artisan migrate après modification</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Structure BDD obsolète</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code>// Après avoir modifié le fichier de migration :
+
+// ❌ FAUX - Oublier cette étape
+// La base de données n'est pas mise à jour !
+
+// ✅ CORRECT - Toujours exécuter après modification
+php artisan migrate
+// Ou pour rollback : php artisan migrate:rollback</span></code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHECKLIST -->
+        <section id="checklist" class="section">
+            <h2 class="section-title"><span class="emoji">✅</span> CHECKLIST DE RÉVISION ULTRA-RAPIDE (Avant l'Examen)</h2>
+
+            <div class="alert alert-laravel" style="padding:30px;">
+                <div class="alert-title" style="font-size:1.3em;">🎯 OBJECTIF : Assurer 24/24 Points en 35-40 Minutes Maximum</div>
+                <p style="font-size:1.05em;margin-top:10px;">Cochez chaque item après l'avoir mémorisé parfaitement.</p>
+            </div>
+
+            <h3 class="subsection-title">☑️ Avant tout : Les Commandes Artisan</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li><code>php artisan make:migration create_nom_table</code> → Générer fichier migration</li>
+                <li><code>php artisan make:model NomModel -m</code> → Générer modèle avec migration</li>
+                <li><code>php artisan make:controller NomController --resource</code> → Générer contrôleur CRUD</li>
+                <li><code>php artisan migrate</code> → Appliquer migrations</li>
+                <li><code>php artisan route:list</code> → Vérifier routes enregistrées</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Migration (2pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>J'écris toujours <code>Schema::create('nom_table', function($table))</code></li>
+                <li>J'ajoute <code>$table->id()</code> pour clé primaire auto-incrémentée</li>
+                <li>J'utilise <code>$table->foreignId('fk')->constrained()</code> pour clés étrangères</li>
+                <li>J'ajoute <code>$table->timestamps()</code> pour created_at/updated_at</li>
+                <li>J'implémente toujours <code>down()</code> avec <code>Schema::dropIfExists()</code></li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Modèle (4-5pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li><code>protected $fillable = [...]</code> → OBLIGATOIRE (MassAssignmentException sinon)</li>
+                <li><code>hasMany(Relation::class, 'fk')</code> → Un-à-Plusieurs</li>
+                <li><code>belongsTo(Parent::class, 'fk')</code> → Plusieurs-à-Un</li>
+                <li><code>belongsToMany(Relation::class, 'pivot_table')</code> → Plusieurs-à-Plusieurs</li>
+                <li>Je connais les 3 types de relations par cœur</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Contrôleur (9-11pts) ⭐ COEUR DU DOSSIER</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li><code>index()</code> → <code>Model::with(['relations'])->get()</code> + <code>view('vue.index')</code></li>
+                <li><code>show($id)</code> → <code>Model::with([...])->find($id)</code> + <code>view('vue.show')</code></li>
+                <li><code>store(Request $request)</code> → <code>$request->validate([...])</code> + <code>Model::create($validated)</code> + redirect</li>
+                <li><code>update(Request $request, $id)</code> → Validation + <code>Model::find($id)->update($validated)</code></li>
+                <li><code>destroy($id)</code> → <code>Model::find($id)->delete()</code> + redirect avec message</li>
+                <li>Je sais utiliser <code>with()</code> pour éviter N+1 problem</li>
+                <li>Je sais gérer les messages flash <code>session('success', '...')</code></li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Vue Blade (4-6pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li><code>@extends('layouts.app')</code> → Hériter le layout principal</li>
+                <li><code>@yield('content')</code> ou <code>@section('content')...@endsection</code> → Définir section</li>
+                <li><code>@foreach ($items as $item) ... @endforeach</code> → Boucle</li>
+                <li><code>{{ $variable }}</code> → Affichage échappé</li>
+                <li><code>{!! $html !!}</code> → Affichage HTML brut</li>
+                <li><code>@csrf</code> → Token CSRF (obligatoire dans POST)</li>
+                <li><code>@method('DELETE')</code> → Masquer méthode DELETE/PUT</li>
+                <li><code>{{ route('nom.route', $id) }}</code> → Génération URL</li>
+                <li><code>@if(session('success'))...</code> → Afficher message flash</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Route (1-3pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li><code>Route::resource('url', Controller::class)</code> → 7 routes automatiques</li>
+                <li><code>->name('nom')</code> dans définition → Pour utiliser <code>route('nom')</code></li>
+                <li>Je connais la structure : <code>GET/POST/PUT/DELETE</code> → <code>index/store/update/destroy</code></li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Bonus 2025 : Middleware (Si demandé)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:

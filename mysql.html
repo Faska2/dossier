@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐬 Guide Complet MySQL - Examens OFPPT Web Full Stack</title>
+    
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)'], ['$$', '$$'], ['\\[', '\\]']], 
+                displayMath: []
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #0c1929 0%, #1e3a5f 50%, #2d5a87 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        /* Header MySQL Themed */
+        .header {
+            background: linear-gradient(135deg, #00758F 0%, #00668E 50%, #005570 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "🐬";
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -30px;
+            right: -30px;
+            transform: rotate(15deg);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .mysql-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: #2c3e50;
+            padding: 18px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.1);
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .nav-bar a:hover {
+            background: #00758F;
+            transform: translateY(-2px);
+        }
+
+        /* Content */
+        .content {
+            padding: 50px 60px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.3em;
+            color: #00758F;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #00758F;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .subsection-title {
+            font-size: 1.7em;
+            color: #00668E;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 6px solid #00758F;
+        }
+
+        .subsubsection-title {
+            font-size: 1.35em;
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Code Blocks - MySQL Style */
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 25px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            line-height: 1.7;
+            border-left: 5px solid #00758F; /* MySQL Blue */
+            position: relative;
+        }
+
+        pre::before {
+            content: "MySQL";
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.75em;
+            color: #888;
+            background: #333;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92em;
+        }
+
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-number { color: #b5cea8; }
+        .code-comment { color: #6a9955; font-style: italic; }
+        .code-operator { color: #d4d4d4; }
+        .code-method { color: #dcdcaa; }
+        .code-variable { color: #9cdcfe; }
+        .code-mysql { color: #00758F; font-weight: bold; }
+        .code-function { color: #dcdcaa; }
+
+        /* Alert Boxes */
+        .alert {
+            padding: 22px 28px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 6px solid;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .alert-mysql {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-color: #00758F;
+            color: #1e40af;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-color: #22c55e;
+            color: #166534;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-color: #10b981;
+            color: #065f46;
+        }
+
+        .alert-title {
+            font-weight: bold;
+            font-size: 1.15em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #00758F 0%, #00668E 100%);
+            color: white;
+        }
+
+        th {
+            padding: 18px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.92em;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+            transition: all 0.3s;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafbfc;
+        }
+
+        /* Exam Cards */
+        .exam-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 35px;
+            margin: 35px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #00758F 0%, #00668E 100%);
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .exam-year {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #00758F;
+        }
+
+        .exam-badge {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            background: linear-gradient(135deg, #00758F, #00668E);
+            color: white;
+        }
+
+        .question-block {
+            background: #f8fafc;
+            border-left: 4px solid #00758F;
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #00758F;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .points-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: #00758F;
+            box-shadow: 0 8px 24px rgba(0, 117, 143, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Command Reference Cards */
+        .command-card {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+            color: #d4d4d4;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #00758F;
+        }
+
+        .command-name {
+            color: #00758F;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            font-family: 'Consolas', monospace;
+        }
+
+        .command-syntax {
+            background: #0d1117;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 0.92em;
+            overflow-x: auto;
+        }
+
+        /* Progress bars */
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .progress-bar {
+            height: 32px;
+            background: #e5e7eb;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00758F 0%, #00668E 50%, #10b981 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.88em;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0c1929 0%, #1e3a5f 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content {
+                padding: 35px 30px;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 25px 20px;
+            }
+            
+            .nav-bar {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+            
+            th, td {
+                padding: 12px 10px;
+                font-size: 0.85em;
+            }
+        }
+
+        /* Highlight styles */
+        .highlight-blue {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-family: 'Consolas', monospace;
+        }
+
+        .highlight-green {
+            background: #dcfce7;
+            color: #166534;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .highlight-red {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        /* Emoji styling */
+        .emoji {
+            font-style: normal;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li:before {
+            content: "✅ ";
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        /* Timeline for exam sequence */
+        .timeline-exam {
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 35px;
+        }
+
+        .timeline-exam::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #00758F, #10b981);
+            border-radius: 2px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 7px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: #00758F;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 117, 143, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="mysql-icon">🐬</div>
+        <h1>GUIDE COMPLET MYSQL</h1>
+        <div class="subtitle">Examens Nationaux OFPPT - Développement Digital Option Web Full Stack</div>
+        <div class="subtitle" style="font-size:1.1em;opacity:0.85;">Dossier Pratique MySQL : Toutes les Réponses Détaillées (2023-2025)</div>
+        <div style="margin-top:20px;font-size:0.95em;opacity:0.8;">
+            📚 6 Examens Analysés | 💯 12 Points par Examen | ⏱️ Temps de maîtrise : 4-5 heures
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <a href="#introduction">📖 Introduction</a>
+        <a href="#patterns">🔄 Les 3 Patterns Obligatoires</a>
+        <a href="#pattern-procedure">📝 Pattern Procédure</a>
+        <a href="#pattern-fonction">📝 Pattern Fonction</a>
+        <a href="#pattern-trigger">📝 Pattern Trigger</a>
+        <a href="#examen-2023-v1">📝 2023-V1</a>
+        <a href="#examen-2023-v2">📝 2023-V2</a>
+        <a href="#examen-2024-v1">📝 2024-V1</a>
+        <a href="#examen-2024-v2">📝 2024-V2</a>
+        <a href="#examen-2025-v1">📝 2025-V1</a>
+        <a href="#examen-2025-v2">📝 2025-V2</a>
+        <a href="#erreurs">❌ Erreurs à Éviter</a>
+        <a href="#checklist">✅ Checklist Révision</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- INTRODUCTION -->
+        <section id="introduction" class="section">
+            <h2 class="section-title"><span class="emoji">📖</span> INTRODUCTION : Pourquoi MySQL est le CŒUR de l'Examen ?</h2>
+
+            <div class="alert alert-mysql">
+                <div class="alert-title">🎯 Ce que vous devez savoir ABSOLUMENT</div>
+                <ul style="margin-top:12px;line-height:1.9;">
+                    <li><strong>Points attribués</strong> : <span class="highlight-blue">12 points</span> sur 60 en pratique (soit <strong>20% de la partie pratique</strong>)</li>
+                    <li><strong>Fréquence d'apparition</strong> : <strong>100%</strong> (présent dans les 6 examens analysés)</li>
+                    <li><strong>Temps recommandé</strong> : <strong>18-22 minutes maximum</strong> le jour de l'examen</li>
+                    <li><strong>Niveau de difficulté</strong> : Moyen → Élevé (syntaxe stricte + logique métier)</li>
+                    <li><strong>Type de questions</strong> : Toujours les 3 mêmes types (Procédure + Fonction + Trigger)</li>
+                </ul>
+            </div>
+
+            <h3 class="subsection-title">📊 Statistiques MySQL dans les Examens OFPPT</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrique</th>
+                        <th>Valeur</th>
+                        <th>Observation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nombre d'examens analysés</strong></td>
+                        <td>6</td>
+                        <td>Juin 2023, 2024, 2025 (V1+V2)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Présence du dossier MySQL</strong></td>
+                        <td style="color:#10b981;font-weight:bold;font-size:1.2em;">6/6 (100%)</td>
+                        <td>Obligatoire à chaque session</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Points moyens par examen</strong></td>
+                        <td><strong>12 points</strong></td>
+                        <td>Toujours 12 pts (stable !)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre moyen de questions</strong></td>
+                        <td><strong>3 questions</strong></td>
+                        <td>+ parfois Q4/Q5 (GRANT, CREATE TABLE...)</td>
+                    </tr>
+                    <tr style="background:#eff6ff;">
+                        <td colspan="3"><strong>SUJETS LES PLUS FRÉQUENTS (toujours présents)</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1. Procédure Stockée</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Avec validation d'existence (4pts)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Fonction SQL</strong></td>
+                        <td>5/6 (83%)</td>
+                        <td>Retourne une valeur calculée (4pts)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Trigger</strong></td>
+                        <td>6/6 (100%)</td>
+                        <td>Contrôle intégrité BEFORE/AFTER (4pts)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">🍃 Qu'est-ce que MySQL ? (Rappel Rapide)</h3>
+
+            <div class="grid-2">
+                <div class="info-card">
+                    <h4 style="color:#00758F;margin-bottom:15px;">Définition Officielle</h4>
+                    <p><strong>MySQL</strong> est un Système de Gestion de Base de Données Relationnelle (SGBDR).</p>
+                    <ul style="margin-top:15px;">
+                        <li>Langage : <strong>SQL</strong> (Structured Query Language)</li>
+                        <li>Type : <strong>Relationnel</strong> (tables liées par clés étrangères)</li>
+                        <li>ACID garanti : Atomicité, Cohérence, Isolation, Durabilité</li>
+                        <li>Open source, très utilisé dans l'industrie</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h4 style="color:#00758F;margin-bottom:15px;">Pourquoi dans les Examens OFPPT ?</h4>
+                    <ul>
+                        <li><strong>Fondamental du développement web</strong> : Toute application a besoin de données</li>
+                        <li><strong>Teste la logique métier</strong> : Pas seulement la syntaxe, mais la compréhension du contexte</li>
+                        <li><strong>Standard industriel</strong> : Utilisé par PHP (Laravel), Python (Django), Node.js...</li>
+                        <li><strong>Évaluable objectivement</strong> : Syntaxe précise, pas d'ambiguïté</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-title">💡 Bonne Nouvelle pour Vous</div>
+                <p style="font-size:1.05em;">Les questions MySQL sont <strong>toujours les 3 mêmes types</strong> depuis 3 ans ! Seul le contexte change (salariés → employés → experts → événements → batteries). Si vous maîtrisez les <strong>3 templates de code</strong>, vous assurez <strong>12/12 points</strong> à chaque fois.</p>
+            </div>
+        </section>
+
+        <!-- LES 3 PATTERNS OBLIGATOIRES -->
+        <section id="patterns" class="section">
+            <h2 class="section-title"><span class="emoji">🔄</span> LES 3 PATTERNS OBLIGATOIRES (À MAÎTRISER PAR CŒUR)</h2>
+
+            <div class="alert alert-success">
+                <div class="alert-title" style="font-size:1.3em;">🎯 Ces 3 patterns = 100% des questions MySQL depuis 3 ans</div>
+                <p style="font-size:1.05em;margin-top:10px;">Mémorisez-les parfaitement et vous n'aurez aucune surprise le jour J.</p>
+            </div>
+
+            <div class="grid-2" style="margin-top:30px;">
+                <div class="info-card" style="border:3px solid #00758F;background:linear-gradient(135deg,#ffffff,#f0f9ff);">
+                    <h3 style="color:#00758F;font-size:1.5em;text-align:center;padding-bottom:15px;border-bottom:2px solid #00758F;">
+                        📝 PATTERN #1<br>PROCÉDURE STOCKÉE
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:3em;font-weight:bold;color:#00758F;">4 pts</span><br>
+                        <small style="color:#666;">Toujours présente</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Objectif</strong> : Insérer/modifier des données avec validation</li>
+                        <li><strong>Mot-clé détecteur</strong> : "Créer une procédure permettant d'insérer..."</li>
+                        <li><strong>Validation requise</strong> : Vérifier l'existence d'une entité liée</li>
+                        <li><strong>Structure</strong> : DELIMITER + BEGIN/END + IF/SIGNAL + INSERT</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #10b981;background:linear-gradient(135deg,#ffffff,#ecfdf5);">
+                    <h3 style="color:#10b981;font-size:1.5em;text-align:center;padding-bottom:15px;border-bottom:2px solid #10b981;">
+                        🔢 PATTERN #2<br>FONCTION SQL
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:3em;font-weight:bold;color:#10b981;">4 pts</span><br>
+                        <small style="color:#666;">Fréquence : 83%</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Objectif</strong> : Calculer et retourner une valeur unique</li>
+                        <li><strong>Mot-clé détecteur</strong> : "Créer une fonction qui retourne..."</li>
+                        <li><strong>Retour</strong> : Toujours RETURN (obligatoire)</li>
+                        <li><strong>Structure</strong> : DELIMITER + DECLARE + SELECT INTO + RETURN</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border:3px solid #ef4444;background:linear-gradient(135deg,#ffffff,#fef2f2);">
+                    <h3 style="color:#ef4444;font-size:1.5em;text-align:center;padding-bottom:15px;border-bottom:2px solid #ef4444;">
+                        🛡️ PATTERN #3<br>TRIGGER
+                    </h3>
+                    <div style="text-align:center;margin:20px 0;">
+                        <span style="font-size:3em;font-weight:bold;color:#ef4444;">4 pts</span><br>
+                        <small style="color:#666;">Toujours présent</small>
+                    </div>
+                    <ul style="line-height:2;font-size:1.05em;">
+                        <li><strong>Objectif</strong> : Contrôler automatiquement l'intégrité des données</li>
+                        <li><strong>Mot-clé détecteur</strong> : "Créer un trigger qui empêche/contrôle..."</li>
+                        <li><strong>Timing</strong> : BEFORE ou AFTER (INSERT/UPDATE/DELETE)</li>
+                        <li><strong>Structure</strong> : CREATE TRIGGER + FOR EACH ROW + NEW/OLD + SIGNAL/UPDATE</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PATTERN PROCEDURE DETAILLE -->
+        <section id="pattern-procedure" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> PATTERN #1 : PROCÉDURE STOCKÉE AVEC VALIDATION</h2>
+
+            <div class="command-card">
+                <div class="command-name">TEMPLATE UNIVERSEL - À MÉMORISER PAR CŒUR</div>
+                
+                <div class="command-syntax">
+<span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE PROCEDURE</span> NomDeLaProcedure(
+    <span class="code-keyword">IN</span> param1 TYPE,
+    <span class="code-keyword">IN</span> param2 TYPE,
+    ...
+)
+<span class="code-keyword">BEGIN</span>
+    
+    <span class="code-comment">-- ╔════════════════════════════════════════╗</span>
+    <span class="code-comment">-- ║  ÉTAPE 1 : VÉRIFIER L'EXISTENCE          ║</span>
+    <span class="code-comment">-- ╚════════════════════════════════════════╝</span>
+    <span class="code-keyword">IF NOT EXISTS</span> (
+        <span class="code-keyword">SELECT</span> * <span class="code-keyword">FROM</span> TableReference 
+        <span class="code-keyword">WHERE</span> id_reference = paramReference
+    ) <span class="code-keyword">THEN</span>
+        
+        <span class="code-comment">-- Lever une erreur si la contrainte est violée</span>
+        <span class="code-keyword">SIGNAL SQLSTATE</span> <span class="code-string">'45000'</span>
+        <span class="code-keyword">SET MESSAGE_TEXT</span> = <span class="code-string">'Erreur: [Message explicatif]'</span>;
+        
+    <span class="code-keyword">END IF</span>;
+    
+    <span class="code-comment">-- ╔════════════════════════════════════════╗</span>
+    <span class="code-comment">-- ║  ÉTAPE 2 : EFFECTUER L'INSERTION         ║</span>
+    <span class="code-comment">-- ╚════════════════════════════════════════╝</span>
+    <span class="code-keyword">INSERT INTO</span> TableCible (
+        colonne1,
+        colonne2,
+        id_etranger,
+        ...
+    ) <span class="code-keyword">VALUES</span> (
+        param1,
+        param2,
+        paramReference,
+        ...
+    );
+    
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+            </div>
+
+            <div class="alert alert-warning">
+                <div class="alert-title">⚠️ RÈGLES D'OR À RESPECTER</div>
+                <ol style="margin-top:12px;line-height:2;font-size:1.05em;">
+                    <li><strong>Toujours commencer par <code>DELIMITER //</code></strong> et finir par <code>DELIMITER ;</code></li>
+                    <li><strong>Toujours utiliser <code>BEGIN ... END</code></strong> pour encorer le corps</li>
+                    <li><strong>Vérifier l'existence AVANT d'insérer</strong> (presque toujours demandé)</li>
+                    <li><strong>Utiliser <code>SIGNAL SQLSTATE '45000'</code></strong> pour lever l'erreur</li>
+                    <li><strong>Les paramètres IN</strong> sont les valeurs fournies lors de l'appel</li>
+                </ol>
+            </div>
+
+            <h3 class="subsubsection-title">📋 Variantes Observées (2023-2025)</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Examen</th>
+                        <th>Contexte</th>
+                        <th>Validation Requise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>2023-V1</strong></td>
+                        <td>Insérer salarié</td>
+                        <td>Vérifier existence du <strong>service</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2023-V2</strong></td>
+                        <td>Insérer employé</td>
+                        <td>Vérifier existence du <strong>département</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2024-V1</strong></td>
+                        <td>Insérer événement</td>
+                        <td>Vérifier existence de l'<strong>expert</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2024-V2</strong></td>
+                        <td>Insérer séminaire</td>
+                        <td>Vérifier existence de l'<strong>animateur</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2025-V1</strong></td>
+                        <td>Insérer vélo</td>
+                        <td>Vérifier existence de la <strong>batterie</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2025-V2</strong></td>
+                        <td>Insérer trottinette</td>
+                        <td>Vérifier existence de la <strong>batterie</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- PATTERN FONCTION DETAILLE -->
+        <section id="pattern-fonction" class="section">
+            <h2 class="section-title"><span class="emoji">🔢</span> PATTERN #2 : FONCTION SQL AVEC RETOUR</h2>
+
+            <div class="command-card">
+                <div class="command-name">TEMPLATE UNIVERSEL - À MÉMORISER PAR CŒUR</div>
+                
+                <div class="command-syntax">
+<span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE FUNCTION</span> NomDeLaFonction(
+    paramEntree TYPE
+) 
+<span class="code-keyword">RETURNS</span> TypeDeRetour
+<span class="code-keyword">DETERMINISTIC</span>
+<span class="code-keyword">BEGIN</span>
+    
+    <span class="code-comment">-- ╔════════════════════════════════════════╗</span>
+    <span class="code-comment">-- ║  DÉCLARER UNE VARIABLE LOCALE           ║</span>
+    <span class="code-comment">-- ╚════════════════════════════════════════╝</span>
+    <span class="code-keyword">DECLARE</span> variableLocale TypeDeRetour;
+    
+    <span class="code-comment">-- ╔════════════════════════════════════════╗</span>
+    <span class="code-comment">-- ║  EFFECTUER LA REQUÊTE DE CALCUL         ║</span>
+    <span class="code-comment">-- ╚════════════════════════════════════════╝</span>
+    <span class="code-keyword">SELECT</span> 
+        fonction_aggregate(champ) <span class="code-keyword">OR</span> expression_mathematique
+    <span class="code-keyword">INTO</span> variableLocale
+    <span class="code-keyword">FROM</span> TableSource
+    <span class="code-keyword">WHERE</span> condition;
+    
+    <span class="code-comment">-- ╔════════════════════════════════════════╗</span>
+    <span class="code-comment">-- ║  RETOURNER LE RÉSULTAT                  ║</span>
+    <span class="code-comment">-- ╚════════════════════════════════════════╝</span>
+    <span class="code-keyword">RETURN</span> variableLocale;
+    
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+            </div>
+
+            <div class="alert alert-warning">
+                <div class="alert-title">⚠️ DIFFÉRENCES CLÉS AVEC LA PROCÉDURE STOCKÉE</div>
+                <ul style="margin-top:12px;line-height:2;font-size:1.05em;">
+                    <li><strong>RETURNS type</strong> : Obligatoire (procédure ne retourne rien)</li>
+                    <li><strong>RETURN valeur</strong> : Une seule fois à la fin (pas plusieurs RETURN)</li>
+                    <li><strong>DECLARE variable</strong> : Pour stocker le résultat intermédiaire</li>
+                    <li><strong>SELECT ... INTO variable</strong> : Pour capturer le résultat d'une requête</li>
+                    <li><strong>DETERMINISTIC</strong> : Optionnel mais recommandé (même entrée = même sortie)</li>
+                    <li><strong>Appel</strong> : <code>SELECT NomFonction(param)</code> (pas CALL)</li>
+                </ul>
+            </div>
+
+            <h3 class="subsubsection-title">📋 Types de Calculs Demandés</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type de Calcul</th>
+                        <th>Fonction Aggregate SQL</th>
+                        <th>Exemple Typique</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Total / Somme</strong></td>
+                        <td><code>SUM()</code></td>
+                        <td>Coût total des événements d'un expert</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre total</strong></td>
+                        <td><code>COUNT(*)</code></td>
+                        <td>Nombre de voitures consommées par un vélo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Moyenne</strong></td>
+                        <td><code>AVG()</code></td>
+                        <td>Durée moyenne d'utilisation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Maximum/Minimum</strong></td>
+                        <td><code>MAX() / MIN()</code></td>
+                        <td>Date la plus récente</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- PATTERN TRIGGER DETAILLE -->
+        <section id="pattern-trigger" class="section">
+            <h2 class="section-title"><span class="emoji">🛡️</span> PATTERN #3 : TRIGGER DE CONTRÔLE D'INTÉGRITÉ</h2>
+
+            <div class="command-card">
+                <div class="command-name">TEMPLATE UNIVERSEL - À MÉMORISER PAR CŒUR</div>
+                
+                <div class="command-syntax">
+<span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE TRIGGER</span> NomDuTrigger
+
+<span class="code-comment">-- ╔═════════════════════════════════════════════╗</span>
+<span class="code-comment">-- ║  MOMENT : AVANT OU APRÈS L'OPÉRATION          ║</span>
+<span class="code-comment">-- ╚═════════════════════════════════════════════╝</span>
+<span class="code-keyword">BEFORE</span> <span class="code-keyword">OR</span> <span class="code-keyword">AFTER</span>
+
+<span class="code-comment">-- ╔═════════════════════════════════════════════╗</span>
+<span class="code-comment">-- ║  OPÉRATION DÉCLENCHEUSE                       ║</span>
+<span class="code-comment">-- ╚═════════════════════════════════════════════╝</span>
+<span class="code-keyword">INSERT</span> <span class="code-keyword">OR</span> <span class="code-keyword">UPDATE</span> <span class="code-keyword">OR</span> <span class="code-keyword">DELETE</span>
+
+<span class="code-comment">-- ╔═════════════════════════════════════════════╗</span>
+<span class="code-comment">-- ║  TABLE CIBLE                                  ║</span>
+<span class="code-comment">-- ╚═════════════════════════════════════════════╝</span>
+<span class="code-keyword">ON</span> NomTableCible
+
+<span class="code-comment">-- ╔═════════════════════════════════════════════╗</span>
+<span class="code-comment">-- ║  POUR CHAQUE LIGNE AFFECTÉE                   ║</span>
+<span class="code-comment">-- ╚═════════════════════════════════════════════╝</span>
+<span class="code-keyword">FOR EACH ROW</span>
+
+<span class="code-keyword">BEGIN</span>
+    
+    <span class="code-comment">-- ╔══════════════════════════════════════════════════╗</span>
+    <span class="code-comment">-- ║  CAS 1 : BLOQUER L'OPÉRATION (si condition non respectée)║</span>
+    <span class="code-comment">-- ╚══════════════════════════════════════════════════╝</span>
+    <span class="code-keyword">IF</span> (condition_violee) <span class="code-keyword">THEN</span>
+        <span class="code-keyword">SIGNAL SQLSTATE</span> <span class="code-string">'45000'</span>
+        <span class="code-keyword">SET MESSAGE_TEXT</span> = <span class="code-string">'Erreur: [Message]'</span>;
+    <span class="code-keyword">END IF</span>;
+    
+    <span class="code-comment">-- ╔══════════════════════════════════════════════════╗</span>
+    <span class="code-comment">-- ║  CAS 2 : MISE À JOUR AUTOMATIQUE (optionnel)      ║</span>
+    <span class="code-comment">-- ╚══════════════════════════════════════════════════╝</span>
+    <span class="code-comment">-- UPDATE AutreTable SET champ = NEW.valeur WHERE id = NEW.id;</span>
+    
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+            </div>
+
+            <div class="alert alert-danger">
+                <div class="alert-title">⚠️ PIÈGE CLASSIQUE : NEW vs OLD</div>
+                <div class="grid-2" style="margin-top:15px;">
+                    <div>
+                        <h4 style="color:#ef4444;margin-bottom:10px;"><code>NEW</code> = Valeur APRÈS l'opération</h4>
+                        <ul style="font-size:0.95em;line-height:1.8;">
+                            <li>Disponible dans <strong>INSERT</strong> (nouvelle valeur)</li>
+                            <li>Disponible dans <strong>UPDATE</strong> (valeur modifiée)</li>
+                            <li><strong>PAS disponible</strong> dans DELETE</li>
+                            <li>Exemple : <code>NEW.id</code>, <code>NEW.nom</code></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color:#f59e0b;margin-bottom:10px;"><code>OLD</code> = Valeur AVANT l'opération</h4>
+                        <ul style="font-size:0.95em;line-height:1.8;">
+                            <li>Disponible dans <strong>UPDATE</strong> (ancienne valeur)</li>
+                            <li>Disponible dans <strong>DELETE</strong> (valeur supprimée)</li>
+                            <li><strong>PAS disponible</strong> dans INSERT</li>
+                            <li>Exemple : <code>OLD.id</code>, <code>OLD.statut</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsubsection-title">📋 Scénarios de Trigger Rencontrés</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timing</th>
+                        <th>Opération</th>
+                        <th>Objectif</th>
+                        <th>Exemple</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background:#fef2f2;">
+                        <td><code class="highlight-red">BEFORE INSERT</code></td>
+                        <td>Insertion</td>
+                        <td><strong>Empêcher</strong> si contrainte non respectée</td>
+                        <td>Empêcher utilisation sans voiture affectée</td>
+                    </tr>
+                    <tr style="background:#fffbeb;">
+                        <td><code class="highlight-blue">AFTER INSERT</code></td>
+                        <td>Insertion</td>
+                        <td><strong>Mettre à jour</strong> automatiquement</td>
+                        <td>Incrémenter compteur, journaliser</td>
+                    </tr>
+                    <tr style="background:#f0f9ff;">
+                        <td><code class="highlight-blue">BEFORE UPDATE</code></td>
+                        <td>Modification</td>
+                        <td><strong>Valider</strong> ou modifier la nouvelle valeur</td>
+                        <td>Forcer statut "Retiré" si nb_batteries > 100</td>
+                    </tr>
+                    <tr style="background:#f0fdf4;">
+                        <td><code class="highlight-green">BEFORE DELETE</code></td>
+                        <td>Suppression</td>
+                        <td><strong>Protéger</strong> si dépendances existent</td>
+                        <td>Empêcher suppression service avec salariés</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- EXAMEN 2023 V1 -->
+        <section id="examen-2023-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2023 - VARIANTE V1</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2023 - Variante 1</div>
+                    <div class="exam-badge">12 Points | Dossier Pratique MySQL</div>
+                </div>
+
+                <div style="background:#eff6ff;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #00758F;">
+                    <h4 style="color:#1e40af;margin-bottom:12px;">📋 Contexte & Schéma Relationnel</h4>
+                    <p><strong>Société DKM</strong> : Agence de location nationale de voitures</p>
+                    
+                    <pre style="margin-top:15px;background:white;border:1px solid #ddd;padding:15px;border-radius:8px;"><code><span style="color:#00758F;">service</span>(codeser, nomser)
+<span style="color:#00758F;">salarie</span>(<span style="color:#e83e8c;">idSal</span>, nomSal, prenomSal, dateEmbauche, fonction, <span style="color:#e83e8c;">#codeSer</span>)
+<span style="color:#00758F;">voiture</span>(matricule, marque, couleur, dateMiseEnCirculation)
+<span style="color:#00758F;">utilisation</span>(idUtil, dateDebutUtilisation, dateFinUtilisation, <span style="color:#e83e8c;">#idSal</span>, <span style="color:#e83e8c;">#matricule</span>)
+<span style="color:#00758F;">garagiste</span>(codeGar, nomGar, adresse)
+<span style="color:#00758F;">DemandeReparation</span>(codeDem, dateDem, descriptionDem, <span style="color:#e83e8c;">#codeGar</span>, syntheseReparation, dateFinReparation)</code></pre>
+                </div>
+
+                <!-- Question 1 : Procedure -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 1 <span class="points-badge">4 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Créer une procédure stockée qui affiche le nombre de salariés de chaque service.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE PROCEDURE</span> AfficherNombreSalariesParService()
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">SELECT</span> 
+        s.nomService,
+        <span class="code-keyword">COUNT</span>(sa.<span class="code-variable">idSal</span>) <span class="code-keyword">AS</span> nombre_salaries
+    <span class="code-keyword">FROM</span> service s
+    <span class="code-keyword">LEFT JOIN</span> salarie sa <span class="code-keyword">ON</span> s.codeSer = sa.codeSer
+    <span class="code-keyword">GROUP BY</span> s.nomService;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;
+
+<span class="code-comment">-- Appel de la procédure :</span>
+<span class="code-keyword">CALL</span> AfficherNombreSalariesParService();</code></pre>
+                </div>
+
+                <!-- Question 2 : Fonction -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 2 <span class="points-badge">4 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Créer une fonction permettant de retourner le code du salarié utilisant une voiture dont le matricule et la date passés en paramètre.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE FUNCTION</span> GetCodeSalarie(
+    p_matricule <span class="code-keyword">VARCHAR</span>(20),
+    p_dateUtilisation <span class="code-keyword">DATE</span>
+)
+<span class="code-keyword">RETURNS</span> <span class="code-keyword">VARCHAR</span>(10)
+<span class="code-keyword">DETERMINISTIC</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">DECLARE</span> v_codeSalarie <span class="code-keyword">VARCHAR</span>(10);
+    
+    <span class="code-keyword">SELECT</span> u.<span class="code-variable">idSal</span>
+    <span class="code-keyword">INTO</span> v_codeSalarie
+    <span class="code-keyword">FROM</span> utilisation u
+    <span class="code-keyword">WHERE</span> u.matricule = p_matricule
+      <span class="code-keyword">AND</span> u.dateDebutUtilisation = p_dateUtilisation
+    <span class="code-keyword">LIMIT</span> 1;
+    
+    <span class="code-keyword">RETURN</span> v_codeSalarie;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;
+
+<span class="code-comment">-- Appel de la fonction :</span>
+<span class="code-keyword">SELECT</span> GetCodeSalarie(<span class="code-string">'1-h-11111'</span>, <span class="code-string">'2023-01-15'</span>);</code></pre>
+                </div>
+
+                <!-- Question 3 : Trigger -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 3 <span class="points-badge">4 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Créer un déclencheur (Trigger) qui empêche, lors de l'insertion d'une nouvelle utilisation, d'affecter une voiture pour un salarié attaché au service 'informatique'.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE TRIGGER</span> VerifierAffectationVoitureInformatique
+    <span class="code-keyword">BEFORE INSERT</span>
+    <span class="code-keyword">ON</span> utilisation
+    <span class="code-keyword">FOR EACH ROW</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-comment">-- Vérifier si le salarié appartient au service 'informatique'</span>
+    <span class="code-keyword">IF EXISTS</span> (
+        <span class="code-keyword">SELECT</span> 1 
+        <span class="code-keyword">FROM</span> salarie sa
+        <span class="code-keyword">JOIN</span> service s <span class="code-keyword">ON</span> sa.codeSer = s.codeSer
+        <span class="code-keyword">WHERE</span> sa.<span class="code-variable">idSal</span> = <span class="code-keyword">NEW</span>.<span class="code-variable">idSal</span>
+          <span class="code-keyword">AND</span> s.nomService = <span class="code-string">'informatique'</span>
+    ) <span class="code-keyword">THEN</span>
+        <span class="code-comment">-- Bloquer l'insertion avec message d'erreur</span>
+        <span class="code-keyword">SIGNAL SQLSTATE</span> <span class="code-string">'45000'</span>
+        <span class="code-keyword">SET MESSAGE_TEXT</span> = <span class="code-string">'Erreur: Impossible d''affecter une voiture à un salarié du service informatique'</span>;
+    <span class="code-keyword">END IF</span>;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2023 V2 -->
+        <section id="examen-2023-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2023 - VARIANTE V2</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2023 - Variante 2</div>
+                    <div class="exam-badge">12 Points | Dossier Pratique MySQL</div>
+                </div>
+
+                <div style="background:#fef3c7;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #f59e0b;">
+                    <h4 style="color:#92400e;margin-bottom:12px;">📋 Contexte & Schéma Relationnel</h4>
+                    <p><strong>Entreprise BFA</strong> : Gestion du parc de matériels informatiques</p>
+                    
+                    <pre style="margin-top:15px;background:white;border:1px solid #ddd;padding:15px;border-radius:8px;"><code><span style="color:#00758F;">departement</span>(codeDep, nomDep)
+<span style="color:#00758F;">employe</span>(<span style="color:#e83e8c;">idEmp</span>, nomEmp, prenomEmp, dateEmbauche, poste, <span style="color:#e83e8c;">#codeDep</span>)
+<span style="color:#00758F;">materiel</span>(codeMat, marque, categorie, dateDebutAffectation)
+<span style="color:#00758F;">Affectation</span>(<span style="color:#e83e8c;">#codeMat</span>, <span style="color:#e83e8c;">#codeEmp</span>, dateDebutAffectation, dateFinAffectation)
+<span style="color:#00758F;">technicien</span>(codeTech, nomTech, telInterv)
+<span style="color:#00758F;">intervention</span>(<span style="color:#e83e8c;">#codeInter</span>, dateInter, detailsInter, <span style="color:#e83e8c;">#codeTech</span>, syntheseReparation, dateFinIntervention)</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Créer une procédure stockée qui affiche le nombre d'employés de chaque département.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE PROCEDURE</span> AfficherNombreEmployesParDepartement()
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">SELECT</span> 
+        d.nomDepartement,
+        <span class="code-keyword">COUNT</span>(e.<span class="code-variable">idEmp</span>) <span class="code-keyword">AS</span> nombre_employes
+    <span class="code-keyword">FROM</span> departement d
+    <span class="code-keyword">LEFT JOIN</span> employe e <span class="code-keyword">ON</span> d.codeDep = e.codeDep
+    <span class="code-keyword">GROUP BY</span> d.nomDepartement;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Créer une fonction permettant de retourner le code de l'employé utilisant un matériel dont le code et la date sont passés en paramètre.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE FUNCTION</span> GetCodeEmploye(
+    p_codeMat <span class="code-keyword">VARCHAR</span>(10),
+    p_dateAffectation <span class="code-keyword">DATE</span>
+)
+<span class="code-keyword">RETURNS</span> <span class="code-keyword">VARCHAR</span>(10)
+<span class="code-keyword">DETERMINISTIC</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">DECLARE</span> v_codeEmploye <span class="code-keyword">VARCHAR</span>(10);
+    
+    <span class="code-keyword">SELECT</span> a.<span class="code-variable">codeEmp</span>
+    <span class="code-keyword">INTO</span> v_codeEmploye
+    <span class="code-keyword">FROM</span> Affectation a
+    <span class="code-keyword">WHERE</span> a.codeMat = p_codeMat
+      <span class="code-keyword">AND</span> a.dateDebutAffectation = p_dateAffectation
+    <span class="code-keyword">LIMIT</span> 1;
+    
+    <span class="code-keyword">RETURN</span> v_codeEmploye;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Créer un trigger qui empêche, lors de l'insertion d'une nouvelle affectation, d'affecter un matériel à un employé du département 'RH'.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE TRIGGER</span> VerifierAffectationMaterielRH
+    <span class="code-keyword">BEFORE INSERT</span>
+    <span class="code-keyword">ON</span> Affectation
+    <span class="code-keyword">FOR EACH ROW</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">IF EXISTS</span> (
+        <span class="code-keyword">SELECT</span> 1 
+        <span class="code-keyword">FROM</span> employe e
+        <span class="code-keyword">JOIN</span> departement d <span class="code-keyword">ON</span> e.codeDep = d.codeDep
+        <span class="code-keyword">WHERE</span> e.<span class="code-variable">idEmp</span> = <span class="code-keyword">NEW</span>.<span class="code-variable">codeEmp</span>
+          <span class="code-keyword">AND</span> d.nomDep = <span class="code-string">'RH'</span>
+    ) <span class="code-keyword">THEN</span>
+        <span class="code-keyword">SIGNAL SQLSTATE</span> <span class="code-string">'45000'</span>
+        <span class="code-keyword">SET MESSAGE_TEXT</span> = <span class="code-string">'Erreur: Impossible d''affecter un matériel à un employé du département RH'</span>;
+    <span class="code-keyword">END IF</span>;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2024 V1 -->
+        <section id="examen-2024-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2024 - VARIANTE V1</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2024 - Variante 1</div>
+                    <div class="exam-badge">12 Points | Dossier Pratique MySQL</div>
+                </div>
+
+                <div style="background:#ede9fe;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #8b5cf6;">
+                    <h4 style="color:#5b21b6;margin-bottom:12px;">📋 Contexte & Schéma Relationnel</h4>
+                    <p><strong>AdvancedEventSolutions</strong> : Organisation d'événements professionnels</p>
+                    
+                    <pre style="margin-top:15px;background:white;border:1px solid #ddd;padding:15px;border-radius:8px;"><code><span style="color:#00758F;">Experts</span>(idExp, prenomExp, telExp, SpecialiteExp, EmailExp)
+<span style="color:#00758F;">Evenements</span>(id_theme, date_debut, date_fin, description, cout_journalier, <span style="color:#e83e8c;">#expert_id</span>)
+<span style="color:#00758F;">Ateliers</span>(id, nomAtelier, descriptionAtelier, <span style="color:#e83e8c;">#evenement_id</span>)
+<span style="color:#00758F;">Participants</span>(idAtelier, descriptionPart, sexePart, emailPart, <span style="color:#e83e8c;">#evenement_id</span>)
+<span style="color:#00758F;">Inscriptions</span>(id, dateInscription, statusInscription, <span style="color:#e83e8c;">#participantId</span>, <span style="color:#e83e8c;">#evenement_id</span>)</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Créer une procédure stockée qui permet d'insérer un nouvel événement en vérifiant l'existence de l'expert qui assure l'événement.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE PROCEDURE</span> InsererEvenement(
+    <span class="code-keyword">IN</span> p_id_theme <span class="code-keyword">VARCHAR</span>(50),
+    <span class="code-keyword">IN</span> p_date_debut <span class="code-keyword">DATE</span>,
+    <span class="code-keyword">IN</span> p_date_fin <span class="code-keyword">DATE</span>,
+    <span class="code-keyword">IN</span> p_description <span class="code-keyword">TEXT</span>,
+    <span class="code-keyword">IN</span> p_cout_journalier <span class="code-keyword">DECIMAL</span>(10,2),
+    <span class="code-keyword">IN</span> p_expert_id <span class="code-keyword">INT</span>
+)
+<span class="code-keyword">BEGIN</span>
+    <span class="code-comment">-- Vérifier que l'expert existe</span>
+    <span class="code-keyword">IF NOT EXISTS</span> (
+        <span class="code-keyword">SELECT</span> 1 <span class="code-keyword">FROM</span> Experts 
+        <span class="code-keyword">WHERE</span> idExp = p_expert_id
+    ) <span class="code-keyword">THEN</span>
+        <span class="code-keyword">SIGNAL SQLSTATE</span> <span class="code-string">'45000'</span>
+        <span class="code-keyword">SET MESSAGE_TEXT</span> = <span class="code-string">'Erreur: L''expert spécifié n''existe pas'</span>;
+    <span class="code-keyword">END IF</span>;
+    
+    <span class="code-comment">-- Insérer l'événement</span>
+    <span class="code-keyword">INSERT INTO</span> Evenements (
+        id_theme,
+        date_debut,
+        date_fin,
+        description,
+        cout_journalier,
+        expert_id
+    ) <span class="code-keyword">VALUES</span> (
+        p_id_theme,
+        p_date_debut,
+        p_date_fin,
+        p_description,
+        p_cout_journalier,
+        p_expert_id
+    );
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;
+
+<span class="code-comment">-- Appel :</span>
+<span class="code-keyword">CALL</span> InsererEvenement(
+    <span class="code-string">'Conférence IA'</span>,
+    <span class="code-string">'2024-04-01'</span>,
+    <span class="code-string">'2024-04-03'</span>,
+    <span class="code-string">'Introduction à l''IA'</span>,
+    <span class="code-number">500.00</span>,
+    <span class="code-number">1</span>
+);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Créer une fonction qui retourne le coût total de tous les événements dispensés par un expert dont le nom et prénom sont spécifiés en paramètres.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE FUNCTION</span> CoutTotalEvenementsExpert(
+    p_prenomExp <span class="code-keyword">VARCHAR</span>(50),
+    p_nomExp <span class="code-keyword">VARCHAR</span>(50)
+)
+<span class="code-keyword">RETURNS</span> <span class="code-keyword">DECIMAL</span>(12,2)
+<span class="code-keyword">DETERMINISTIC</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">DECLARE</span> v_coutTotal <span class="code-keyword">DECIMAL</span>(12,2);
+    
+    <span class="code-keyword">SELECT</span> <span class="code-keyword">SUM</span>(e.cout_journalier * <span class="code-keyword">DATEDIFF</span>(e.date_fin, e.date_debut))
+    <span class="code-keyword">INTO</span> v_coutTotal
+    <span class="code-keyword">FROM</span> Evenements e
+    <span class="code-keyword">JOIN</span> Experts ex <span class="code-keyword">ON</span> e.expert_id = ex.idExp
+    <span class="code-keyword">WHERE</span> ex.prenomExp = p_prenomExp
+      <span class="code-keyword">AND</span> ex.nomExp = p_nomExp;
+    
+    <span class="code-keyword">RETURN</span> v_coutTotal;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;
+
+<span class="code-comment">-- Appel :</span>
+<span class="code-keyword">SELECT</span> CoutTotalEvenementsExpert(<span class="code-string">'Jean'</span>, <span class="code-string">'DUPONT'</span>);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Créer un trigger qui interdit l'inscription effectuée au cours du mois de juillet de l'année actuelle.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE TRIGGER</span> InterdireInscriptionJuillet
+    <span class="code-keyword">BEFORE INSERT</span>
+    <span class="code-keyword">ON</span> Inscriptions
+    <span class="code-keyword">FOR EACH ROW</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-comment">-- Vérifier si le mois est juillet (7) de l'année courante</span>
+    <span class="code-keyword">IF</span> (<span class="code-keyword">MONTH</span>(<span class="code-keyword">NEW</span>.dateInscription) = <span class="code-number">7</span>) <span class="code-keyword">THEN</span>
+        <span class="code-keyword">SIGNAL SQLSTATE</span> <span class="code-string">'45000'</span>
+        <span class="code-keyword">SET MESSAGE_TEXT</span> = <span class="code-string">'Erreur: Les inscriptions sont suspendues en juillet'</span>;
+    <span class="code-keyword">END IF</span>;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2024 V2 -->
+        <section id="examen-2024-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2024 - VARIANTE V2</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2024 - Variante 2</div>
+                    <div class="exam-badge">12 Points | Dossier Pratique MySQL</div>
+                </div>
+
+                <div style="background:#fce7f3;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #ec4899;">
+                    <h4 style="color:#9f1239;margin-bottom:12px;">📋 Contexte & Schéma Relationnel</h4>
+                    <p><strong>AdvancedSeminarsSolutions</strong> : Organisation de séminaires de formation</p>
+                    
+                    <pre style="margin-top:15px;background:white;border:1px solid #ddd;padding:15px;border-radius:8px;"><code><span style="color:#00758F;">Animateurs</span>(idAnim, prenomAnim, telAnim, SpecialiteAnim, EmailAnim)
+<span style="color:#00758F;">Seminaires</span>(id_theme, date_debut, date_fin, description, cout_journalier, <span style="color:#e83e8c;">#animateur_id</span>)
+<span style="color:#00758F;">Activites</span>(id, theme, date_debut, date_fin, description, <span style="color:#e83e8c;">#seminaire_id</span>)
+<span style="color:#00758F;">Membres</span>(idMembre, prenomMembre, sexeMembre, emailMembre)
+<span style="color:#00758F;">Reservations</span>(id, dateReservation, statusReservation, <span style="color:#e83e8c;">#Membre_id</span>, <span style="color:#e83e8c;">#Seminaire_id</span>)</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Créer une procédure stockée qui permet d'insérer un nouveau séminaire en vérifiant l'existence de l'animateur qui assure le séminaire.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE PROCEDURE</span> InsererSeminaire(
+    <span class="code-keyword">IN</span> p_id_theme <span class="code-keyword">VARCHAR</span>(100),
+    <span class="code-keyword">IN</span> p_date_debut <span class="code-keyword">DATE</span>,
+    <span class="code-keyword">IN</span> p_date_fin <span class="code-keyword">DATE</span>,
+    <span class="code-keyword">IN</span> p_description <span class="code-keyword">TEXT</span>,
+    <span class="code-keyword">IN</span> p_cout_journalier <span class="code-keyword">DECIMAL</span>(10,2),
+    <span class="code-keyword">IN</span> p_animateur_id <span class="code-keyword">INT</span>
+)
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">IF NOT EXISTS</span> (
+        <span class="code-keyword">SELECT</span> 1 <span class="code-keyword">FROM</span> Animateurs 
+        <span class="code-keyword">WHERE</span> idAnim = p_animateur_id
+    ) <span class="code-keyword">THEN</span>
+        <span class="code-keyword">SIGNAL SQLSTATE</span> <span class="code-string">'45000'</span>
+        <span class="code-keyword">SET MESSAGE_TEXT</span> = <span class="code-string">'Erreur: L''animateur spécifié n''existe pas'</span>;
+    <span class="code-keyword">END IF</span>;
+    
+    <span class="code-keyword">INSERT INTO</span> Seminaires (
+        id_theme, date_debut, date_fin, 
+        description, cout_journalier, animateur_id
+    ) <span class="code-keyword">VALUES</span> (
+        p_id_theme, p_date_debut, p_date_fin,
+        p_description, p_cout_journalier, p_animateur_id
+    );
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Créer une fonction qui retourne le coût total de tous les séminaires dispensés par un animateur dont le nom et prénom sont spécifiés en paramètres.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE FUNCTION</span> CoutTotalSeminairesAnimateur(
+    p_prenomAnim <span class="code-keyword">VARCHAR</span>(50),
+    p_nomAnim <span class="code-keyword">VARCHAR</span>(50)
+)
+<span class="code-keyword">RETURNS</span> <span class="code-keyword">DECIMAL</span>(12,2)
+<span class="code-keyword">DETERMINISTIC</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">DECLARE</span> v_coutTotal <span class="code-keyword">DECIMAL</span>(12,2);
+    
+    <span class="code-keyword">SELECT</span> <span class="code-keyword">SUM</span>(s.cout_journalier * <span class="code-keyword">DATEDIFF</span>(s.date_fin, s.date_debut))
+    <span class="code-keyword">INTO</span> v_coutTotal
+    <span class="code-keyword">FROM</span> Seminars s
+    <span class="code-keyword">JOIN</span> Animateurs a <span class="code-keyword">ON</span> s.animateur_id = a.idAnim
+    <span class="code-keyword">WHERE</span> a.prenomAnim = p_prenomAnim
+      <span class="code-keyword">AND</span> a.nomAnim = p_nomAnim;
+    
+    <span class="code-keyword">RETURN</span> v_coutTotal;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">4 points</span></div>
+                    <p><strong>Énoncé :</strong> Créer un trigger qui interdit la réservation effectuée au cours du mois de juillet de l'année actuelle.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE TRIGGER</span> InterdireReservationJuillet
+    <span class="code-keyword">BEFORE INSERT</span>
+    <span class="code-keyword">ON</span> Reservations
+    <span class="code-keyword">FOR EACH ROW</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">IF</span> (<span class="code-keyword">MONTH</span>(<span class="code-keyword">NEW</span>.dateReservation) = <span class="code-number">7</span>) <span class="code-keyword">THEN</span>
+        <span class="code-keyword">SIGNAL SQLSTATE</span> <span class="code-string">'45000'</span>
+        <span class="code-keyword">SET MESSAGE_TEXT</span> = <span class="code-string">'Erreur: Les réservations sont suspendues en juillet'</span>;
+    <span class="code-keyword">END IF</span>;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2025 V1 -->
+        <section id="examen-2025-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2025 - VARIANTE V1 ⚡ NOVEAUTÉS</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2025 - Variante 1</div>
+                    <div class="exam-badge">12 Points | Dossier Pratique MySQL</div>
+                </div>
+
+                <div style="background:#ecfccb;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #84cc16;">
+                    <h4 style="color:#3f6212;margin-bottom:12px;">📋 Contexte & Schéma Relationnel</h4>
+                    <p><strong>FastFoodDelivery</strong> : Service de livraison avec vélos électriques</p>
+                    
+                    <pre style="margin-top:15px;background:white;border:1px solid #ddd;padding:15px;border-radius:8px;"><code><span style="color:#00758F;">Veloid</span>(<span style="color:#e83e8c;">#id</span>, numero_serie, marque, sane_batterie, nombre_cycles, statut)
+<span style="color:#00758F;">Battery</span>(<span style="color:#e83e8c;">#id</span>, numero_serie, capacity, sane_batterie, nombre_cycles, statut)
+<span style="color:#00758F;">Changement</span>(<span style="color:#e83e8c;">#id</span>, <span style="color:#e83e8c;">#velo_id</span>, <span style="color:#e83e8c;">#ancienne_batterie</span>, <span style="color:#e83e8c;">#nouvelle_batterie</span>, date_changement, raison)
+<span style="color:#00758F;">Technicien</span>(id, nom, telephone, specialite)
+<span style="color:#00758F;">Reparation</span>(<span style="color:#e83e8c;">#id</span>, <span style="color:#e83e8c;">#technicien_id</span>, date_reparation, <span style="color:#e83e8c;">#battery_id</span>)</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Écrire le script de création de la table 'Vélo'.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">CREATE TABLE</span> Veloid (
+    id <span class="code-keyword">INT</span> <span class="code-keyword">PRIMARY KEY</span> <span class="code-keyword">AUTO_INCREMENT</span>,
+    numero_serie <span class="code-keyword">VARCHAR</span>(20) <span class="code-keyword">NOT NULL</span>,
+    marque <span class="code-keyword">VARCHAR</span>(50) <span class="code-keyword">NOT NULL</span>,
+    sane_batterie <span class="code-keyword">INT</span> <span class="code-keyword">NOT NULL</span>,
+    nombre_cycles <span class="code-keyword">INT</span> <span class="code-keyword">DEFAULT</span> <span class="code-number">0</span>,
+    statut <span class="code-keyword">ENUM</span>(<span class="code-string">'En Utilisation'</span>, <span class="code-string">'Retiré'</span>) <span class="code-keyword">DEFAULT</span> <span class="code-string">'En Utilisation'</span>
+);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Modifier la table 'Vélo' en ajoutant la colonne 'nb_batteries' qui est de type entier positif et non null.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">ALTER TABLE</span> Veloid
+<span class="code-keyword">ADD COLUMN</span> nb_batteries <span class="code-keyword">INT</span> <span class="code-keyword">UNSIGNED</span> <span class="code-keyword">NOT NULL</span> <span class="code-keyword">DEFAULT</span> <span class="code-number">0</span>;</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Écrire un trigger TR1 qui contrôle la valeur de la colonne 'sante_batterie' qui doit être un nombre compris entre 0 et 100, lors de l'ajout d'une nouvelle batterie.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE TRIGGER</span> TR1_VerifierSanteBatterie
+    <span class="code-keyword">BEFORE INSERT</span>
+    <span class="code-keyword">ON</span> Battery
+    <span class="code-keyword">FOR EACH ROW</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">IF</span> (<span class="code-keyword">NEW</span>.sane_batterie <span class="code-keyword">OR</span> <span class="code-keyword">NEW</span>.sane_batterie > <span class="code-number">100</span>) <span class="code-keyword">THEN</span>
+        <span class="code-keyword">SIGNAL SQLSTATE</span> <span class="code-string">'45000'</span>
+        <span class="code-keyword">SET MESSAGE_TEXT</span> = <span class="code-string">'Erreur: La santé batterie doit être comprise entre 0 et 100'</span>;
+    <span class="code-keyword">END IF</span>;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 4 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Écrire un trigger TR2, qui modifie la valeur de la colonne statut de 'En Utilisation' à 'Retiré', lorsqu'un ajoute dans la table 'Changement'.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE TRIGGER</span> TR2_MAJStatutVeloApresChangement
+    <span class="code-keyword">AFTER INSERT</span>
+    <span class="code-keyword">ON</span> Changement
+    <span class="code-keyword">FOR EACH ROW</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">UPDATE</span> Veloid
+    <span class="code-keyword">SET</span> statut = <span class="code-string">'Retiré'</span>
+    <span class="code-keyword">WHERE</span> id = <span class="code-keyword">NEW</span>.velo_id;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 5 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Écrire une fonction FCT1 qui retourne le nombre total de batteries consommées par un vélo dont l'id est passé en paramètre.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE FUNCTION</span> FCT1_NombreBatteriesConsommees(p_velo_id <span class="code-keyword">INT</span>)
+<span class="code-keyword">RETURNS</span> <span class="code-keyword">INT</span>
+<span class="code-keyword">DETERMINISTIC</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">DECLARE</span> v_nombre <span class="code-keyword">INT</span>;
+    
+    <span class="code-keyword">SELECT</span> <span class="code-keyword">COUNT</span>(*)
+    <span class="code-keyword">INTO</span> v_nombre
+    <span class="code-keyword">FROM</span> Changement c
+    <span class="code-keyword">WHERE</span> c.velo_id = p_velo_id;
+    
+    <span class="code-keyword">RETURN</span> v_nombre;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;
+
+<span class="code-comment">-- Appel :</span>
+<span class="code-keyword">SELECT</span> FCT1_NombreBatteriesConsommees(<span class="code-number">14</span>);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 6 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Gestion des utilisateurs/Roles : Créer le rôle 'RoleTechnicien'. Donner les droits d'ajout, suppression et modification sur les tables 'Vélo' et 'Changement' au rôle 'RoleTechnicien'. Créer l'utilisateur 'Ali' avec le mot de passe '0000' et lui attribuer le rôle 'RoleTechnicien'.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE (NOUVEAU EN 2025 !)</div>
+                    <pre><code><span class="code-comment">-- 1. Créer le rôle</span>
+<span class="code-keyword">CREATE ROLE</span> RoleTechnicien;
+
+<span class="code-comment">-- 2. Donner les droits sur les tables</span>
+<span class="code-keyword">GRANT</span> <span class="code-keyword">SELECT</span>, <span class="code-keyword">INSERT</span>, <span class="code-keyword">UPDATE</span>, <span class="code-keyword">DELETE</span>
+<span class="code-keyword">ON</span> FastFoodDelivery.Veloid
+<span class="code-keyword">TO</span> RoleTechnicien;
+
+<span class="code-keyword">GRANT</span> <span class="code-keyword">SELECT</span>, <span class="code-keyword">INSERT</span>, <span class="code-keyword">UPDATE</span>, <span class="code-keyword">DELETE</span>
+<span class="code-keyword">ON</span> FastFoodDelivery.Changement
+<span class="code-keyword">TO</span> RoleTechnicien;
+
+<span class="code-comment">-- 3. Créer l'utilisateur</span>
+<span class="code-keyword">CREATE USER</span> <span class="code-string">'Ali'</span>@<span class="code-string">'localhost'</span>
+<span class="code-keyword">IDENTIFIED BY</span> <span class="code-string">'0000'</span>;
+
+<span class="code-comment">-- 4. Attribuer le rôle à l'utilisateur</span>
+<span class="code-keyword">GRANT</span> RoleTechnicien
+<span class="code-keyword">TO</span> <span class="code-string">'Ali'</span>@<span class="code-string">'localhost'</span>;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2025 V2 -->
+        <section id="examen-2025-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2025 - VARIANTE V2</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2025 - Variante 2</div>
+                    <div class="exam-badge">12 Points | Dossier Pratique MySQL</div>
+                </div>
+
+                <div style="background:#cffafe;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #06b6d4;">
+                    <h4 style="color:#0e7490;margin-bottom:12px;">📋 Contexte & Schéma Relationnel</h4>
+                    <p><strong>FastFoodDelivery</strong> : Service de livraison avec trottinettes électriques</p>
+                    
+                    <pre style="margin-top:15px;background:white;border:1px solid #ddd;padding:15px;border-radius:8px;"><code><span style="color:#00758F;">Trottinette</span>(<span style="color:#e83e8c;">#id</span>, numero_serie, marque, <span style="color:#e83e8c;">#nb_batteries</span>)
+<span style="color:#00758F;">Battery</span>(<span style="color:#e83e8c;">#id</span>, numero_serie, capacity, sane_batterie, nombre_cycle, statut)
+<span style="color:#00758F;">Remplacement</span>(<span style="color:#e83e8c;">#id</span>, <span style="color:#e83e8c;">#trottinette_id</span>, <span style="color:#e83e8c;">#id_ancienne_batterie</span>, <span style="color:#e83e8c;">#id_nouvelle_batterie</span>, date_replacement, raison)
+<span style="color:#00758F;">Reparateur</span>(id, nom, telephone, email, specialite)</span></code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Écrire le script de création de la table 'Trottinette'.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">CREATE TABLE</span> Trottinette (
+    id <span class="code-keyword">INT</span> <span class="code-keyword">PRIMARY KEY</span> <span class="code-keyword">AUTO_INCREMENT</span>,
+    numero_serie <span class="code-keyword">VARCHAR</span>(20) <span class="code-keyword">NOT NULL</span>,
+    marque <span class="code-keyword">VARCHAR</span>(50) <span class="code-keyword">NOT NULL</span>,
+    nb_batteries <span class="code-keyword">INT</span> <span class="code-keyword">UNSIGNED</span> <span class="code-keyword">NOT NULL</span> <span class="code-keyword">DEFAULT</span> <span class="code-number">0</span>
+);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Modifier la table 'Trottinette' en ajoutant la colonne 'nb_batteries' qui est de type entier positif et non null.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">ALTER TABLE</span> Trottinette
+<span class="code-keyword">ADD COLUMN</span> nb_batteries <span class="code-keyword">INT</span> <span class="code-keyword">UNSIGNED</span> <span class="code-keyword">NOT NULL</span> <span class="code-keyword">DEFAULT</span> <span class="code-number">0</span>;</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Écrire un trigger TR1 qui contrôle la valeur de la colonne 'sante_batterie' qui doit être un nombre compris entre 0 et 100, lors de l'ajout d'une nouvelle batterie.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE TRIGGER</span> TR1_VerifierSanteBatterie
+    <span class="code-keyword">BEFORE INSERT</span>
+    <span class="code-keyword">ON</span> Battery
+    <span class="code-keyword">FOR EACH ROW</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">IF</span> (<span class="code-keyword">NEW</span>.sane_batterie <span class="code-number">0</span> <span class="code-keyword">OR</span> <span class="code-keyword">NEW</span>.sane_batterie > <span class="code-number">100</span>) <span class="code-keyword">THEN</span>
+        <span class="code-keyword">SIGNAL SQLSTATE</span> <span class="code-string">'45000'</span>
+        <span class="code-keyword">SET MESSAGE_TEXT</span> = <span class="code-string">'Erreur: La santé batterie doit être entre 0 et 100'</span>;
+    <span class="code-keyword">END IF</span>;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 4 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Écrire un trigger TR2, qui modifie la valeur de la colonne statut de 'En Utilisation' à 'Retiré', lorsqu'un ajoute dans la table 'Remplacement'.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE TRIGGER</span> TR2_MAJStatutTrottinetteApresRemplacement
+    <span class="code-keyword">AFTER INSERT</span>
+    <span class="code-keyword">ON</span> Remplacement
+    <span class="code-keyword">FOR EACH ROW</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">UPDATE</span> Trottinette
+    <span class="code-keyword">SET</span> statut = <span class="code-string">'Retiré'</span>
+    <span class="code-keyword">WHERE</span> id = <span class="code-keyword">NEW</span>.trottinette_id;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 5 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Écrire une fonction FCT1 qui retourne le nombre total de batteries consommées par une trottinette dont l'id est passé en paramètre.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-keyword">DELIMITER //</span>
+
+<span class="code-keyword">CREATE FUNCTION</span> FCT1_NombreBatteriesConsommees(p_trottinette_id <span class="code-keyword">INT</span>)
+<span class="code-keyword">RETURNS</span> <span class="code-keyword">INT</span>
+<span class="code-keyword">DETERMINISTIC</span>
+<span class="code-keyword">BEGIN</span>
+    <span class="code-keyword">DECLARE</span> v_nombre <span class="code-keyword">INT</span>;
+    
+    <span class="code-keyword">SELECT</span> <span class="code-keyword">COUNT</span>(*)
+    <span class="code-keyword">INTO</span> v_nombre
+    <span class="code-keyword">FROM</span> Remplacement r
+    <span class="code-keyword">WHERE</span> r.trottinette_id = p_trottinette_id;
+    
+    <span class="code-keyword">RETURN</span> v_nombre;
+<span class="code-keyword">END</span> //
+
+<span class="code-keyword">DELIMITER</span> ;</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 6 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Gestion des utilisateurs/Roles : Créer le rôle 'RoleReparateur'. Donner les droits d'ajout, suppression et modification sur les tables 'Trottinette' et 'Remplacement' au rôle 'RoleReparateur'. Créer l'utilisateur 'Fatima' avec le mot de passe '1111' et lui attribuer le rôle 'RoleReparateur'.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-comment">-- 1. Créer le rôle</span>
+<span class="code-keyword">CREATE ROLE</span> RoleReparateur;
+
+<span class="code-comment">-- 2. Donner les droits</span>
+<span class="code-keyword">GRANT</span> <span class="code-keyword">SELECT</span>, <span class="code-keyword">INSERT</span>, <span class="code-keyword">UPDATE</span>, <span class="code-keyword">DELETE</span>
+<span class="code-keyword">ON</span> FastFoodDelivery.Trottinette
+<span class="code-keyword">TO</span> RoleReparateur;
+
+<span class="code-keyword">GRANT</span> <span class="code-keyword">SELECT</span>, <span class="code-keyword">INSERT</span>, <span class="code-keyword">UPDATE</span>, <span class="code-keyword">DELETE</span>
+<span class="code-keyword">ON</span> FastFoodDelivery.Remplacement
+<span class="code-keyword">TO</span> RoleReparateur;
+
+<span class="code-comment">-- 3. Créer utilisateur</span>
+<span class="code-keyword">CREATE USER</span> <span class="code-string">'Fatima'</span>@<span class="code-string">'localhost'</span>
+<span class="code-keyword">IDENTIFIED BY</span> <span class="code-string">'1111'</span>;
+
+<span class="code-comment">-- 4. Attribuer le rôle</span>
+<span class="code-keyword">GRANT</span> RoleReparateur
+<span class="code-keyword">TO</span> <span class="code-string">'Fatima'</span>@<span class="code-string">'localhost'</span>;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ERREURS À ÉVITER -->
+        <section id="erreurs" class="section">
+            <h2 class="section-title"><span class="emoji">❌</span> ERREURS FATALES À NE JAMAIS FAIRE (MySQL)</h2>
+
+            <div class="grid-2">
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #1 : Oublier DELIMITER</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Erreur de syntaxe immédiate, procédure/fonction/trigger non créée</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Sans DELIMITER</span>
+CREATE PROCEDURE MaProc()
+BEGIN
+    -- Corps
+END;
+<span style="color:#fca5a5;">-- Erreur : Le ; à l'intérieur termine l'instruction CREATE prématurément</span>
+
+<span style="color:#86efac;">// ✅ CORRECT - Avec DELIMITER</span>
+DELIMITER //
+CREATE PROCEDURE MaProc()
+BEGIN
+    -- Corps
+END //
+DELIMITER ;</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #2 : Confondre NEW et OLD dans Trigger</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Logique inversée, corruption de données</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Dans AFTER DELETE (OLD existe, PAS NEW)</span>
+CREATE TRIGGER MonTrigger
+AFTER DELETE ON table
+FOR EACH ROW
+BEGIN
+    -- Logiquer la suppression avec NEW.id  ← ERREUR !
+END;
+
+<span style="color:#86efac;">// ✅ CORRECT - Utiliser OLD pour DELETE/UPDATE avant</span>
+CREATE TRIGGER MonTrigger
+AFTER DELETE ON table
+FOR EACH ROW
+BEGIN
+    INSERT INTO logs VALUES (OLD.id, OLD.nom);  ← CORRECT
+END;</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #3 : Oublier $set dans UPDATE (équivalent SQL)</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : En MySQL, UPDATE sans SET = erreur syntaxe (contrairement à MongoDB)</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">-- ❌ FAUX - SET manquant</span>
+UPDATE Veloid
+statut = 'Retiré'
+WHERE id = 14;
+
+<span style="color:#86efac;">-- ✅ CORRECT - Avec SET obligatoire</span>
+UPDATE Veloid
+SET statut = 'Retiré'
+WHERE id = 14;</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #4 : Oublier RETURN dans Function</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Erreur "FUNCTION must return a value"</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">-- ❌ FAUX - Pas de RETURN</span>
+CREATE FUNCTION MaFonction()
+RETURNS INT
+BEGIN
+    DECLARE v INT;
+    SELECT COUNT(*) INTO v FROM table;
+    -- Oubli de RETURN !
+END;
+
+<span style="color:#86efac;">-- ✅ CORRECT - RETURN obligatoire</span>
+CREATE FUNCTION MaFonction()
+RETURNS INT
+BEGIN
+    DECLARE v INT;
+    SELECT COUNT(*) INTO v FROM table;
+    RETURN v;  ← OBLIGATOIRE
+END;</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #5 : Mauvaise gestion des guillemets simples</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Erreur de syntaxe dans les strings</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">-- ❌ FAUX - Guillemet simple dans string avec apostrophe</span>
+SET MESSAGE_TEXT = 'Erreur: L'expert n'existe pas';
+                          ^-- L'apostrophe ferme le string !
+
+<span style="color:#86efac;">-- ✅ CORRECT - Échapper l'apostrophe avec \ ou doubler</span>
+SET MESSAGE_TEXT = 'Erreur: L''expert n''existe pas';
+                                        ^^              ^^</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #6 : Oublier BEGIN/END</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Seule la première instruction est dans le bloc</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">-- ❌ FAUX - Sans BEGIN/END</span>
+CREATE PROCEDURE MaProc()
+    IF condition THEN
+        SIGNAL SQLSTATE '45000';  -- Seule instruction exécutée
+    END IF;
+    INSERT INTO table ...;  -- HORS du bloc IF !
+
+<span style="color:#86efac;">-- ✅ CORRECT - Avec BEGIN/END</span>
+CREATE PROCEDURE MaProc()
+BEGIN
+    IF condition THEN
+        SIGNAL SQLSTATE '45000';
+    END IF;
+    INSERT INTO table ...;  -- Bien dans le même bloc
+END</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHECKLIST REVISION -->
+        <section id="checklist" class="section">
+            <h2 class="section-title"><span class="emoji">✅</span> CHECKLIST DE RÉVISION ULTRA-RAPIDE (Avant l'Examen)</h2>
+
+            <div class="alert alert-mysql" style="padding:30px;">
+                <div class="alert-title" style="font-size:1.3em;">🎯 OBJECTIF : Assurer 12/12 Points en 18-22 Minutes Maximum</div>
+                <p style="font-size:1.05em;margin-top:10px;">Cochez chaque item après l'avoir mémorisé parfaitement.</p>
+            </div>
+
+            <h3 class="subsection-title">☑️ Avant de Commencer : Les Fondamentaux</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je sais que <code>DELIMITER //</code> change le délimiteur de fin d'instruction</li>
+                <li>Je sais que <code>BEGIN ... END</code> encadre un bloc d'instructions</li>
+                <li>Je sais que <code>DECLARE</code> déclare des variables locales</li>
+                <li>Je sais que <code>SELECT ... INTO variable</code> capture un résultat</li>
+                <li>Je sais que <code>SIGNAL SQLSTATE '45000'</code> lève une erreur personnalisée</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Procédure Stockée (4 pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je commence toujours par <code>DELIMITER //</code></li>
+                <li>J'utilise <code>CREATE PROCEDURE NomProc(IN param TYPE, ...)</code></li>
+                <li>J'encadre avec <code>BEGIN ... END //</code></li>
+                <li>Je vérifie l'existence avec <code>IF NOT EXISTS (SELECT ...)</code></li>
+                <je lève l'erreur avec <code>SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '...'</code></li>
+                <li>J'insère avec <code>INSERT INTO ... VALUES (...)</code></li>
+                <li>Je termine par <code>DELIMITER ;</code></li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Fonction SQL (4 pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>J'utilise <code>CREATE FUNCTION NomFunc(param TYPE) RETURNS TypeRetour</code></li>
+                <li>J'ajoute optionnellement <code>DETERMINISTIC</code></li>
+                <li>Je déclare une variable locale avec <code>DECLARE var TYPE;</code></li>
+                <li>Je fais ma requête avec <code>SELECT ... INTO var FROM ...</code></li>
+                <li>Je retourne OBLIGATOIREMENT avec <code>RETURN var;</code></li>
+                <li>Je n'ai qu'un seul <code>RETURN</code> (à la fin)</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Pattern Trigger (4 pts)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je choisis le bon timing : <code>BEFORE</code> (bloquer/valider) ou <code>AFTER</code> (mettre à jour/journaliser)</li>
+                <li>Je choisis la bonne opération : <code>INSERT</code>, <code>UPDATE</code>, ou <code>DELETE</code></li>
+                <li>J'ajoute <code>FOR EACH ROW</code> (obligatoire)</li>
+                <li>J'utilise <code>NEW.champ</code> pour la nouvelle valeur (INSERT/UPDATE)</li>
+                <li>J'utilise <code>OLD.champ</code> pour l'ancienne valeur (UPDATE/DELETE)</li>
+                <li>Je vérifie les conditions avec <code>IF ... THEN SIGNAL ... END IF;</code></li>
+                <li>Je peux faire un <code>UPDATE AutreTable SET ... WHERE ...</code> si nécessaire</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ BONUS 2025 : Gestion des Droits (Si demandé)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li><code>CREATE ROLE NomRole;</code> pour créer un rôle</li>
+                <li><code>GRANT SELECT, INSERT, UPDATE, DELETE ON DB.Table TO Role;</code></li>
+                <li><code>CREATE USER 'user'@'host' IDENTIFIED BY 'password';</code></li>
+                <li><code>GRANT Role TO 'user'@'host';</code> pour attribuer le rôle</li>
+            </ul>
+
+            <div class="alert alert-mysql" style="margin-top:40px;padding:30px;">
+                <div class="alert-title" style="font-size:1.3em;">⏱️ TEMPS DE RÉCOMMANDÉ</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:20px;">
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#1e40af;">4-5h</div>
+                        <div>Pour maîtriser MySQL parfaitement</div>
+                    </div>
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#1e40af;">1h</div>
+                        <div>Pour réviser la veille de l'examen</div>
+                    </div>
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#1e40af;">18-22 min</div>
+                        <div>Le jour J pour répondre aux questions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:40px;text-align:center;padding:40px;background:linear-gradient(135deg,#00758F,#00668E);border-radius:15px;color:white;">
+                <h2 style="font-size:2em;margin-bottom:20px;color:white;">🎯 MESSAGE FINAL</h2>
+                <p style="font-size:1.2em;line-height:1.8;opacity:0.95;">
+                    MySQL est le dossier <strong>le plus technique</strong> de l'examen.<br>
+                    Mais aussi le plus <strong>prévisible</strong> : toujours les 3 mêmes patterns.<br><br>
+                    <strong>Maîtrisez ces 3 templates = 12 points assurés = 20% de la partie pratique.</strong><br><br>
+                    <span style="font-size:1.3em;">La syntaxe est stricte, mais c'est aussi ça qui rend facile la correction !</span><br>
+                    <span style="font-size:1.3em;">Pas d'ambiguïté = points garantis si vous connaissez les templates.</span><br><br>
+                    <span style="font-size:1.4em;">C'est un défi syntaxique, pas un défi de créativité. Prenez-le ! 🐬💪</span>
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <h2 style="font-size:1.8em;margin-bottom:15px;">🐬 Guide Complet MySQL - Examens OFPPT</h2>
+        <p style="font-size:1.1em;margin-bottom:10px;opacity:0.9;">Toutes les réponses du dossier pratique MySQL (2023-2025) • 6 examens analysés • 12 points garantis</p>
+        <p style="opacity:0.7;margin-top:20px;font-size:0.9em;">
+            Document généré pour préparation optimisée aux examens nationaux OFPPT<br>
+            Filière : Développement Digital Option Web Full Stack | Niveau : Technicien Spécialisé
+        </p>
+        <div style="margin-top:25px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.2);">
+            <p style="font-size:0.85em;opacity:0.6;">
+                Dernière mise à jour : Juin 2025 | Basé sur l'analyse de 6 examens complets (Variantes V1+V2)<br>
+                Patterns identifiés : Procédure Stockée + Fonction SQL + Trigger | Fréquence : 100%
+            </p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

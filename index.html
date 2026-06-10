@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Backend</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            background:linear-gradient(135deg,#0f172a,#1e293b);
+            padding:40px 20px;
+            color:white;
+        }
+
+        .container{
+            max-width:1200px;
+            margin:auto;
+        }
+
+        .title{
+            text-align:center;
+            margin-bottom:50px;
+        }
+
+        .title h1{
+            font-size:3rem;
+            color:#22c55e;
+            margin-bottom:10px;
+        }
+
+        .title p{
+            color:#cbd5e1;
+            font-size:1.1rem;
+        }
+
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:25px;
+        }
+
+        .card{
+            background:rgba(255,255,255,0.05);
+            backdrop-filter:blur(10px);
+            border:1px solid rgba(255,255,255,0.1);
+            border-radius:20px;
+            padding:25px;
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-8px);
+            border-color:#22c55e;
+            box-shadow:0 10px 30px rgba(34,197,94,.25);
+        }
+
+        .icon{
+            font-size:3rem;
+            margin-bottom:15px;
+        }
+
+        .card h2{
+            margin-bottom:10px;
+            color:#22c55e;
+        }
+
+        .card p{
+            color:#cbd5e1;
+            margin-bottom:20px;
+            line-height:1.6;
+        }
+
+        .btn{
+            display:inline-block;
+            text-decoration:none;
+            background:#22c55e;
+            color:white;
+            padding:12px 22px;
+            border-radius:10px;
+            font-weight:600;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#16a34a;
+        }
+
+        @media(max-width:768px){
+            .title h1{
+                font-size:2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="title">
+        <h1>Documentation Développement</h1>
+        <p>Accès rapide à tous les dossiers et ressources.</p>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="icon">🍃</div>
+            <h2>Dossier 1 : NoSQL MongoDB</h2>
+            <p>Documentation et cours MongoDB.</p>
+            <a href="mongodb.html" class="btn">Ouvrir</a>
+        </div>
+
+        <div class="card">
+            <div class="icon">🗄️</div>
+            <h2>Dossier 2 : MySQL</h2>
+            <p>Documentation et exercices MySQL.</p>
+            <a href="mysql.html" class="btn">Ouvrir</a>
+        </div>
+
+        <div class="card">
+            <div class="icon">⚙️</div>
+            <h2>Dossier 3 : Back-End</h2>
+            <p>Concepts Backend, API, Architecture et Sécurité.</p>
+            <a href="back_end.html" class="btn">Ouvrir</a>
+        </div>
+
+        <div class="card">
+            <div class="icon">🎨</div>
+            <h2>Dossier 4 : Front-End</h2>
+            <p>react , HTML, CSS, JavaScript et interfaces utilisateur.</p>
+            <a href="front_end.html" class="btn">Ouvrir</a>
+        </div>
+
+        <div class="card">
+            <div class="icon">🚀</div>
+            <h2>Dossier 5 : Agile</h2>
+            <p>Méthodologies Agile, Scrum et gestion de projet.</p>
+            <a href="#" class="btn">Ouvrir</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

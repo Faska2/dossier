@@ -1,0 +1,2210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🗄️ Guide Complet MongoDB - Examens OFPPT Web Full Stack</title>
+    
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)'], ['$$', '$$'], ['\\[', '\\]']], 
+                displayMath: []
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        /* Header MongoDB Themed */
+        .header {
+            background: linear-gradient(135deg, #4776E6 0%, #3E64FF 50%, #2B4ACF 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "🍃";
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -30px;
+            right: -30px;
+            transform: rotate(15deg);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .mongo-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: #2c3e50;
+            padding: 18px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.1);
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .nav-bar a:hover {
+            background: #4776E6;
+            transform: translateY(-2px);
+        }
+
+        /* Content */
+        .content {
+            padding: 50px 60px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.3em;
+            color: #3E64FF;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #4776E6;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .subsection-title {
+            font-size: 1.7em;
+            color: #2B4ACF;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 6px solid #4776E6;
+        }
+
+        .subsubsection-title {
+            font-size: 1.35em;
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Code Blocks - MongoDB Style */
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 25px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            line-height: 1.7;
+            border-left: 5px solid #47A248; /* MongoDB Green */
+            position: relative;
+        }
+
+        pre::before {
+            content: "MongoDB Shell";
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.75em;
+            color: #888;
+            background: #333;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92em;
+        }
+
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-number { color: #b5cea8; }
+        .code-comment { color: #6a9955; font-style: italic; }
+        .code-operator { color: #d4d4d4; }
+        .code-method { color: #dcdcaa; }
+        .code-variable { color: #9cdcfe; }
+        .code-mongo { color: #47A248; font-weight: bold; }
+
+        /* SQL Code for comparison */
+        pre.sql-code {
+            border-left-color: #00758f; /* MySQL Blue */
+        }
+
+        pre.sql-code::before {
+            content: "MySQL";
+            background: #006890;
+        }
+
+        /* Alert Boxes */
+        .alert {
+            padding: 22px 28px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 6px solid;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .alert-mongo {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-color: #47A248;
+            color: #166534;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-color: #22c55e;
+            color: #166534;
+        }
+
+        .alert-title {
+            font-weight: bold;
+            font-size: 1.15em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #4776E6 0%, #3E64FF 100%);
+            color: white;
+        }
+
+        th {
+            padding: 18px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.92em;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+            transition: all 0.3s;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafbfc;
+        }
+
+        /* Exam Cards */
+        .exam-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 35px;
+            margin: 35px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #4776E6 0%, #3E64FF 100%);
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .exam-year {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #3E64FF;
+        }
+
+        .exam-badge {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            background: linear-gradient(135deg, #4776E6, #3E64FF);
+            color: white;
+        }
+
+        .question-block {
+            background: #f8fafc;
+            border-left: 4px solid #4776E6;
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #3E64FF;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .points-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: #4776E6;
+            box-shadow: 0 8px 24px rgba(71, 118, 230, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Command Reference Cards */
+        .command-card {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+            color: #d4d4d4;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #47A248;
+        }
+
+        .command-name {
+            color: #47A248;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            font-family: 'Consolas', monospace;
+        }
+
+        .command-syntax {
+            background: #0d1117;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 0.92em;
+            overflow-x: auto;
+        }
+
+        .command-example {
+            background: #161b22;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border-left: 3px solid #47A248;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+        }
+
+        /* Progress bars */
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .progress-bar {
+            height: 32px;
+            background: #e5e7eb;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4776E6 0%, #3E64FF 50%, #47A248 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.88em;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Comparison Table (SQL vs MongoDB) */
+        .comparison-table {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            margin: 30px 0;
+        }
+
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            background: linear-gradient(135deg, #4776E6 0%, #3E64FF 100%);
+            color: white;
+            padding: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            align-items: center;
+        }
+
+        .comparison-row:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .sql-col {
+            color: #00758f;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .mongo-col {
+            color: #47A248;
+            font-weight: 500;
+            text-align: center;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content {
+                padding: 35px 30px;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-header,
+            .comparison-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                text-align: left !important;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 25px 20px;
+            }
+            
+            .nav-bar {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+            
+            th, td {
+                padding: 12px 10px;
+                font-size: 0.85em;
+            }
+        }
+
+        /* Highlight styles */
+        .highlight-green {
+            background: #dcfce7;
+            color: #166534;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-family: 'Consolas', monospace;
+        }
+
+        .highlight-blue {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .highlight-red {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        /* Emoji styling */
+        .emoji {
+            font-style: normal;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li:before {
+            content: "✅ ";
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        /* Timeline for exam sequence */
+        .timeline-exam {
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 35px;
+        }
+
+        .timeline-exam::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #4776E6, #47A248);
+            border-radius: 2px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 7px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: #4776E6;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(71, 118, 230, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="mongo-icon">🍃</div>
+        <h1>GUIDE COMPLET MONGODB</h1>
+        <div class="subtitle">Examens Nationaux OFPPT - Développement Digital Option Web Full Stack</div>
+        <div class="subtitle" style="font-size:1.1em;opacity:0.85;">Dossier NoSQL : Toutes les Réponses Détaillées (2023-2025)</div>
+        <div style="margin-top:20px;font-size:0.95em;opacity:0.8;">
+            📚 6 Examens Analysés | 💯 11 Points par Examen | ⏱️ Temps de maîtrise : 2-3 heures
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <a href="#introduction">📖 Introduction</a>
+        <a href="#commandes">⚡ Commandes Essentielles</a>
+        <a href="#comparaison">🔄 SQL vs MongoDB</a>
+        <a href="#examen-2023-v1">📝 2023-V1</a>
+        <a href="#examen-2023-v2">📝 2023-V2</a>
+        <a href="#examen-2024-v1">📝 2024-V1</a>
+        <a href="#examen-2024-v2">📝 2024-V2</a>
+        <a href="#examen-2025-v1">📝 2025-V1</a>
+        <a href="#examen-2025-v2">📝 2025-V2</a>
+        <a href="#patterns">🔍 Patterns Récurrents</a>
+        <a href="#erreurs">❌ Erreurs à Éviter</a>
+        <a href="#checklist">✅ Checklist Révision</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- INTRODUCTION -->
+        <section id="introduction" class="section">
+            <h2 class="section-title"><span class="emoji">📖</span> INTRODUCTION : Pourquoi MongoDB dans les Examens ?</h2>
+
+            <div class="alert alert-mongo">
+                <div class="alert-title">🎯 Ce que vous devez savoir ABSOLUMENT</div>
+                <ul style="margin-top:12px;line-height:1.9;">
+                    <li><strong>Points attribués</strong> : <span class="highlight-green">11 points</span> sur 40 en théorie (soit <strong>27.5%</strong> de la partie théorique)</li>
+                    <li><strong>Fréquence d'apparition</strong> : <strong>100%</strong> (présent dans les 6 examens analysés)</li>
+                    <li><strong>Temps recommandé</strong> : <strong>10-12 minutes maximum</strong> le jour de l'examen</li>
+                    <li><strong>Niveau de difficulté</strong> : Moyen → Facile si vous connaissez les templates</li>
+                    <li><strong>Type de questions</strong> : CRUD complet + agrégations simples</li>
+                </ul>
+            </div>
+
+            <h3 class="subsection-title">📊 Statistiques MongoDB dans les Examens OFPPT</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrique</th>
+                        <th>Valeur</th>
+                        <th>Observation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nombre d'examens analysés</strong></td>
+                        <td>6</td>
+                        <td>Juin 2023, 2024, 2025 (V1+V2)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Présence du dossier NoSQL</strong></td>
+                        <td style="color:#22c55e;font-weight:bold;font-size:1.2em;">6/6 (100%)</td>
+                        <td>Obligatoire à chaque session</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Points moyens par examen</strong></td>
+                        <td><strong>11 points</strong></td>
+                        <td>Parfois 7pts, parfois 11pts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre moyen de questions</strong></td>
+                        <td><strong>5 questions</strong></td>
+                        <td>Toujours la même séquence</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sujets les plus fréquents</strong></td>
+                        <td colspan="2">
+                            <ol style="margin:10px 0 0 20px;">
+                                <li>Création base + collection (toujours Q1)</li>
+                                <li>Insertion de documents (donnés dans l'énoncé)</li>
+                                <li>Requête find() avec tri sort()</li>
+                                <li>Comptage countDocuments()</li>
+                                <li>Mise à jour updateOne/updateMany()</li>
+                                <li>Suppression deleteOne/deleteMany()</li>
+                            </ol>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">🍃 Qu'est-ce que MongoDB ? (Rappel Rapide)</h3>
+
+            <div class="grid-2">
+                <div class="info-card">
+                    <h4 style="color:#4776E6;margin-bottom:15px;">Définition Officielle</h4>
+                    <p><strong>MongoDB</strong> est une base de données <strong>NoSQL</strong> (Not Only SQL) de type <strong>document-oriented</strong>.</p>
+                    <ul style="margin-top:15px;">
+                        <li>Stocke les données au format <strong>BSON</strong> (Binary JSON)</li>
+                        <li>Pas de schéma fixe (schema-less)</li>
+                        <li>Structure hiérarchique flexible</li>
+                        <li>Évite les jointures complexes (embedded documents)</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h4 style="color:#47A248;margin-bottom:15px;">Pourquoi dans les Examens OFPPT ?</h4>
+                    <ul>
+                        <li><strong>Stack moderne Full Stack</strong> : MEAN/MERN stack utilise MongoDB</li>
+                        <li><strong>Alternative à MySQL</strong> : Montre que vous connaissez les deux paradigmes</li>
+                        <li><strong>Facile à évaluer</strong> : Syntaxe simple, questions standardisées</li>
+                        <li><strong>Industry standard</strong> : Très utilisé dans le monde réel</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-title">💡 Bonne Nouvelle pour Vous</div>
+                <p style="font-size:1.05em;">Les questions MongoDB sont <strong>toujours les mêmes</strong> d'un examen à l'autre ! Seul le contexte change (salariés → employés → experts → événements → batteries). Si vous maîtrisez les <strong>6 commandes de base</strong>, vous assurez <strong>11/11 points</strong> à chaque fois.</p>
+            </div>
+        </section>
+
+        <!-- COMMANDES ESSENTIELLES -->
+        <section id="commandes" class="section">
+            <h2 class="section-title"><span class="emoji">⚡</span> LES 6 COMMANDES MONGODB ESSENTIELLES (À MAÎTRISER PAR CŒUR)</h2>
+
+            <div class="alert alert-success">
+                <div class="alert-title">🎯 Ces 6 commandes = 100% des questions MongoDB depuis 3 ans</div>
+                <p>Mémorisez-les parfaitement et vous n'aurez aucune surprise le jour J.</p>
+            </div>
+
+            <!-- Commande 1 -->
+            <div class="command-card">
+                <div class="command-name">1. Créer une Base de Données et une Collection</div>
+                
+                <div class="command-syntax">
+                    <span class="code-comment">// Sélectionner/Créer la base de données</span><br>
+                    <span class="code-mongo">use</span> nomBaseDeDonnees;<br><br>
+                    
+                    <span class="code-comment">// Créer une collection (équivalent d'une table)</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">createCollection</span>(<span class="code-string">"nomCollection"</span>);
+                </div>
+
+                <div class="command-example">
+                    <strong>Exemple concret :</strong><br><br>
+                    <span class="code-comment">// Créer la base "DBSalaries"</span><br>
+                    <span class="code-mongo">use</span> DBSalaries;<br><br>
+                    
+                    <span class="code-comment">// Créer la collection "salaries"</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">createCollection</span>(<span class="code-string">"salaries"</span>);
+                </div>
+
+                <div style="margin-top:15px;padding:15px;background:#166534;color:white;border-radius:8px;">
+                    <strong>💡 Points clés :</strong>
+                    <ul style="margin-top:8px;">
+                        <li><code>use</code> crée la base si elle n'existe pas (lazy creation)</li>
+                        <li>La base est créée réellement seulement quand on insère le premier document</li>
+                        <li><code>createCollection()</code> permet de définir des options (validation, capped, etc.)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Commande 2 -->
+            <div class="command-card">
+                <div class="command-name">2. Insérer des Documents (INSERT)</div>
+                
+                <div class="command-syntax">
+                    <span class="code-comment">// Insérer UN seul document</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">collection</span>.<span class="code-method">insertOne</span>({ ... });<br><br>
+                    
+                    <span class="code-comment">// Insérer PLUSIEURS documents</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">collection</span>.<span class="code-method">insertMany</span>([ { ... }, { ... }, ... ]);
+                </div>
+
+                <div class="command-example">
+                    <strong>Exemple typique d'examen (documents fournis) :</strong><br><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">salaries</span>.<span class="code-method">insertMany</span>([<br>
+                    &nbsp;&nbsp;{<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"_id"</span>: <span class="code-string">"s1"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"nomSal"</span>: <span class="code-string">"Alami"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"prenomSal"</span>: <span class="code-string">"Sara"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"fonction"</span>: <span class="code-string">"Technicien"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"service"</span>: { <span class="code-string">"codeser"</span>: <span class="code-string">"I"</span>, <span class="code-string">"nomser"</span>: <span class="code-string">"Informatique"</span> }<br>
+                    &nbsp;&nbsp;},<br>
+                    &nbsp;&nbsp;{<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"_id"</span>: <span class="code-string">"s2"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"nomSal"</span>: <span class="code-string">"Hilal"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"prenomSal"</span>: <span class="code-string">"Hamza"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"fonction"</span>: <span class="code-string">"Gérant"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">"service"</span>: { <span class="code-string">"codeser"</span>: <span class="code-string">"L"</span>, <span class="code-string">"nomser"</span>: <span class="code-string">"Logistique"</span> }<br>
+                    &nbsp;&nbsp;}<br>
+                    ]);
+                </div>
+
+                <div style="margin-top:15px;padding:15px;background:#166534;color:white;border-radius:8px;">
+                    <strong>💡 Points clés :</strong>
+                    <ul style="margin-top:8px;">
+                        <li>L'énoncé <strong>fournit toujours</strong> les documents JSON à insérer</li>
+                        <li>Copiez-les simplement en respectant la syntaxe</li>
+                        <li><code>_id</code> peut être automatique (ObjectId) ou manuel (string)</li>
+                        <li>Les documents peuvent contenir des sous-documents (objets imbriqués)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Commande 3 -->
+            <div class="command-card">
+                <div class="command-name">3. Lire/Trouver des Documents (FIND) avec Tri (SORT)</div>
+                
+                <div class="command-syntax">
+                    <span class="code-comment">// Trouver TOUS les documents</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">collection</span>.<span class="code-method">find</span>();<br><br>
+                    
+                    <span class="code-comment">// Trouver avec condition (filtre)</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">collection</span>.<span class="code-method">find</span>({ champ: valeur });<br><br>
+                    
+                    <span class="code-comment">// Trier les résultats</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">collection</span>.<span class="code-method">find</span>().<span class="code-method">sort</span>({ champ: <span class="code-number">1</span> }); <span class="code-comment">// 1 = croissant, -1 = décroissant</span>
+                </div>
+
+                <div class="command-example">
+                    <strong>Question type examen : "Afficher les salariés par ordre croissant des noms"</strong><br><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">salaries</span>.<span class="code-method">find</span>().<span class="code-method">sort</span>({ <span class="code-string">"nomSal"</span>: <span class="code-number">1</span> });
+                </div>
+
+                <div style="margin-top:15px;padding:15px;background:#166534;color:white;border-radius:8px;">
+                    <strong>💡 Points clés :</strong>
+                    <ul style="margin-top:8px;">
+                        <li><strong>"Ordre croissant"</strong> = <code>{ champ: 1 }</code></li>
+                        <li><strong>"Ordre décroissant"</strong> = <code>{ champ: -1 }</code></li>
+                        <li>On peut combiner find() + sort() en chaîne</li>
+                        <li>Le tri se fait toujours <strong>après</strong> le find()</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Commande 4 -->
+            <div class="command-card">
+                <div class="command-name">4. Compter les Documents (COUNT)</div>
+                
+                <div class="command-syntax">
+                    <span class="code-comment">// Compter TOUS les documents</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">collection</span>.<span class="code-method">countDocuments</span>();<br><br>
+                    
+                    <span class="code-comment">// Compter avec condition (filtre)</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">collection</span>.<span class="code-method">countDocuments</span>({ condition });
+                </div>
+
+                <div class="command-example">
+                    <strong>Exemples typiques d'examens :</strong><br><br>
+                    
+                    <span class="code-comment">// Compter les salariés ayant la fonction "Technicien"</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">salaries</span>.<span class="code-method">countDocuments</span>({ <span class="code-string">"fonction"</span>: <span class="code-string">"Technicien"</span> });<br><br>
+                    
+                    <span class="code-comment">// Compter les événements ayant le thème "Développement Web"</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">evenements</span>.<span class="code-method">countDocuments</span>({ <span class="code-string">"theme"</span>: <span class="code-string">"Développement Web"</span> });<br><br>
+                    
+                    <span class="code-comment">// Compter les batteries dont le statut est "en panne"</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">countDocuments</span>({ <span class="code-string">"statut"</span>: <span class="code-string">"en panne"</span> });
+                </div>
+
+                <div style="margin-top:15px;padding:15px;background:#166534;color:white;border-radius:8px;">
+                    <strong>💡 Points clés :</strong>
+                    <ul style="margin-top:8px;">
+                        <li>Retourne un <strong>nombre entier</strong> (integer), pas un curseur</li>
+                        <li>La condition utilise la même syntaxe que <code>find()</code></li>
+                        <li>Très souvent utilisée avec une condition d'égalité simple</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Commande 5 -->
+            <div class="command-card">
+                <div class="command-name">5. Mettre à Jour des Documents (UPDATE)</div>
+                
+                <div class="command-syntax">
+                    <span class="code-comment">// Mettre à jour UN seul document (le premier trouvé)</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">collection</span>.<span class="code-method">updateOne</span>(<br>
+                    &nbsp;&nbsp;{ <span class="code-comment">/* filtre */</span> },<br>
+                    &nbsp;&nbsp;{ <span class="code-variable">$set</span>: { champ: nouvelleValeur }<br>
+                    );<br><br>
+                    
+                    <span class="code-comment">// Mettre à jour TOUS les documents correspondants</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">collection</span>.<span class="code-method">updateMany</span>(<br>
+                    &nbsp;&nbsp;{ <span class="code-comment">/* filtre */</span> },<br>
+                    &nbsp;&nbsp;{ <span class="code-variable">$set</span>: { champ: nouvelleValeur }<br>
+                    );
+                </div>
+
+                <div class="command-example">
+                    <strong>Exemples réels d'examens :</strong><br><br>
+                    
+                    <span class="code-comment">// Modifier le coût journalier de l'événement _id "e2" à 600</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">evenements</span>.<span class="code-method">updateOne</span>(<br>
+                    &nbsp;&nbsp;{ <span class="code-string">"_id"</span>: <span class="code-string">"e2"</span> },<br>
+                    &nbsp;&nbsp;{ <span class="code-variable">$set</span>: { <span class="code-string">"cout_journalier"</span>: <span class="code-number">600</span> }<br>
+                    );<br><br>
+                    
+                    <span class="code-comment">// Modifier santé_batterie à "faible" pour toutes les batteries capacité ≤ 50%</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">updateMany</span>(<br>
+                    &nbsp;&nbsp;{ <span class="code-string">"capacité"</span>: { <span class="code-variable">$lte</span>: <span class="code-number">50</span> },<br>
+                    &nbsp;&nbsp;{ <span class="code-variable">$set</span>: { <span class="code-string">"sante_batterie"</span>: <span class="code-string">"faible"</span> }<br>
+                    );<br><br>
+                    
+                    <span class="code-comment">// Modifier la valeur du coût journalier du séminaire _id "s2" à 700</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">seminaires</span>.<span class="code-method">updateOne</span>(<br>
+                    &nbsp;&nbsp;{ <span class="code-string">"_id"</span>: <span class="code-string">"s2"</span> },<br>
+                    &nbsp;&nbsp;{ <span class="code-variable">$set</span>: { <span class="code-string">"cout_journalier"</span>: <span class="code-number">700</span> }<br>
+                    );
+                </div>
+
+                <div style="margin-top:15px;padding:15px;background:#166534;color:white;border-radius:8px;">
+                    <strong>💡 Points CRITIQUES :</strong>
+                    <ul style="margin-top:8px;">
+                        <li><strong>OUBLIER $set = ERREUR FATALE</strong> ! Sans $set, le document est remplacé entièrement</li>
+                        <li><code>$set</code> modifie seulement les champs spécifiés</li>
+                        <li><code>updateOne()</code> = premier document trouvé uniquement</li>
+                        <li><code>updateMany()</code> = tous les documents correspondants</li>
+                        <li>Opérateurs de comparaison : <code>$lt</code> (moins que), <code>$lte</code> (≤), <code>$gt</code> (plus que), <code>$gte</code> (≥)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Commande 6 -->
+            <div class="command-card">
+                <div class="command-name">6. Supprimer des Documents (DELETE)</div>
+                
+                <div class="command-syntax">
+                    <span class="code-comment">// Supprimer UN seul document (le premier trouvé)</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">collection</span>.<span class="code-method">deleteOne</span>({ condition });<br><br>
+                    
+                    <span class="code-comment">// Supprimer TOUS les documents correspondants</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">collection</span>.<span class="code-method">deleteMany</span>({ condition });
+                </div>
+
+                <div class="command-example">
+                    <strong>Exemples typiques d'examens :</strong><br><br>
+                    
+                    <span class="code-comment">// Supprimer le salarié ayant l'_id "s3"</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">salaries</span>.<span class="code-method">deleteOne</span>({ <span class="code-string">"_id"</span>: <span class="code-string">"s3"</span> });<br><br>
+                    
+                    <span class="code-comment">// Supprimer tous les événements ayant durée > 15 jours</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">evenements</span>.<span class="code-method">deleteMany</span>({ <span class="code-string">"durée"</span>: { <span class="code-variable">$gt</span>: <span class="code-number">15</span> } });<br><br>
+                    
+                    <span class="code-comment">// Supprimer toutes les batteries statut "en panne" ET capacité < 20%</span><br>
+                    <span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">deleteMany</span>({<br>
+                    &nbsp;&nbsp;<span class="code-string">"statut"</span>: <span class="code-string">"en panne"</span>,<br>
+                    &nbsp;&nbsp;<span class="code-string">"capacité"</span>: { <span class="code-variable">$lt</span>: <span class="code-number">20</span> }<br>
+                    });
+                </div>
+
+                <div style="margin-top:15px;padding:15px;background:#166534;color:white;border-radius:8px;">
+                    <strong>💡 Points clés :</strong>
+                    <ul style="margin-top:8px;">
+                        <li><code>deleteOne()</code> supprime le <strong>premier</strong> document qui matche</li>
+                        <li><code>deleteMany()</code> supprime <strong>tous</strong> les documents qui matchent</li>
+                        <li>La condition peut combiner plusieurs critères (AND implicite)</li>
+                        <li>Retourne un objet avec <code>deletedCount</code> (nombre de suppressions)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPARISON SQL vs MONGODB -->
+        <section id="comparaison" class="section">
+            <h2 class="section-title"><span class="emoji">🔄</span> COMPARAISON RAPIDE : MySQL vs MongoDB</h2>
+
+            <div class="alert alert-info">
+                <div class="alert-title">🧠 Astuce Mnémotechnique</div>
+                <p>Si vous connaissez déjà MySQL, cette table vous aidera à faire le parallèle rapidement pendant l'examen.</p>
+            </div>
+
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div>Opération</div>
+                    <div>MySQL (SQL)</div>
+                    <div>MongoDB (NoSQL)</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div><strong>Créer base/table</strong></div>
+                    <div class="sql-col">CREATE DATABASE<br>CREATE TABLE</div>
+                    <div class="mongo-col">use DB<br>db.createCollection()</div>
+                </div>
+
+                <div class="comparison-row">
+                    <div><strong>Insérer données</strong></div>
+                    <div class="sql-col">INSERT INTO<br>VALUES (...)</div>
+                    <div class="mongo-col">db.col.insertMany([...])</div>
+                </div>
+
+                <div class="comparison-row">
+                    <div><strong>Lire toutes les données</strong></div>
+                    <div class="sql-col">SELECT * FROM table</div>
+                    <div class="mongo-col">db.col.find()</div>
+                </div>
+
+                <div class="comparison-row">
+                    <div><strong>Filtrer/Lire avec condition</strong></div>
+                    <div class="sql-col">SELECT * FROM table WHERE col = val</div>
+                    <div class="mongo-col">db.col.find({col: val})</div>
+                </div>
+
+                <div class="comparison-row">
+                    <div><strong>Trier (croissant)</strong></div>
+                    <div class="sql-col">ORDER BY col ASC</div>
+                    <div class="mongo-col">.sort({col: 1})</div>
+                </div>
+
+                <div class="comparison-row">
+                    <div><strong>Trier (décroissant)</strong></div>
+                    <div class="sql-col">ORDER BY col DESC</div>
+                    <div class="mongo-col">.sort({col: -1})</div>
+                </div>
+
+                <div class="comparison-row">
+                    <div><strong>Compter</strong></div>
+                    <div class="sql-col">SELECT COUNT(*) FROM table WHERE...</div>
+                    <div class="mongo-col">db.col.countDocuments({...})</div>
+                </div>
+
+                <div class="comparison-row">
+                    <div><strong>Mettre à jour</strong></div>
+                    <div class="sql-col">UPDATE table SET col=val WHERE id=x</div>
+                    <div class="mongo-col">db.col.updateOne({id:x}, {$set:{col:val}})</div>
+                </div>
+
+                <div class="comparison-row">
+                    <div><strong>Supprimer</strong></div>
+                    <div class="sql-col">DELETE FROM table WHERE id=x</div>
+                    <div class="mongo-col">db.col.deleteOne({id:x})</div>
+                </div>
+
+                <div class="comparison-row">
+                    <div><strong>Jointure</strong></div>
+                    <div class="sql-col">JOIN / LEFT JOIN</div>
+                    <div class="mongo-col">$lookup (aggregation)<br>Embedded docs</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title" style="margin-top:40px;">📊 Différences Fondamentales</h3>
+
+            <div class="grid-2">
+                <div class="info-card" style="border-left:5px solid #00758f;">
+                    <h4 style="color:#00758f;margin-bottom:15px;">MySQL (Relationnel)</h4>
+                    <ul>
+                        <li><strong>Schéma fixe</strong> : Définir colonnes/types avant</li>
+                        <li><strong>Normalisation</strong> : Éviter redondance</li>
+                        <li><strong>Jointures</strong> : Nécessaires pour relier tables</li>
+                        <li><strong>Transactions</strong> : ACID garanti</li>
+                        <li><strong>Langage</strong> : SQL (déclaratif)</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left:5px solid #47A248;">
+                    <h4 style="color:#47A248;margin-bottom:15px;">MongoDB (Document)</h4>
+                    <ul>
+                        <li><strong>Schéma flexible</strong> : Documents différents OK</li>
+                        <li><strong>Dénormalisation</strong> : Données dupliquées autorisées</li>
+                        <li><strong>Embedding</strong> : Sous-documents intégrés</li>
+                        <li><strong>Eventual consistency</strong> : BASE</li>
+                        <li><strong>Langage</strong> : Méthodes chaînées (impératif)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2023 V1 -->
+        <section id="examen-2023-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2023 - VARIANTE V1</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2023 - Variante 1</div>
+                    <div class="exam-badge">11 Points | Dossier NoSQL</div>
+                </div>
+
+                <div style="background:#f0f9ff;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #3b82f6;">
+                    <h4 style="color:#1e40af;margin-bottom:12px;">📋 Contexte Métier</h4>
+                    <p><strong>Société DKM</strong> : Agence de location nationale de voitures</p>
+                    <p style="margin-top:8px;"><strong>Collection cible</strong> : <code>salaries</code> (salariés de l'agence)</p>
+                </div>
+
+                <!-- Question 1 -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 1 <span class="points-badge">3 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Créez une base de données "DBSalaries" et une collection "salaries" contenant les informations suivantes :</p>
+                    
+                    <pre style="margin-top:15px;"><code>{
+  "_id": "s1",
+  "nomSal": "Alami",
+  "prenomSal": "Sara",
+  "fonction": "Technicien",
+  "service": {"codeser": "I", "nomser": "informatique"}
+}</code></pre>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <pre><code><span class="code-comment">// Étape 1: Créer/Sélectionner la base de données</span>
+<span class="code-mongo">use</span> DBSalaries;
+
+<span class="code-comment">// Étape 2: Créer la collection</span>
+<span class="code-mongo">db.</span><span class="code-variable">createCollection</span>(<span class="code-string">"salaries"</span>);
+
+<span class="code-comment">// Étape 3: Insérer les documents (donnés dans l'énoncé)</span>
+<span class="code-mongo">db.</span><span class="code-variable">salaries</span>.<span class="code-method">insertMany</span>([
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"s1"</span>,
+    <span class="code-string">"nomSal"</span>: <span class="code-string">"Alami"</span>,
+    <span class="code-string">"prenomSal"</span>: <span class="code-string">"Sara"</span>,
+    <span class="code-string">"fonction"</span>: <span class="code-string">"Technicien"</span>,
+    <span class="code-string">"service"</span>: { <span class="code-string">"codeser"</span>: <span class="code-string">"I"</span>, <span class="code-string">"nomser"</span>: <span class="code-string">"informatique"</span> }
+  },
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"s2"</span>,
+    <span class="code-string">"nomSal"</span>: <span class="code-string">"Hilal"</span>,
+    <span class="code-string">"prenomSal"</span>: <span class="code-string">"Hamza"</span>,
+    <span class="code-string">"fonction"</span>: <span class="code-string">"Gérant"</span>,
+    <span class="code-string">"service"</span>: { <span class="code-string">"codeser"</span>: <span class="code-string">"L"</span>, <span class="code-string">"nomser"</span>: <span class="code-string">"logistique"</span> }
+  },
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"s3"</span>,
+    <span class="code-string">"nomSal"</span>: <span class="code-string">"Cham"</span>,
+    <span class="code-string">"prenomSal"</span>: <span class="code-string">"Nabil"</span>,
+    <span class="code-string">"fonction"</span>: <span class="code-string">"Gérant"</span>,
+    <span class="code-string">"service"</span>: { <span class="code-string">"codeser"</span>: <span class="code-string">"L"</span>, <span class="code-string">"nomser"</span>: <span class="code-string">"logistique"</span> }
+  }
+]);</code></pre>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 2 <span class="points-badge">2 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Afficher les salariés par ordre croissant des noms.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">salaries</span>.<span class="code-method">find</span>().<span class="code-method">sort</span>({ <span class="code-string">"nomSal"</span>: <span class="code-number">1</span> });
+
+<span class="code-comment">// Explication:</span>
+<span class="code-comment">// - find() : récupère tous les documents</span>
+<span class="code-comment">// - sort({"nomSal": 1) : trie par ordre croissant (1 = ascendant)</span>
+<span class="code-comment">// - "nomSal" : le champ sur lequel on trie</span></code></pre>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 3 <span class="points-badge">2 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Afficher le nombre de salariés ayant la fonction "Technicien".</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">salaries</span>.<span class="code-method">countDocuments</span>({ <span class="code-string">"fonction"</span>: <span class="code-string">"Technicien"</span> });
+
+<span class="code-comment">// Résultat attendu : 1 (seulement Sara Alami)</span></code></pre>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 4 <span class="points-badge">2 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Supprimer le salarié ayant l'_id "s3".</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">salaries</span>.<span class="code-method">deleteOne</span>({ <span class="code-string">"_id"</span>: <span class="code-string">"s3"</span> });
+
+<span class="code-comment">// Résultat : Supprime Nabil Cham (Gérant Logistique)</span>
+<span class="code-comment">// deletedCount: 1</span></code></pre>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-block">
+                    <div class="question-number">
+                        Question 5 <span class="points-badge">2 points</span>
+                    </div>
+                    <p><strong>Énoncé :</strong> Afficher le nombre de salariés par fonction.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE (avec Agrégation)</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">salaries</span>.<span class="code-method">aggregate</span>([
+  { <span class="code-variable">$group</span>: {
+      <span class="code-string">"_id"</span>: <span class="code-string">"$fonction"</span>,
+      <span class="code-string">"nombre"</span>: { <span class="code-variable">$sum</span>: <span class="code-number">1</span> }
+  }}
+]);
+
+<span class="code-comment">// Résultat attendu :</span>
+<span class="code-comment">// { "_id": "Technicien", "nombre": 1 }</span>
+<span class="code-comment">// { "_id": "Gérant", "nombre": 2 }</span></code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2023 V2 -->
+        <section id="examen-2023-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2023 - VARIANTE V2</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2023 - Variante 2</div>
+                    <div class="exam-badge">11 Points | Dossier NoSQL</div>
+                </div>
+
+                <div style="background:#fef3c7;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #f59e0b;">
+                    <h4 style="color:#92400e;margin-bottom:12px;">📋 Contexte Métier</h4>
+                    <p><strong>Entreprise BFA</strong> : Gestion du parc de matériels informatiques</p>
+                    <p style="margin-top:8px;"><strong>Collection cible</strong> : <code>employes</code> (employés avec affectations)</p>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Créez une base de données "DBEmployes" et une collection "employes" contenant :</p>
+                    <pre style="margin-top:10px;"><code>{
+  "_id": "e1",
+  "nomEmp": "Lamrabet",
+  "prenomEmp": "Oussama",
+  "poste": "Directeur",
+  "departement": {"codeDep": "1", "nomDep": "RH"}
+}</code></pre>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <pre><code><span class="code-mongo">use</span> DBEmployes;
+
+<span class="code-mongo">db.</span><span class="code-variable">createCollection</span>(<span class="code-string">"employes"</span>);
+
+<span class="code-mongo">db.</span><span class="code-variable">employes</span>.<span class="code-method">insertMany</span>([
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"e1"</span>,
+    <span class="code-string">"nomEmp"</span>: <span class="code-string">"Lamrabet"</span>,
+    <span class="code-string">"prenomEmp"</span>: <span class="code-string">"Oussama"</span>,
+    <span class="code-string">"poste"</span>: <span class="code-string">"Directeur"</span>,
+    <span class="code-string">"departement"</span>: { <span class="code-string">"codeDep"</span>: <span class="code-string">"1"</span>, <span class="code-string">"nomDep"</span>: <span class="code-string">"RH"</span> }
+  },
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"e2"</span>,
+    <span class="code-string">"nomEmp"</span>: <span class="code-string">"Benani"</span>,
+    <span class="code-string">"prenomEmp"</span>: <span class="code-string">"Ines"</span>,
+    <span class="code-string">"poste"</span>: <span class="code-string">"Secrétaire"</span>,
+    <span class="code-string">"departement"</span>: { <span class="code-string">"codeDep"</span>: <span class="code-string">"IT"</span>, <span class="code-string">"nomDep"</span>: <span class="code-string">"IT"</span> }
+  },
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"e3"</span>,
+    <span class="code-string">"nomEmp"</span>: <span class="code-string">"Hachimi"</span>,
+    <span class="code-string">"prenomEmp"</span>: <span class="code-string">"Imane"</span>,
+    <span class="code-string">"poste"</span>: <span class="code-string">"Secrétaire"</span>,
+    <span class="code-string">"departement"</span>: { <span class="code-string">"codeDep"</span>: <span class="code-string">"IT"</span>, <span class="code-string">"nomDep"</span>: <span class="code-string">"IT"</span> }
+  }
+]);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Afficher les employés par ordre croissant des noms.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">employes</span>.<span class="code-method">find</span>().<span class="code-method">sort</span>({ <span class="code-string">"nomEmp"</span>: <span class="code-number">1</span> });</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Afficher le nombre d'employés ayant le poste "Directeur".</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">employes</span>.<span class="code-method">countDocuments</span>({ <span class="code-string">"poste"</span>: <span class="code-string">"Directeur"</span> });
+<span class="code-comment">// Résultat : 1 (Lamrabet Oussama)</span></code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 4 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Supprimer l'employé ayant l'_id "e5".</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">employes</span>.<span class="code-method">deleteOne</span>({ <span class="code-string">"_id"</span>: <span class="code-string">"e5"</span> });</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 5 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Afficher le nombre d'employés par poste.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE (Agrégation)</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">employes</span>.<span class="code-method">aggregate</span>([
+  { <span class="code-variable">$group</span>: {
+      <span class="code-string">"_id"</span>: <span class="code-string">"$poste"</span>,
+      <span class="code-string">"nombre"</span>: { <span class="code-variable">$sum</span>: <span class="code-number">1</span> }
+  }}
+]);</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2024 V1 -->
+        <section id="examen-2024-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2024 - VARIANTE V1</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2024 - Variante 1</div>
+                    <div class="exam-badge">11 Points | Dossier NoSQL</div>
+                </div>
+
+                <div style="background:#ede9fe;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #8b5cf6;">
+                    <h4 style="color:#5b21b6;margin-bottom:12px;">📋 Contexte Métier</h4>
+                    <p><strong>AdvancedEventSolutions</strong> : Société d'organisation d'événements professionnels</p>
+                    <p style="margin-top:8px;"><strong>Collection cible</strong> : <code>evenements</code> (événements avec ateliers)</p>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Créez une base de données "DBE" et une collection "evenements" contenant :</p>
+                    <pre style="margin-top:10px;"><code>{
+  "_id": "e1",
+  "theme": "Développement Web",
+  "description": "Introduction au développement web moderne",
+  "cout_journalier": 500,
+  "duree": 13,
+  "ateliers": [
+    {"_id": "a1", "nomAtelier": "Atelier HTML", "descriptionAtelier": "Introduction à HTML"}
+  ]
+}</code></pre>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <pre><code><span class="code-mongo">use</span> DBE;
+
+<span class="code-mongo">db.</span><span class="code-variable">createCollection</span>(<span class="code-string">"evenements"</span>);
+
+<span class="code-mongo">db.</span><span class="code-variable">evenements</span>.<span class="code-method">insertMany</span>([
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"e1"</span>,
+    <span class="code-string">"theme"</span>: <span class="code-string">"Développement Web"</span>,
+    <span class="code-string">"description"</span>: <span class="code-string">"Introduction au développement web moderne"</span>,
+    <span class="code-string">"cout_journalier"</span>: <span class="code-number">500</span>,
+    <span class="code-string">"duree"</span>: <span class="code-number">13</span>,
+    <span class="code-string">"ateliers"</span>: [
+      { <span class="code-string">"_id"</span>: <span class="code-string">"a1"</span>, <span class="code-string">"nomAtelier"</span>: <span class="code-string">"Atelier HTML"</span>, 
+        <span class="code-string">"descriptionAtelier"</span>: <span class="code-string">"Introduction à HTML"</span> }
+    ]
+  },
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"e2"</span>,
+    <span class="code-string">"theme"</span>: <span class="code-string">"Applications Mobiles"</span>,
+    <span class="code-string">"description"</span>: <span class="code-string">"Conception et développement d'applications mobiles"</span>,
+    <span class="code-string">"cout_journalier"</span>: <span class="code-number">700</span>,
+    <span class="code-string">"duree"</span>: <span class="code-number">14</span>,
+    <span class="code-string">"ateliers"</span>: []
+  }
+]);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Afficher les thèmes et descriptions des événements par ordre croissant des noms.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">evenements</span>.<span class="code-method">find</span>(
+  {}, <span class="code-comment">// filtre vide = tous</span>
+  { <span class="code-string">"theme"</span>: <span class="code-number">1</span>, <span class="code-string">"description"</span>: <span class="code-number">1</span> } <span class="code-comment">// projection optionnelle</span>
+).<span class="code-method">sort</span>({ <span class="code-string">"theme"</span>: <span class="code-number">1</span> });
+
+<span class="code-comment">// OU plus simple (si projection non exigée):</span>
+<span class="code-mongo">db.</span><span class="code-variable">evenements</span>.<span class="code-method">find</span>().<span class="code-method">sort</span>({ <span class="code-string">"theme"</span>: <span class="code-number">1</span> });</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Afficher le nombre d'événements ayant le thème "Développement Web".</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">evenements</span>.<span class="code-method">countDocuments</span>({ <span class="code-string">"theme"</span>: <span class="code-string">"Développement Web"</span> });
+<span class="code-comment">// Résultat : 1</span></code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 4 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Modifier la valeur du coût journalier de l'événement ayant l'id "e2" à 600.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">evenements</span>.<span class="code-method">updateOne</span>(
+  { <span class="code-string">"_id"</span>: <span class="code-string">"e2"</span> },
+  { <span class="code-variable">$set</span>: { <span class="code-string">"cout_journalier"</span>: <span class="code-number">600</span> }
+});</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 5 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Supprimer tous les événements qui ont une durée supérieure à 15.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">evenements</span>.<span class="code-method">deleteMany</span>({
+  <span class="code-string">"duree"</span>: { <span class="code-variable">$gt</span>: <span class="code-number">15</span> }
+});
+
+<span class="code-comment">// $gt = greater than (plus grand que)</span>
+<span class="code-comment">// deleteMany car "tous les événements" (pluriel)</span></code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2024 V2 -->
+        <section id="examen-2024-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2024 - VARIANTE V2</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2024 - Variante 2</div>
+                    <div class="exam-badge">11 Points | Dossier NoSQL</div>
+                </div>
+
+                <div style="background:#fce7f3;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #ec4899;">
+                    <h4 style="color:#9f1239;margin-bottom:12px;">📋 Contexte Métier</h4>
+                    <p><strong>AdvancedSeminarsSolutions</strong> : Organisation de séminaires de formation</p>
+                    <p style="margin-top:8px;"><strong>Collection cible</strong> : <code>seminaires</code> (séminaires avec activités)</p>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">3 points</span></div>
+                    <p><strong>Énoncé :</strong> Créez une base de données "DBS" et une collection "seminaires" contenant :</p>
+                    <pre style="margin-top:10px;"><code>{
+  "_id": "s1",
+  "theme": "Animation 3D",
+  "description": "Introduction à l'animation 3D",
+  "cout_journalier": 500,
+  "duree": 13,
+  "activites": [
+    {"_id": "1", "nomActivite": "Personnages en 3D", "descriptionActivite": "Atelier 3D"}
+  ]
+}</code></pre>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE CORRECTE</div>
+                    <pre><code><span class="code-mongo">use</span> DBS;
+
+<span class="code-mongo">db.</span><span class="code-variable">createCollection</span>(<span class="code-string">"seminaires"</span>);
+
+<span class="code-mongo">db.</span><span class="code-variable">seminaires</span>.<span class="code-method">insertMany</span>([
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"s1"</span>,
+    <span class="code-string">"theme"</span>: <span class="code-string">"Animation 3D"</span>,
+    <span class="code-string">"description"</span>: <span class="code-string">"Introduction à l'animation 3D"</span>,
+    <span class="code-string">"cout_journalier"</span>: <span class="code-number">500</span>,
+    <span class="code-string">"duree"</span>: <span class="code-number">13</span>,
+    <span class="code-string">"activites"</span>: [
+      { <span class="code-string">"_id"</span>: <span class="code-string">"1"</span>, 
+        <span class="code-string">"nomActivite"</span>: <span class="code-string">"Personnages en 3D"</span>, 
+        <span class="code-string">"descriptionActivite"</span>: <span class="code-string">"Atelier 3D"</span> }
+    ]
+  }
+]);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Afficher les thèmes des séminaires par ordre croissant.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">seminaires</span>.<span class="code-method">find</span>().<span class="code-method">sort</span>({ <span class="code-string">"theme"</span>: <span class="code-number">1</span> });</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Afficher le nombre de séminaires ayant le thème "Animation 3D".</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">seminaires</span>.<span class="code-method">countDocuments</span>({ <span class="code-string">"theme"</span>: <span class="code-string">"Animation 3D"</span> });</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 4 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Modifier la valeur du coût journalier du séminaire ayant l'id "s2" à 700.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">seminaires</span>.<span class="code-method">updateOne</span>(
+  { <span class="code-string">"_id"</span>: <span class="code-string">"s2"</span> },
+  { <span class="code-variable">$set</span>: { <span class="code-string">"cout_journalier"</span>: <span class="code-number">700</span> }
+});</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 5 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Supprimer tous les séminaires qui ont une durée supérieure à 20.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">seminaires</span>.<span class="code-method">deleteMany</span>({
+  <span class="code-string">"duree"</span>: { <span class="code-variable">$gt</span>: <span class="code-number">20</span> }
+});</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2025 V1 -->
+        <section id="examen-2025-v1" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2025 - VARIANTE V1</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2025 - Variante 1</div>
+                    <div class="exam-badge">7 Points | Dossier NoSQL (Réduit)</div>
+                </div>
+
+                <div style="background:#ecfccb;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #84cc16;">
+                    <h4 style="color:#3f6212;margin-bottom:12px;">📋 Contexte Métier</h4>
+                    <p><strong>FastFoodDelivery</strong> : Service de livraison avec vélos électriques</p>
+                    <p style="margin-top:8px;"><strong>Collection cible</strong> : <code>batteries</code> (batteries des vélos)</p>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">1 point</span></div>
+                    <p><strong>Énoncé :</strong> Créez une base de données appelée FastFoodDelivery et une collection nommée batteries.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">use</span> FastFoodDelivery;
+
+<span class="code-mongo">db.</span><span class="code-variable">createCollection</span>(<span class="code-string">"batteries"</span>);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Insérer les documents suivants dans la collection "batteries" :</p>
+                    <pre style="margin-top:10px;"><code>{
+  "_id": "1",
+  "sante_battery": "bonne",
+  "numero_serie": "512",
+  "capacity": "50%",
+  "statut": "en service"
+},
+{
+  "_id": "2",
+  "sante_battery": "moyenne",
+  "numero_serie": "345",
+  "capacity": "70%",
+  "statut": "en panne"
+}</code></pre>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">insertMany</span>([
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"1"</span>,
+    <span class="code-string">"sante_battery"</span>: <span class="code-string">"bonne"</span>,
+    <span class="code-string">"numero_serie"</span>: <span class="code-string">"512"</span>,
+    <span class="code-string">"capacity"</span>: <span class="code-string">"50%"</span>,
+    <span class="code-string">"statut"</span>: <span class="code-string">"en service"</span>
+  },
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"2"</span>,
+    <span class="code-string">"sante_battery"</span>: <span class="code-string">"moyenne"</span>,
+    <span class="code-string">"numero_serie"</span>: <span class="code-string">"345"</span>,
+    <span class="code-string">"capacity"</span>: <span class="code-string">"70%"</span>,
+    <span class="code-string">"statut"</span>: <span class="code-string">"en panne"</span>
+  }
+]);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Écrire une requête qui Modifie le champ sante_battery à "faible" pour toutes les batteries dont le statut est en panne et la capacité est inférieure ou égale à 50%.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE (Attention : Condition composée !)</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">updateMany</span>(
+  {
+    <span class="code-string">"statut"</span>: <span class="code-string">"en panne"</span>,
+    <span class="code-string">"capacity"</span>: { <span class="code-variable">$lte</span>: <span class="code-string">"50%"</span> }
+  },
+  {
+    <span class="code-variable">$set</span>: { <span class="code-string">"sante_battery"</span>: <span class="code-string">"faible"</span> }
+  }
+);
+
+<span class="code-comment">// Note: $lte = less than or equal (inférieur ou égal)</span>
+<span class="code-comment">// Ici capacity est stocké comme string "50%", donc comparaison lexicographique</span>
+<span class="code-comment">// Si c'était un nombre: { $lte: 50 }</span></code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 4 <span class="points-badge">1 point</span></div>
+                    <p><strong>Énoncé :</strong> Afficher les attributs numero_cycles, sante_battery et capacity des batteries dont le nombre de cycle est entre 600 et 1000 classes en ordre décroissant.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">find</span>(
+  {
+    <span class="code-string">"nombre_cycles"</span>: { <span class="code-variable">$gte</span>: <span class="code-number">600</span>, <span class="code-variable">$lte</span>: <span class="code-number">1000</span> }
+  },
+  {
+    <span class="code-string">"numero_cycles"</span>: <span class="code-number">1</span>,
+    <span class="code-string">"sante_battery"</span>: <span class="code-number">1</span>,
+    <span class="code-string">"capacity"</span>: <span class="code-number">1</span>
+  }
+).<span class="code-method">sort</span>({ <span class="code-string">"nombre_cycles"</span>: <span class="code-number">-1</span> });
+
+<span class="code-comment">// $gte = greater than or equal (supérieur ou égal)</span>
+<span class="code-comment">// $lte = less than or equal (inférieur ou égal)</span>
+<span class="code-comment">// -1 = ordre décroissant</span></code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 5 <span class="points-badge">1 point</span></div>
+                    <p><strong>Énoncé :</strong> Afficher le nombre de batteries regroupées par nombre de cycles en statut.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE (Agrégation avancée)</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">aggregate</span>([
+  {
+    <span class="code-variable">$group</span>: {
+      <span class="code-string">"_id"</span>: {
+        <span class="code-string">"nombre_cycles"</span>: <span class="code-string">"$nombre_cycles"</span>,
+        <span class="code-string">"statut"</span>: <span class="code-string">"$statut"</span>
+      },
+      <span class="code-string">"nombre"</span>: { <span class="code-variable">$sum</span>: <span class="code-number">1</span> }
+    }
+  }
+]);
+
+<span class="code-comment">// Regroupement multi-champs (compound grouping)</span></code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMEN 2025 V2 -->
+        <section id="examen-2025-v2" class="section">
+            <h2 class="section-title"><span class="emoji">📝</span> EXAMEN JUIN 2025 - VARIANTE V2</h2>
+            
+            <div class="exam-card">
+                <div class="exam-header">
+                    <div class="exam-year">Juin 2025 - Variante 2</div>
+                    <div class="exam-badge">11 Points | Dossier NoSQL</div>
+                </div>
+
+                <div style="background:#cffafe;padding:20px;border-radius:10px;margin-bottom:25px;border-left:4px solid #06b6d4;">
+                    <h4 style="color:#0e7490;margin-bottom:12px;">📋 Contexte Métier</h4>
+                    <p><strong>FastFoodDelivery</strong> : Service de livraison avec trottinettes électriques</p>
+                    <p style="margin-top:8px;"><strong>Collection cible</strong> : <code>batteries</code> (batteries des trottinettes)</p>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="points-badge">1 point</span></div>
+                    <p><strong>Énoncé :</strong> Créez une base de données appelée FastFoodDelivery et une collection nommée batteries.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">use</span> FastFoodDelivery;
+<span class="code-mongo">db.</span><span class="code-variable">createCollection</span>(<span class="code-string">"batteries"</span>);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Insérer les documents suivants dans la collection batteries :</p>
+                    <pre style="margin-top:10px;"><code>{
+  "_id": "1",
+  "sante_battery": "bonne",
+  "numero_serie": "s12",
+  "capacity": "20%",
+  "statut": "en service"
+},
+{
+  "_id": "2",
+  "sante_battery": "moyenne",
+  "numero_serie": "s245",
+  "capacity": "30%",
+  "statut": "en retenue"
+}</code></pre>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">insertMany</span>([
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"1"</span>,
+    <span class="code-string">"sante_battery"</span>: <span class="code-string">"bonne"</span>,
+    <span class="code-string">"numero_serie"</span>: <span class="code-string">"s12"</span>,
+    <span class="code-string">"capacity"</span>: <span class="code-string">"20%"</span>,
+    <span class="code-string">"statut"</span>: <span class="code-string">"en service"</span>
+  },
+  {
+    <span class="code-string">"_id"</span>: <span class="code-string">"2"</span>,
+    <span class="code-string">"sante_battery"</span>: <span class="code-string">"moyenne"</span>,
+    <span class="code-string">"numero_serie"</span>: <span class="code-string">"s245"</span>,
+    <span class="code-string">"capacity"</span>: <span class="code-string">"30%"</span>,
+    <span class="code-string">"statut"</span>: <span class="code-string">"en retenue"</span>
+  }
+]);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Modifier la capacité et le statut de la batterie dont l'id par 2 par les valeurs respectives suivantes : 45% et En Utilisation.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE (Mise à jour de plusieurs champs)</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">updateOne</span>(
+  { <span class="code-string">"_id"</span>: <span class="code-string">"2"</span> },
+  {
+    <span class="code-variable">$set</span>: {
+      <span class="code-string">"capacity"</span>: <span class="code-string">"45%"</span>,
+      <span class="code-string">"statut"</span>: <span class="code-string">"En Utilisation"</span>
+    }
+  }
+);
+
+<span class="code-comment">$set peut modifier plusieurs champs simultanément</span></code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 4 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Afficher les attributs nombre_cycles, sante_battery et capacity des batteries dont la capacité est différente de 50% des batteries par nombre de cycles en ordre décroissant.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">find</span>(
+  {
+    <span class="code-string">"capacity"</span>: { <span class="code-variable">$ne</span>: <span class="code-string">"50%"</span> }
+  },
+  {
+    <span class="code-string">"nombre_cycles"</span>: <span class="code-number">1</span>,
+    <span class="code-string">"sante_battery"</span>: <span class="code-number">1</span>,
+    <span class="code-string">"capacity"</span>: <span class="code-number">1</span>
+  }
+).<span class="code-method">sort</span>({ <span class="code-string">"nombre_cycles"</span>: <span class="code-number">-1</span> });
+
+<span class="code-comment">$ne = not equal (différent de)</span></code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 5 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Afficher le nombre de batteries regroupées par nombre de cycles.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">aggregate</span>([
+  {
+    <span class="code-variable">$group</span>: {
+      <span class="code-string">"_id"</span>: <span class="code-string">"$nombre_cycles"</span>,
+      <span class="code-string">"nombre"</span>: { <span class="code-variable">$sum</span>: <span class="code-number">1</span> }
+    }
+  }
+]);</code></pre>
+                </div>
+
+                <div class="question-block">
+                    <div class="question-number">Question 6 <span class="points-badge">2 points</span></div>
+                    <p><strong>Énoncé :</strong> Supprimer les batteries qui n'ont pas le statut en service ou en retenue.</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ RÉPONSE (Opérateur $nin)</div>
+                    <pre><code><span class="code-mongo">db.</span><span class="code-variable">batteries</span>.<span class="code-method">deleteMany</span>({
+  <span class="code-string">"statut"</span>: { <span class="code-variable">$nin</span>: [<span class="code-string">"en service"</span>, <span class="code-string">"en retenue"</span>] }
+});
+
+<span class="code-comment">$nin = not in (pas dans la liste)</span>
+<span class="code-comment">Supprime tout sauf "en service" et "en retenue"</span></code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- PATTERNS RECURRENTS -->
+        <section id="patterns" class="section">
+            <h2 class="section-title"><span class="emoji">🔍</span> PATTERNS RÉCURRENTS DÉTECTÉS (2023-2025)</h2>
+
+            <div class="alert alert-mongo">
+                <div class="alert-title">🎯 DÉCOUVERTE CLÉ</div>
+                <p style="font-size:1.05em;">Après analyse des 6 examens, voici les <strong>patterns immuables</strong> que vous retrouverez à coup sûr en 2026.</p>
+            </div>
+
+            <h3 class="subsection-title">📊 PATTERN #1 : La Séquence Standard des 5 Questions</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:8%;">N° Question</th>
+                        <th style="width:25%;">Type de Question</th>
+                        <th style="width:35%;">Commande MongoDB Attendue</th>
+                        <th style="width:17%;">Fréquence</th>
+                        <th style="width:15%;">Points Typiques</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background:#f0fdf4;">
+                        <td><strong>Q1</strong></td>
+                        <td><strong>Création BD + Collection + Insertion</strong></td>
+                        <td><code>use DB</code> + <code>db.createCollection()</code> + <code>db.col.insertMany([...])</code></td>
+                        <td><span class="highlight-green">6/6 (100%)</span></td>
+                        <td><strong>3 pts</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Q2</strong></td>
+                        <td><strong>Affichage avec Tri Croissant</strong></td>
+                        <td><code>db.col.find().sort({champ: 1})</code></td>
+                        <td><span class="highlight-green">6/6 (100%)</span></td>
+                        <td><strong>2 pts</strong></td>
+                    </tr>
+                    <tr style="background:#f0fdf4;">
+                        <td><strong>Q3</strong></td>
+                        <td><strong>Comptage avec Condition Simple</strong></td>
+                        <td><code>db.col.countDocuments({champ: valeur})</code></td>
+                        <td><span class="highlight-green">6/6 (100%)</span></td>
+                        <td><strong>2 pts</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Q4</strong></td>
+                        <td><strong>Mise à Jour (updateOne ou updateMany)</strong></td>
+                        <td><code>db.col.updateOne/Many(filter, {$set: {...}})</code></td>
+                        <td><span class="highlight-green">6/6 (100%)</span></td>
+                        <td><strong>2 pts</strong></td>
+                    </tr>
+                    <tr style="background:#f0fdf4;">
+                        <td><strong>Q5</strong></td>
+                        <td><strong>Suppression (deleteOne ou deleteMany)</strong></td>
+                        <td><code>db.col.deleteOne/Many({condition})</code></td>
+                        <td><span class="highlight-green">6/6 (100%)</span></td>
+                        <td><strong>2 pts</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title" style="margin-top:40px;">🔄 PATTERN #2 : Évolution de la Complexité (2023→2025)</h3>
+
+            <div class="grid-2">
+                <div class="info-card" style="border-left:5px solid #3b82f6;">
+                    <h4 style="color:#1e40af;margin-bottom:15px;">2023 - Niveau Basique</h4>
+                    <ul style="line-height:2;">
+                        <li>✅ Conditions simples (<code>egalité</code>)</li>
+                        <li>✅ Tri sur un seul champ</li>
+                        <li>✅ Mise à jour d'un seul champ</li>
+                        <li>✅ Suppression par _id exact</li>
+                        <li>❌ Pas d'opérateurs de comparaison</li>
+                        <li>❌ Pas d'agrégation complexe</li>
+                    </ul>
+                    <div style="margin-top:15px;padding:10px;background:#dbeafe;border-radius:8px;text-align:center;">
+                        <strong>Difficulté : ⭐☆☆☆☆</strong><br>
+                        <small>Facile si vous connaissez la syntaxe de base</small>
+                    </div>
+                </div>
+
+                <div class="info-card" style="border-left:5px solid #8b5cf6;">
+                    <h4 style="color:#5b21b6;margin-bottom:15px;">2024 - Niveau Intermédiaire</h4>
+                    <ul style="line-height:2;">
+                        <li>✅ Opérateurs de comparaison (<code>$gt, $lt</code>)</li>
+                        <li>✅ Projection de champs spécifiques</li>
+                        <li>✅ Documents avec sous-tableaux (array)</li>
+                        <li>✅ Conditions sur nombres</li>
+                        <li>⚠️ Agrégation simple ($group)</li>
+                    </ul>
+                    <div style="margin-top:15px;padding:10px;background:#ede9fe;border-radius:8px;text-align:center;">
+                        <strong>Difficulté : ⭐⭐☆☆☆</strong><br>
+                        <small>Maîtriser les opérateurs de requête</small>
+                    </div>
+                </div>
+
+                <div class="info-card" style="border-left:5px solid #f59e0b;">
+                    <h4 style="color:#92400e;margin-bottom:15px;">2025 - Niveau Avancé</h4>
+                    <ul style="line-height:2;">
+                        <li>✅ Conditions composées (AND multiple)</li>
+                        <li>✅ Opérateurs <code>$nin, $ne, $gte, $lte</code></li>
+                        <li>✅ Projection multi-champs</li>
+                        <li>✅ Agrégation avec groupement multi-clés</li>
+                        <li>✅ Tri décroissant fréquent</li>
+                    </ul>
+                    <div style="margin-top:15px;padding:10px;background:#fef3c7;border-radius:8px;text-align:center;">
+                        <strong>Difficulté : ⭐⭐⭐☆☆</strong><br>
+                        <small>Combiner plusieurs concepts</small>
+                    </div>
+                </div>
+
+                <div class="info-card" style="border-left:5px solid #ef4444;">
+                    <h4 style="color:#991b1b;margin-bottom:15px;">2026 - Prédiction 🔮</h4>
+                    <ul style="line-height:2;">
+                        <li>🔮 Stabilisation niveau 2025</li>
+                        <li>🔮 Possibilité <code>$lookup</code> (jointure)</li>
+                        <li>🔮 <code>$unwind</code> (déplier tableaux)</li>
+                        <li>🔮 <code>$project</code> (transformation)</li>
+                        <li>🔮 Pipeline d'agrégation complet</li>
+                    </ul>
+                    <div style="margin-top:15px;padding:10px;background:#fee2e2;border-radius:8px;text-align:center;">
+                        <strong>Difficulté : ⭐⭐⭐⭐☆</strong><br>
+                        <small>Réviser les pipelines d'agrégation !</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ERREURS À ÉVITER -->
+        <section id="erreurs" class="section">
+            <h2 class="section-title"><span class="emoji">❌</span> ERREURS FATALES À NE JAMAIS FAIRE</h2>
+
+            <div class="grid-2">
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #1 : Oublier $set dans UPDATE</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Le document entier est remplacé au lieu d'être mis à jour !</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Remplace tout le document !</span>
+db.salaries.updateOne(
+  {_id: "s1"},
+  {"fonction": "Ingénieur"}  <span style="color:#fca5a5;">// Sans $set = remplacement total</span>
+);
+
+<span style="color:#fca5a5;">// ✅ CORRECT - Modifie seulement le champ</span>
+db.salaries.updateOne(
+  {_id: "s1"},
+  {$set: {"fonction": "Ingénieur"}}  <span style="color:#86efac;">// Avec $set = mise à jour ciblée</span>
+);</code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #2 : Confondre deleteOne vs deleteMany</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Suppression de trop ou pas assez de documents</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX si on veut supprimer TOUS les "Technicien"</span>
+db.salaries.deleteOne({"fonction": "Technicien"});  <span style="color:#fca5a5;">// Supprime seulement 1 !</span>
+
+<span style="color:#fca5a5;">// ✅ CORRECT pour supprimer tous</span>
+db.salaries.deleteMany({"fonction": "Technicien"});  <span style="color:#86efac;">// Supprime tous</span>
+
+<span style="color:#fca5a5;">// ❌ FAUX si on veut supprimer 1 document précis</span>
+db.salaries.deleteMany({_id: "s1"});  <span style="color:#fca5a5;">// Supprime tous avec _id=s1 (normalement 1 seul)</span>
+
+<span style="color:#fca5a5;">// ✅ CORRECT pour supprimer 1 seul</span>
+db.salaries.deleteOne({_id: "s1"});  <span style="color:#86efac;">// Supprime le premier trouvé</span></code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #3 : Mauvais Opérateur de Comparaison</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Résultats incorrects ou vides</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Utilise = au lieu de $gt/$lt</span>
+db.batteries.find({"capacity": "> 50%"});
+
+<span style="color:#86efac;">// ✅ CORRECT - Utilise les opérateurs MongoDB</span>
+db.batteries.find({"capacity": {$gt: "50%"}});
+
+<span style="color:#fca5a5;">// ❌ FAUX - Confondre $lt et $lte</span>
+db.evenements.deleteMany({"duree": {$lt: 15}});  <span style="color:#fca5a5;">// Supprime durée < 15</span>
+
+<span style="color:#86efac;">// ✅ CORRECT - Lire attentivement l'énoncé</span>
+db.evenements.deleteMany({"duree": {$gt: 15}});  <span style="color:#86efac;">// Supprime durée > 15</span></code></pre>
+                </div>
+
+                <div class="alert alert-danger">
+                    <div class="alert-title">💀 ERREUR #4 : Oublier les Guillemets pour les Strings</div>
+                    <p style="font-size:1.05em;margin-top:10px;"><strong>Impact</strong> : Erreur de syntaxe ou résultat vide</p>
+                    <pre style="margin-top:15px;background:#7f1d1d;color:#fecaca;padding:15px;border-radius:8px;"><code><span style="color:#fca5a5;">// ❌ FAUX - Valeur string sans guillemets</span>
+db.salaries.countDocuments({fonction: Technicien});
+
+<span style="color:#86efac;">// ✅ CORRECT - Toujours mettre des guillemets</span>
+db.salaries.countDocuments({"fonction": "Technicien"});</code></pre>
+                </div>
+            </div>
+
+            <h3 class="subsection-title" style="margin-top:40px;">📝 Tableau des Opérateurs de Comparaison (À Mémoriser)</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Opérateur</th>
+                        <th>Signification</th>
+                        <th>Exemple</th>
+                        <th>Équivalent SQL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code class="highlight-green">$eq</code></td>
+                        <td>Égal (equal)</td>
+                        <td><code>{"age": {$eq: 25}}</code></td>
+                        <td><code>WHERE age = 25</code></td>
+                    </tr>
+                    <tr>
+                        <td><code class="highlight-green">$ne</code></td>
+                        <td>Différent (not equal)</td>
+                        <td><code>{"status": {$ne: "active"}}</code></td>
+                        <td><code>WHERE status != 'active'</code></td>
+                    </tr>
+                    <tr>
+                        <td><code class="highlight-green">$gt</code></td>
+                        <td>Plus grand que (greater than)</td>
+                        <td><code>{"price": {$gt: 100}}</code></td>
+                        <td><code>WHERE price > 100</code></td>
+                    </tr>
+                    <tr>
+                        <td><code class="highlight-green">$gte</code></td>
+                        <td>Plus grand ou égal</td>
+                        <td><code>{"age": {$gte: 18}}</code></td>
+                        <td><code>WHERE age >= 18</code></td>
+                    </tr>
+                    <tr>
+                        <td><code class="highlight-green">$lt</code></td>
+                        <td>Plus petit que (less than)</td>
+                        <td><code>{"qty": {$lt: 20}}</code></td>
+                        <td><code>WHERE qty < 20</code></td>
+                    </tr>
+                    <tr>
+                        <td><code class="highlight-green">$lte</code></td>
+                        <td>Plus petit ou égal</td>
+                        <td><code>{"score": {$lte: 50}}</code></td>
+                        <td><code>WHERE score <= 50</code></td>
+                    </tr>
+                    <tr>
+                        <td><code class="highlight-green">$in</code></td>
+                        <td>Dans la liste</td>
+                        <td><code>{"status": {$in: ["A", "B"]}}</code></td>
+                        <td><code>WHERE status IN ('A','B')</code></td>
+                    </tr>
+                    <tr>
+                        <td><code class="highlight-green">$nin</code></td>
+                        <td>Pas dans la liste (not in)</td>
+                        <td><code>{"type": {$nin: ["food"]}}</code></td>
+                        <td><code>WHERE type NOT IN ('food')</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- CHECKLIST REVISION -->
+        <section id="checklist" class="section">
+            <h2 class="section-title"><span class="emoji">✅</span> CHECKLIST DE RÉVISION ULTRA-RAPIDE (Avant l'Examen)</h2>
+
+            <div class="alert alert-success" style="padding:30px;">
+                <div class="alert-title" style="font-size:1.3em;">🎯 OBJECTIF : Assurer 11/11 Points en 10 Minutes Maximum</div>
+                <p style="font-size:1.05em;margin-top:10px;">Cochez chaque item après l'avoir mémorisé parfaitement.</p>
+            </div>
+
+            <h3 class="subsection-title">☑️ Étape 1 : Création et Insertion (3 points garantis)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je sais utiliser <code>use nomBase</code> pour créer/sélectionner une base</li>
+                <li>Je sais utiliser <code>db.createCollection("nom")</code> pour créer une collection</li>
+                <li>Je sais copier-coller correctement les documents JSON fournis dans l'énoncé</li>
+                <li>Je sais utiliser <code>db.collection.insertMany([{}])</code> pour insérer plusieurs documents</li>
+                <li>Je fais attention aux guillemets doubles <code>"</code> pour les strings</li>
+                <li>Je vérifie que les accolades <code>{}</code> et crochets <code>[]</code> sont bien fermés</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Étape 2 : Lecture et Tri (2 points garantis)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je sais utiliser <code>db.col.find()</code> pour récupérer tous les documents</li>
+                <li>Je sais ajouter <code>.sort({champ: 1})</code> pour trier en ordre croissant</li>
+                <li>Je sais utiliser <code>{champ: -1}</code> pour trier en ordre décroissant</li>
+                <li>Je comprends que <code>1 = ASC</code> et <code>-1 = DESC</code></li>
+                <li>Je peux ajouter une projection <code>{champ1: 1, champ2: 1}</code> si demandé</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Étape 3 : Comptage (2 points garantis)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je sais utiliser <code>db.col.countDocuments({condition})</code></li>
+                <li>La condition est identique à celle de <code>find()</code></li>
+                <li>Je n'utilise JAMAIS <code>count()</code> (déprécié) mais <code>countDocuments()</code></li>
+                <li>Le résultat est un nombre entier, pas un curseur</li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Étape 4 : Mise à Jour (2 points garantis)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je choisis <code>updateOne()</code> pour modifier UN document</li>
+                <li>Je choisis <code>updateMany()</code> pour modifier TOUS les documents correspondants</li>
+                <li>J'utilise OBLIGATOIREMENT <code>$set: {champ: newValue}</code></li>
+                <li>Je ne JAMAIS oublier <code>$set</code> (sinon remplacement total !)</li>
+                <li>Je peux modifier plusieurs champs : <code>{$set: {ch1: v1, ch2: v2}}</code></li>
+                <li>Je connais les opérateurs : <code>$gt, $lt, $gte, $lte, $ne, $in, $nin</code></li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ Étape 5 : Suppression (2 points garantis)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je choisis <code>deleteOne()</code> pour supprimer UN document</li>
+                <li>Je choisis <code>deleteMany()</code> pour supprimer TOUS les documents correspondants</li>
+                <li>Je lis attentivement l'énoncé : "le" (singulier) vs "les/tous" (pluriel)</li>
+                <li>La condition peut être simple <code>{_id: "x"}</code> ou composée <code>{ch1: v1, ch2: v2}</code></li>
+            </ul>
+
+            <h3 class="subsection-title">☑️ BONUS : Agrégation (Si demandé - Questions 5 ou 6)</h3>
+
+            <ul class="checklist" style="font-size:1.05em;line-height:2.2;">
+                <li>Je connais la structure de base : <code>db.col.aggregate([{$group: {...}}])</code></li>
+                <li><code>_id: "$champ"</code> = regrouper par ce champ</li>
+                <li><code>$sum: 1</code> = compter le nombre d'éléments</li>
+                <li>Je peux faire un groupement multi-clés : <code>_id: {ch1: "$ch1", ch2: "$ch2"}</code></li>
+            </ul>
+
+            <div class="alert alert-mongo" style="margin-top:40px;padding:30px;">
+                <div class="alert-title" style="font-size:1.3em;">⏱️ TEMPS DE RÉVISION RECOMMANDÉ</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:20px;">
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#166534;">2-3h</div>
+                        <div>Pour maîtriser MongoDB parfaitement</div>
+                    </div>
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#166534;">30 min</div>
+                        <div>Pour réviser la veille de l'examen</div>
+                    </div>
+                    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.5);border-radius:10px;">
+                        <div style="font-size:2.5em;font-weight:bold;color:#166534;">10 min</div>
+                        <div>Le jour J pour répondre aux questions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:40px;text-align:center;padding:40px;background:linear-gradient(135deg,#4776E6,#3E64FF);border-radius:15px;color:white;">
+                <h2 style="font-size:2em;margin-bottom:20px;color:white;">🎯 MESSAGE FINAL</h2>
+                <p style="font-size:1.2em;line-height:1.8;opacity:0.95;">
+                    MongoDB est le dossier <strong>le plus prévisible</strong> de l'examen.<br>
+                    Les 6 commandes de base ne changent jamais.<br>
+                    Seuls le contexte et les valeurs changent.<br><br>
+                    <strong>Maîtrisez ces 6 commandes = 11 points assurés = 27.5% de la partie théorique.</strong><br><br>
+                    <span style="font-size:1.3em;">C'est un cadeau points offerts ! Prenez-le ! 🎁</span>
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <h2 style="font-size:1.8em;margin-bottom:15px;">🍃 Guide Complet MongoDB - Examens OFPPT</h2>
+        <p style="font-size:1.1em;margin-bottom:10px;opacity:0.9;">Toutes les réponses du dossier NoSQL (2023-2025) • 6 examens analysés • 11 points garantis</p>
+        <p style="opacity:0.7;margin-top:20px;font-size:0.9em;">
+            Document généré pour préparation optimisée aux examens nationaux OFPPT<br>
+            Filière : Développement Digital Option Web Full Stack | Niveau : Technicien Spécialisé
+        </p>
+        <div style="margin-top:25px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.2);">
+            <p style="font-size:0.85em;opacity:0.6;">
+                Dernière mise à jour : Juin 2025 | Basé sur l'analyse de 6 examens complets (Variantes V1+V2)
+            </p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
