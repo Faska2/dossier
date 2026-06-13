@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cloud Native - Module Complet</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+html{
+scroll-behavior:smooth;
+}
+</style>
+
+</head>
+
+<body class="bg-slate-950 text-slate-200">
+
+<!-- HEADER -->
+
+<header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+
+<div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+<div>
+<h1 class="text-2xl font-bold text-cyan-400">
+Cloud Native
+</h1>
+
+<p class="text-sm text-slate-400">
+Guide complet de révision
+</p>
+</div>
+
+<div class="hidden md:flex gap-3">
+
+<span class="px-4 py-2 bg-cyan-500/20 text-cyan-400 rounded-lg">
+Node.js
+</span>
+
+<span class="px-4 py-2 bg-green-500/20 text-green-400 rounded-lg">
+Docker
+</span>
+
+<span class="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg">
+Azure
+</span>
+
+</div>
+
+</div>
+
+</header>
+
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row">
+
+<!-- SIDEBAR -->
+
+<aside class="lg:w-72 bg-slate-900 border-r border-slate-800 p-6">
+
+<h2 class="font-bold text-lg mb-5 text-white">
+Sommaire
+</h2>
+
+<nav class="space-y-3 text-sm">
+
+<a href="#cloud"
+class="block hover:text-cyan-400">
+1. Le Cloud
+</a>
+
+<a href="#cloud-native"
+class="block hover:text-cyan-400">
+2. Cloud Native
+</a>
+
+<a href="#node"
+class="block hover:text-cyan-400">
+3. Node.js & Express
+</a>
+
+<a href="#jwt"
+class="block hover:text-cyan-400">
+4. JWT
+</a>
+
+<a href="#microservices"
+class="block hover:text-cyan-400">
+5. Microservices
+</a>
+
+<a href="#docker"
+class="block hover:text-cyan-400">
+6. Docker
+</a>
+
+<a href="#azure"
+class="block hover:text-cyan-400">
+7. Azure
+</a>
+
+</nav>
+
+<div class="mt-10">
+
+<h3 class="font-semibold mb-3">
+Progression
+</h3>
+
+<div class="w-full bg-slate-700 rounded-full h-3">
+<div class="bg-cyan-500 h-3 rounded-full w-full"></div>
+</div>
+
+<p class="text-xs mt-2 text-slate-400">
+Module complet
+</p>
+
+</div>
+
+</aside>
+
+<!-- CONTENT -->
+
+<main class="flex-1 p-6 lg:p-10">
+
+<!-- HERO -->
+
+<section class="mb-10">
+
+<div class="bg-gradient-to-r from-cyan-600 to-blue-600 rounded-3xl p-8">
+
+<h1 class="text-4xl font-bold mb-4">
+Cloud Native Development
+</h1>
+
+<p class="text-lg opacity-90 max-w-3xl">
+Ce module couvre l'ensemble du cycle de développement moderne :
+Cloud Computing, APIs REST, Microservices,
+Docker et Déploiement sur Microsoft Azure.
+</p>
+
+</div>
+
+</section>
+
+<!-- CLOUD -->
+
+<section id="cloud" class="mb-12">
+
+<h2 class="text-3xl font-bold mb-6 text-cyan-400">
+Chapitre 1 : Le Cloud Computing
+</h2>
+
+<div class="grid md:grid-cols-2 gap-6">
+
+<div class="bg-slate-900 p-6 rounded-2xl">
+<h3 class="font-bold text-xl mb-3">
+Définition
+</h3>
+
+<p>
+Le Cloud Computing permet d'utiliser des ressources
+informatiques via Internet sans posséder
+l'infrastructure physique.
+</p>
+</div>
+
+<div class="bg-slate-900 p-6 rounded-2xl">
+<h3 class="font-bold text-xl mb-3">
+Avantages
+</h3>
+
+<ul class="space-y-2">
+<li>✓ Réduction des coûts</li>
+<li>✓ Scalabilité</li>
+<li>✓ Haute disponibilité</li>
+<li>✓ Déploiement rapide</li>
+</ul>
+</div>
+
+</div>
+
+<div class="grid md:grid-cols-3 gap-6 mt-6">
+
+<div class="bg-slate-900 p-6 rounded-2xl">
+<h3 class="font-bold mb-2">Public Cloud</h3>
+<p>AWS, Azure, GCP</p>
+</div>
+
+<div class="bg-slate-900 p-6 rounded-2xl">
+<h3 class="font-bold mb-2">Private Cloud</h3>
+<p>Infrastructure privée</p>
+</div>
+
+<div class="bg-slate-900 p-6 rounded-2xl">
+<h3 class="font-bold mb-2">Hybrid Cloud</h3>
+<p>Mix Public + Private</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- CLOUD NATIVE -->
+
+<section id="cloud-native" class="mb-12">
+
+<h2 class="text-3xl font-bold mb-6 text-cyan-400">
+Chapitre 2 : Cloud Native
+</h2>
+
+<div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+<div class="bg-slate-900 p-6 rounded-2xl">
+<h3 class="font-bold text-lg mb-2">
+Microservices
+</h3>
+<p>
+Découpage en services indépendants.
+</p>
+</div>
+
+<div class="bg-slate-900 p-6 rounded-2xl">
+<h3 class="font-bold text-lg mb-2">
+Containers
+</h3>
+<p>
+Isolation avec Docker.
+</p>
+</div>
+
+<div class="bg-slate-900 p-6 rounded-2xl">
+<h3 class="font-bold text-lg mb-2">
+Continuous Delivery
+</h3>
+<p>
+Déploiement automatisé.
+</p>
+</div>
+
+<div class="bg-slate-900 p-6 rounded-2xl">
+<h3 class="font-bold text-lg mb-2">
+DevOps
+</h3>
+<p>
+Collaboration Dev + Ops.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- NODE -->
+
+<section id="node" class="mb-12">
+
+<h2 class="text-3xl font-bold mb-6 text-cyan-400">
+Node.js & Express
+</h2>
+
+<div class="bg-slate-900 rounded-2xl p-6">
+
+<pre class="overflow-auto text-green-400">
+npm init -y
+
+npm install express
+</pre>
+
+</div>
+
+<div class="bg-slate-900 rounded-2xl p-6 mt-6">
+
+<pre class="overflow-auto text-green-400">
+const express = require('express');
+
+const app = express();
+
+app.get('/',(req,res)=>{
+ res.send('Hello');
+});
+
+app.listen(3000);
+</pre>
+
+</div>
+
+</section>
+
+<!-- JWT -->
+
+<section id="jwt" class="mb-12">
+
+<h2 class="text-3xl font-bold mb-6 text-cyan-400">
+Authentification JWT
+</h2>
+
+<div class="bg-slate-900 rounded-2xl p-6">
+
+<p class="mb-4">
+JWT permet d'identifier un utilisateur
+sans stocker sa session côté serveur.
+</p>
+
+<div class="grid md:grid-cols-3 gap-4">
+
+<div class="bg-slate-800 p-4 rounded-xl">
+Header
+</div>
+
+<div class="bg-slate-800 p-4 rounded-xl">
+Payload
+</div>
+
+<div class="bg-slate-800 p-4 rounded-xl">
+Signature
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- MICROSERVICES -->
+
+<section id="microservices" class="mb-12">
+
+<h2 class="text-3xl font-bold mb-6 text-cyan-400">
+Architecture Microservices
+</h2>
+
+<div class="bg-slate-900 rounded-2xl p-8">
+
+<div class="flex flex-wrap items-center justify-center gap-4 text-center">
+
+<div class="bg-cyan-600 px-6 py-4 rounded-xl">
+Client
+</div>
+
+<div>→</div>
+
+<div class="bg-blue-600 px-6 py-4 rounded-xl">
+API Gateway
+</div>
+
+<div>→</div>
+
+<div class="bg-green-600 px-6 py-4 rounded-xl">
+Products
+</div>
+
+<div class="bg-orange-600 px-6 py-4 rounded-xl">
+Orders
+</div>
+
+<div class="bg-purple-600 px-6 py-4 rounded-xl">
+Users
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- DOCKER COMPLETE -->
+
+<section id="docker" class="mb-16">
+
+    <h2 class="text-4xl font-bold mb-8 text-cyan-400">
+        Docker & Containers - Guide Complet
+    </h2>
+
+    <!-- INTRO -->
+
+    <div class="bg-slate-900 rounded-2xl p-6 mb-6">
+        <h3 class="text-2xl font-bold mb-4">1. Qu'est-ce que Docker ?</h3>
+
+        <p class="text-slate-300 leading-8">
+            Docker est une plateforme permettant d'exécuter des applications dans des
+            conteneurs isolés contenant le code, les dépendances et la configuration.
+        </p>
+
+        <div class="mt-5 bg-slate-800 p-4 rounded-xl">
+            <p>
+                Application → Container → Docker Engine → OS → Machine
+            </p>
+        </div>
+    </div>
+
+    <!-- CONCEPTS -->
+
+    <div class="grid lg:grid-cols-3 gap-6 mb-8">
+
+        <div class="bg-slate-900 p-6 rounded-2xl">
+            <h3 class="font-bold text-xl mb-3 text-cyan-400">
+                Image
+            </h3>
+
+            <p>
+                Modèle prêt à être exécuté.
+            </p>
+
+            <pre class="mt-4 text-green-400 overflow-auto">
+node:20
+nginx
+mongo
+mysql
+            </pre>
+        </div>
+
+        <div class="bg-slate-900 p-6 rounded-2xl">
+            <h3 class="font-bold text-xl mb-3 text-cyan-400">
+                Container
+            </h3>
+
+            <p>
+                Instance en cours d'exécution d'une image.
+            </p>
+
+            <pre class="mt-4 text-green-400 overflow-auto">
+docker ps
+docker ps -a
+            </pre>
+        </div>
+
+        <div class="bg-slate-900 p-6 rounded-2xl">
+            <h3 class="font-bold text-xl mb-3 text-cyan-400">
+                Docker Hub
+            </h3>
+
+            <p>
+                Bibliothèque publique d'images Docker.
+            </p>
+
+            <pre class="mt-4 text-green-400 overflow-auto">
+docker pull nginx
+            </pre>
+        </div>
+
+    </div>
+
+    <!-- COMMANDES -->
+
+    <div class="bg-slate-900 rounded-2xl p-6 mb-8">
+
+        <h3 class="text-2xl font-bold mb-6">
+            2. Commandes Docker Essentielles
+        </h3>
+
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <h4 class="font-semibold mb-2">Version</h4>
+                <code class="text-green-400">docker --version</code>
+            </div>
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <h4 class="font-semibold mb-2">Images</h4>
+                <code class="text-green-400">docker images</code>
+            </div>
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <h4 class="font-semibold mb-2">Containers</h4>
+                <code class="text-green-400">docker ps</code>
+            </div>
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <h4 class="font-semibold mb-2">Télécharger</h4>
+                <code class="text-green-400">docker pull nginx</code>
+            </div>
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <h4 class="font-semibold mb-2">Créer</h4>
+                <code class="text-green-400">docker run nginx</code>
+            </div>
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <h4 class="font-semibold mb-2">Supprimer</h4>
+                <code class="text-green-400">docker rm container</code>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- START STOP -->
+
+    <div class="bg-slate-900 rounded-2xl p-6 mb-8">
+
+        <h3 class="text-2xl font-bold mb-5">
+            3. Gestion des Containers
+        </h3>
+
+<pre class="bg-slate-950 p-5 rounded-xl overflow-auto text-green-400">
+docker run -d nginx
+
+docker run -d --name mon-nginx nginx
+
+docker run -d -p 8080:80 nginx
+
+docker stop mon-nginx
+
+docker start mon-nginx
+
+docker restart mon-nginx
+
+docker rm mon-nginx
+</pre>
+
+    </div>
+
+    <!-- LOGS -->
+
+    <div class="bg-slate-900 rounded-2xl p-6 mb-8">
+
+        <h3 class="text-2xl font-bold mb-5">
+            4. Logs et Debug
+        </h3>
+
+<pre class="bg-slate-950 p-5 rounded-xl overflow-auto text-green-400">
+docker logs mon-nginx
+
+docker logs -f mon-nginx
+
+docker exec -it mon-nginx bash
+</pre>
+
+    </div>
+
+    <!-- DOCKERFILE -->
+
+    <div class="bg-slate-900 rounded-2xl p-6 mb-8">
+
+        <h3 class="text-2xl font-bold mb-5">
+            5. Dockerfile
+        </h3>
+
+<pre class="bg-slate-950 p-5 rounded-xl overflow-auto text-green-400">
+FROM node:20
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm","start"]
+</pre>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <strong>FROM</strong><br>
+                Image de base
+            </div>
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <strong>WORKDIR</strong><br>
+                Dossier de travail
+            </div>
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <strong>COPY</strong><br>
+                Copie des fichiers
+            </div>
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <strong>RUN</strong><br>
+                Exécution pendant build
+            </div>
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <strong>EXPOSE</strong><br>
+                Port exposé
+            </div>
+
+            <div class="bg-slate-800 p-4 rounded-xl">
+                <strong>CMD</strong><br>
+                Commande de démarrage
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BUILD -->
+
+    <div class="bg-slate-900 rounded-2xl p-6 mb-8">
+
+        <h3 class="text-2xl font-bold mb-5">
+            6. Build & Run
+        </h3>
+
+<pre class="bg-slate-950 p-5 rounded-xl overflow-auto text-green-400">
+docker build -t mon-api .
+
+docker images
+
+docker run -p 3000:3000 mon-api
+</pre>
+
+    </div>
+
+    <!-- VOLUMES -->
+
+    <div class="bg-slate-900 rounded-2xl p-6 mb-8">
+
+        <h3 class="text-2xl font-bold mb-5">
+            7. Volumes
+        </h3>
+
+<pre class="bg-slate-950 p-5 rounded-xl overflow-auto text-green-400">
+docker volume create data
+
+docker volume ls
+
+docker run -v data:/app/data mon-api
+</pre>
+
+    </div>
+
+    <!-- NETWORK -->
+
+    <div class="bg-slate-900 rounded-2xl p-6 mb-8">
+
+        <h3 class="text-2xl font-bold mb-5">
+            8. Réseaux Docker
+        </h3>
+
+<pre class="bg-slate-950 p-5 rounded-xl overflow-auto text-green-400">
+docker network ls
+
+docker network create mon-reseau
+
+docker run --network mon-reseau nginx
+</pre>
+
+    </div>
+
+    <!-- COMPOSE -->
+
+    <div class="bg-slate-900 rounded-2xl p-6 mb-8">
+
+        <h3 class="text-2xl font-bold mb-5">
+            9. Docker Compose
+        </h3>
+
+<pre class="bg-slate-950 p-5 rounded-xl overflow-auto text-green-400">
+services:
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+</pre>
+
+<pre class="bg-slate-950 p-5 rounded-xl overflow-auto text-green-400 mt-4">
+docker compose up
+
+docker compose up -d
+
+docker compose down
+</pre>
+
+    </div>
+
+    <!-- EXAM -->
+
+    <div class="bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl p-8">
+
+        <h3 class="text-2xl font-bold mb-4">
+            Commandes à retenir pour l'examen
+        </h3>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+
+            <span>docker images</span>
+            <span>docker ps</span>
+            <span>docker pull</span>
+            <span>docker run</span>
+            <span>docker stop</span>
+            <span>docker start</span>
+            <span>docker logs</span>
+            <span>docker exec</span>
+            <span>docker build</span>
+            <span>docker compose up</span>
+            <span>docker compose down</span>
+            <span>docker rm</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- AZURE -->
+
+<section id="azure" class="mb-12">
+
+<h2 class="text-3xl font-bold mb-6 text-cyan-400">
+Déploiement Azure
+</h2>
+
+<div class="grid md:grid-cols-4 gap-4">
+
+<div class="bg-slate-900 p-5 rounded-xl">
+1. Créer un compte Azure
+</div>
+
+<div class="bg-slate-900 p-5 rounded-xl">
+2. Resource Group
+</div>
+
+<div class="bg-slate-900 p-5 rounded-xl">
+3. App Service
+</div>
+
+<div class="bg-slate-900 p-5 rounded-xl">
+4. Déployer le code
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="border-t border-slate-800 pt-8 mt-12">
+
+<div class="bg-slate-900 rounded-2xl p-8">
+
+<h2 class="text-2xl font-bold mb-4">
+Résumé Final
+</h2>
+
+<p class="leading-8">
+API REST → JWT → Microservices → RabbitMQ →
+Docker → Docker Compose → Azure App Service
+</p>
+
+</div>
+
+</footer>
+
+</main>
+
+</div>
+
+</body>
+</html>
